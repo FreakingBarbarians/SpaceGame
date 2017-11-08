@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - Ship
-  - 
+  - Bullet
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ship
+    uniqueID: 3863580149
+    locked: 0
+  - name: Module
+    uniqueID: 3155189663
+    locked: 0
+  - name: Bullet
+    uniqueID: 2878750613
+    locked: 0
+  - name: SFX
+    uniqueID: 3909924861
     locked: 0

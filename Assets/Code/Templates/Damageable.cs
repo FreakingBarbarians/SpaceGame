@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour {
 
+	public FACTION faction;
+
     [Range (0, 9999)]
     public int maxhp;
 

@@ -20,8 +20,9 @@ public class Port : MonoBehaviour {
 
     public bool Connect(Module module) {
 
-        if (module.type != type) {
+        if (module.portType != type) {
             Debug.LogWarning("Type Mismatch");
+			return false;
         }
 
         if (module == null) {
@@ -43,7 +44,7 @@ public class Port : MonoBehaviour {
         module.OnConnect();
         if (type == PortType.MAIN)
         {
-            root.OnMainPortConnected((MainModule)module);
+            root.OnMainPortConnected(module);
         }
         else if (type == PortType.SMALL) {
             root.OnPortConnected(module);

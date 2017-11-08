@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MainModule : Module {
 
-    private Ship rootShip;
+	public override void DoDamage (int amt)
+	{
+		if (rootShip != null) {
+			rootShip.DoDamage (amt);
+		}
+	}
 
-    public void RegisterShip(Ship ship) {
-        this.rootShip = ship;
-    }
-
+	// overridden from module
     public override void Die()
     {
         operational = false;
