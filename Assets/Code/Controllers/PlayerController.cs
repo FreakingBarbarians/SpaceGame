@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
 			foreach (Weapon wep in ship.weapons) {
 				wep.UpdateWeaponState (totalMask);
 			}
-		}
+		}	
 
 		fcDirty = false;
 	}

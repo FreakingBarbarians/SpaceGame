@@ -64,8 +64,6 @@ public partial class Ship : Damageable{
 	public void OnPortConnected(Module mod) {
 		// stuff
 		// update max stats
-		maxhp += mod.maxhp;
-		curhp += mod.curhp;
 		energyRegen += mod.energyRegen;
 		energyMax += mod.energyCap;
 		energyCur += mod.energyCap;
@@ -88,6 +86,7 @@ public partial class Ship : Damageable{
 		if (mod.moduleType == Module.ModuleType.Weapon) {
 			weapons.Add ((Weapon)mod);
 		}
+		mod.RegisterShip (this);
 		mod.faction = faction;
 	}
 
@@ -95,6 +94,7 @@ public partial class Ship : Damageable{
 		if (mod.moduleType == Module.ModuleType.Weapon) {
 			weapons.Remove ((Weapon)mod);
 		}
+		mod.RegisterShip (this);
 		mod.faction = FACTION.NEUTRAL_FACTION;
 	}
 }

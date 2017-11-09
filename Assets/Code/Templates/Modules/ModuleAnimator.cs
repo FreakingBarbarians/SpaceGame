@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class ModuleAnimator : MonoBehaviour {
+	private SpriteRenderer rendy;
+	private Animator annie;
 
-	// Use this for initialization
-	void Start () {
-		
+	public void Start(){
+		rendy = GetComponent<SpriteRenderer> ();
+		annie = GetComponent<Animator> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

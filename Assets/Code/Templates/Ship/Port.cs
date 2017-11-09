@@ -49,7 +49,6 @@ public class Port : MonoBehaviour {
         else if (type == PortType.SMALL) {
             root.OnPortConnected(module);
         }
-        root.Refresh();
         return true;
     }
 
@@ -62,8 +61,35 @@ public class Port : MonoBehaviour {
         module.Register(null);
 
         module.OnDisconnect();
-        root.Refresh();
+
+		if (type == PortType.MAIN)
+		{
+			root.OnMainPortDisconnected (module);
+		}
+		else if (type == PortType.SMALL) {
+			root.OnMainPortDisconnected (module);
+		}
     }
+
+	public void Eject(){
+		if (module == null) {
+			return;
+		}
+
+		module.transform.SetParent (null);
+		module.SetAdrift ();
+		module.Register (null);
+		module.OnDisconnect ();
+
+		if (type == PortType.MAIN)
+		{
+			root.OnMainPortDisconnected (module);
+		}
+		else if (type == PortType.SMALL) {
+			root.OnMainPortDisconnected (module);
+		}
+		// Module stuff.
+	}
 
     public void Register(Ship ship) {
         this.root = ship;   
