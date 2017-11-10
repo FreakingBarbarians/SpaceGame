@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SingleShotWeapon : ShotWeapon {
 	
-	public GameObject Bullet;
+	public GameObject bulletPrefab;
 	public GameObject Muzzle;
+
+	private Bullet bulletComponent;
 
 	public bool released = true;
 
@@ -14,12 +16,11 @@ public class SingleShotWeapon : ShotWeapon {
 		if (annie == null) {
 			annie = gameObject.AddComponent<Animator> ();
 		}
-
+		bulletComponent = bulletPrefab.GetComponent<Bullet> ();
 		annie.speed = 1f / cooldown;
-
 	}
 
-	public void FixedUpdate(){
+	public new void FixedUpdate(){
 		if (cooldownTimer > 0 && released) {
 			cooldownTimer -= Time.fixedDeltaTime;
 		}
@@ -31,27 +32,36 @@ public class SingleShotWeapon : ShotWeapon {
 		}
 
 		if ((this.WeaponMask & WeaponMask) != 0) {
-			
-			Debug.Log ("FIRE " + WeaponMask + "|" + (this.WeaponMask | WeaponMask));
-			Debug.Log ("Cooldown: " + cooldownTimer);
 			// fire
 			if(released && cooldownTimer <= 0){
-				Debug.Log ("GO");
-				GameObject obj = Instantiate (Bullet);
-				Bullet bullet = obj.GetComponent<Bullet> ();
-				bullet.faction = rootShip.faction;
-				obj.transform.position = Muzzle.transform.position;
-				obj.transform.rotation = Muzzle.transform.rotation;
+				if (rootShip.energyCur < energyCost) {
+					return;
+				}
+
 				released = false;
 				cooldownTimer = cooldown;
 				annie.SetTrigger ("Fire");
 				annie.SetBool ("Released", false);
+
+				Bullet bullet = BulletPoolManager.instance.Get(bulletComponent.UNIQUE_NAME);
+				if (bullet == null) {
+					return;
+				}
+
+				// orient bullet
+				bullet.faction = rootShip.faction;
+				bullet.transform.position = Muzzle.transform.position;
+				bullet.transform.rotation = Muzzle.transform.rotation;
+
+				// activate bullet
+				bullet.gameObject.SetActive (true);
+
+				rootShip.energyCur -= energyCost;
 			}
 		} else {
 			// stop fire
 			annie.SetBool("Released", true);
 			released = true;
-			Debug.Log (WeaponMask + "|" + (this.WeaponMask | WeaponMask));
 		}
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Ship))]
 public class PlayerController : MonoBehaviour {
+	public static PlayerController instance;
 
 	public KeyCode UP 			= KeyCode.W;
 	public KeyCode DOWN 		= KeyCode.S;
@@ -33,6 +34,11 @@ public class PlayerController : MonoBehaviour {
 
 	void Start(){
 		ship = GetComponent<Ship> ();
+		if (instance != null) {
+			Debug.LogError ("Player Controller non-unique instance");
+			Destroy (this);
+		}
+		instance = this;
 	}
 
 	public void Update(){
@@ -151,5 +157,9 @@ public class PlayerController : MonoBehaviour {
 
 		}
 		weaponDirty = false;
+	}
+
+	public Ship GetShip(){
+		return ship;
 	}
 }

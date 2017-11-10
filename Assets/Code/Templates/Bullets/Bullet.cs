@@ -3,17 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Bullet : Damager {
+public class Bullet : Damager, IPoolable {
+	public string UNIQUE_NAME;
+
 	public FACTION faction;
 
 	[Range(1,10)]
 	public float velocity;
 	private Rigidbody2D rb;
 
+	private bool initialized = false;
+
+	public string GetId ()
+	{
+		return UNIQUE_NAME;	
+	}
+
 	void Start(){
-		rb = GetComponent<Rigidbody2D> ();
+		if (rb == null) {
+			rb = GetComponent<Rigidbody2D> ();
+		}
 		rb.gravityScale = 0;
 		rb.mass = 1;
+	}
+
+	void OnEnable(){
+		if (!initialized) {
+			Start ();
+		}
 		rb.velocity = transform.up * velocity;
 	}
 
@@ -28,6 +45,7 @@ public class Bullet : Damager {
 			damager.DoDamage (damage);
 		}
 
-		GameObject.Destroy (this.gameObject);
+		gameObject.SetActive (false);
+		BulletPoolManager.instance.Free (UNIQUE_NAME, this);
 	}
 }

@@ -46,7 +46,12 @@ public partial class Module : Damageable {
 	public override void DoDamage (int amt)
 	{
 		annie.SetTrigger ("Damaged");
-		this.curhp = Mathf.Max (curhp, 0);
+		this.curhp = Mathf.Max (curhp - amt, 0);
+
+		if (portType == Port.PortType.MAIN) {
+			rootShip.DoDamage (amt);
+		}
+
 		if (curhp == 0) {
 			Die ();
 		}
@@ -65,6 +70,7 @@ public partial class Module : Damageable {
 		annie.SetBool ("Die",true);
 		operational = false;
 		gameObject.layer = LayerMask.NameToLayer ("Debris");
+		rootShip.OnPortDisabled (this);
 		// other stuff
 	}
 

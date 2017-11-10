@@ -9,7 +9,7 @@ public class ShotWeapon : Weapon {
 	protected float cooldownTimer;
 
 	[Range(0, 1000)]
-	public float energyCost;
+	public int energyCost;
 
 	public void FixedUpdate(){
 		if (cooldownTimer > 0) {
