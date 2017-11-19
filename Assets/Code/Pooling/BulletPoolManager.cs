@@ -29,7 +29,7 @@ public class BulletPoolManager : MonoBehaviour {
 			}
 
 			UnityObjectPool<Bullet> pool = new UnityObjectPool<Bullet> (list.ToArray());
-			mapping.Add (ToPool[i].GetComponent<Bullet>().UNIQUE_NAME, pool);
+			mapping.Add (ToPool[i].GetComponent<Bullet>().BASE_NAME, pool);
 		}
 	}
 		

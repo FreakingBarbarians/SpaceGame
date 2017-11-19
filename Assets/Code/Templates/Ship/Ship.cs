@@ -10,7 +10,6 @@ using System;
 
 [Serializable]
 public partial class Ship : Damageable {
-
     private Vector3 sessionPos;
     private Quaternion sessionRotation;
 
@@ -28,7 +27,7 @@ public partial class Ship : Damageable {
     public List<Port> mainPorts = new List<Port>();
 	public List<Weapon> weapons = new List<Weapon>();
 
-	private float timer = SpaceGameGlobal.TICK_RATE;
+    private float timer = SpaceGameGlobal.TickRate;
 
 	private Vector2 MoveDirection;
 

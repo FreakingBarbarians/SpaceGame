@@ -4,7 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : Damager, IPoolable {
-	public string UNIQUE_NAME;
+	public string BASE_NAME;
+	public string BASE_PATH;
 
 	public FACTION faction;
 
@@ -16,7 +17,7 @@ public class Bullet : Damager, IPoolable {
 
 	public string GetId ()
 	{
-		return UNIQUE_NAME;	
+		return BASE_NAME;	
 	}
 
 	void Start(){
@@ -46,6 +47,6 @@ public class Bullet : Damager, IPoolable {
 		}
 
 		gameObject.SetActive (false);
-		BulletPoolManager.instance.Free (UNIQUE_NAME, this);
+		BulletPoolManager.instance.Free (BASE_NAME, this);
 	}
 }
