@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 // Script should execute after Ship and before Module
 public class Port : MonoBehaviour {
@@ -12,6 +13,8 @@ public class Port : MonoBehaviour {
 
     public PortType type;
     private Module module;
+
+    [NonSerialized]    
     private Ship root;
 
     public bool IsConnected() {

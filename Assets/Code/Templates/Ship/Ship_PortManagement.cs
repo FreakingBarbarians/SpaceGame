@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public partial class Ship : Damageable{
+
 	public void Refresh() {
 		// recalculate
 		// calculate health of the ship from main port module's
-
-		int hpSum = 0;
 		foreach (Port p in mainPorts) {
 			if (p.IsConnected()) {
 				Module mainMod =  p.GetModule();

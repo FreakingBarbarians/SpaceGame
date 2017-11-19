@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 // Set this script to execute before port
 // I'm probably abusing partial here and not using S.R.P properly :(
 // oh well.
 
+[Serializable]
 public partial class Ship : Damageable {
+
+    private Vector3 sessionPos;
+    private Quaternion sessionRotation;
 
     public float speedMax;
     public float speedCur;
