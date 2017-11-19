@@ -43,7 +43,7 @@ public class SingleShotWeapon : ShotWeapon {
 				annie.SetTrigger ("Fire");
 				annie.SetBool ("Released", false);
 
-				Bullet bullet = BulletPoolManager.instance.Get(bulletComponent.UNIQUE_NAME);
+				Bullet bullet = BulletPoolManager.instance.Get(bulletComponent.BASE_NAME);
 				if (bullet == null) {
 					return;
 				}

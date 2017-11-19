@@ -7,7 +7,7 @@ using UnityEngine;
 // oh well.
 
 public partial class Ship : Damageable {
-
+	
     public float speedMax;
     public float speedCur;
 
