@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Xml;
+using System.Xml.Serialization;
+
 public class Damageable : MyMonoBehaviour {
 
 	public FACTION faction;
@@ -35,6 +38,13 @@ public class Damageable : MyMonoBehaviour {
     public virtual void Die() {
         // to be overridden
         throw new NotImplementedException("Function Die in " + this.GetType().Name + " not Implemented");
+    }
+
+    public override void WriteXml(XmlWriter writer) {
+        base.WriteXml(writer);
+        writer.WriteElementString("FACTION", faction.ToString());
+        writer.WriteElementString("MAX_HP", maxhp.ToString());
+        writer.WriteElementString("CUR_HP", curhp.ToString());
     }
 
 }

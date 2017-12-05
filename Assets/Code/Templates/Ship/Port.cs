@@ -6,6 +6,17 @@ using System;
 // Script should execute after Ship and before Module
 public class Port : MonoBehaviour {
 
+    public static PortType StringToPortType(string portType) {
+        string s = portType.ToLower();
+        if (PortType.MAIN.ToString().ToLower().Equals(s)) {
+            return PortType.MAIN;
+        } else if (PortType.SMALL.ToString().ToLower().Equals(s)) {
+            return PortType.SMALL;
+        }
+
+        return PortType.SMALL;
+    }
+
     public enum PortType {
         SMALL,
         MAIN

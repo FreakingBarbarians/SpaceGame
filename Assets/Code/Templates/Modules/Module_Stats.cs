@@ -7,5 +7,4 @@ public partial class Module : Damageable {
 	public int energyCap;
 	public int energyRegen;
 	public float thrustPower;
-
 }

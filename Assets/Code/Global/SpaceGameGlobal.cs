@@ -10,4 +10,18 @@ public enum FACTION {
 
 public class SpaceGameGlobal {
 	public static readonly float TICK_RATE = 1;
+
+    public static FACTION StringToFaction(string faction) {
+
+        string s = faction.ToLower();
+        if (FACTION.PLAYER_FACTION.ToString().ToLower().Equals(s)) {
+            return FACTION.PLAYER_FACTION;
+        } else if (FACTION.ENEMY_FACTION.ToString().ToLower().Equals(s)) {
+            return FACTION.ENEMY_FACTION;
+        } else if (FACTION.NEUTRAL_FACTION.ToString().ToLower().Equals(s)) {
+            return FACTION.NEUTRAL_FACTION;
+        }
+
+        return FACTION.NEUTRAL_FACTION;
+    }
 }

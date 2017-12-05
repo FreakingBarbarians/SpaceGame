@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using System.Xml;
+using System.Xml.Serialization;
 
 // Set this script to execute before port
 // I'm probably abusing partial here and not using S.R.P properly :(
@@ -27,7 +28,7 @@ public partial class Ship : Damageable {
     public List<Port> mainPorts = new List<Port>();
 	public List<Weapon> weapons = new List<Weapon>();
 
-    private float timer = SpaceGameGlobal.TickRate;
+    private float timer = SpaceGameGlobal.TICK_RATE;
 
 	private Vector2 MoveDirection;
 
@@ -79,5 +80,9 @@ public partial class Ship : Damageable {
 		 * And used in the ship later on
 		 */
 
-	}	
+	}
+
+    public override void WriteXml(XmlWriter writer) {
+        base.WriteXml(writer);
+    }
 }

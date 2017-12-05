@@ -11,7 +11,7 @@ public class ShotWeapon : Weapon {
 	[Range(0, 1000)]
 	public int energyCost;
 
-	public void FixedUpdate(){
+	public void FixedUpdate() {
 		if (cooldownTimer > 0) {
 			cooldownTimer -= Time.fixedDeltaTime;
 		}

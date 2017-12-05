@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Ship>
+	<BASE_NAME>Neruba Liner</BASE_NAME>
+	<BASE_PATH>ShipBases/Neruba Liner</BASE_PATH>
+	<POSITION>
+		<X>0.418</X>
+		<Y>0.725</Y>
+		<Z>0</Z>
+	</POSITION>
+	<FACTION>PLAYER_FACTION</FACTION>
+	<MAX_HP>0</MAX_HP>
+	<CUR_HP>0</CUR_HP>
+</Ship>
