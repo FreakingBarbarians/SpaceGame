@@ -82,7 +82,7 @@ public partial class Ship : Damageable{
 	}
 
 	private void connectHelper(Module mod){
-		if (mod.moduleType == Module.ModuleType.Weapon) {
+		if (mod.moduleType == Module.ModuleType.WEAPON) {
 			weapons.Add ((Weapon)mod);
 		}
 		mod.RegisterShip (this);
@@ -90,7 +90,7 @@ public partial class Ship : Damageable{
 	}
 
 	private void disconnectHelper(Module mod){
-		if (mod.moduleType == Module.ModuleType.Weapon) {
+		if (mod.moduleType == Module.ModuleType.WEAPON) {
 			weapons.Remove ((Weapon)mod);
 		}
 		mod.RegisterShip (this);

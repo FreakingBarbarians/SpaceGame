@@ -7,21 +7,22 @@ using UnityEngine;
 public partial class Module : Damageable {
     // Class specific stuff \\
     public enum ModuleType {
-		Standard,
-		Weapon
+		STANDARD,
+		WEAPON
 	}
 
     public static ModuleType StringToModuleType(string moduleType) {
         string s = moduleType.ToString().ToLower();
-        if (ModuleType.Standard.ToString().ToLower().Equals(s))
+
+        if (ModuleType.STANDARD.ToString().ToLower().Equals(s))
         {
-            return ModuleType.Standard;
+            return ModuleType.STANDARD;
         }
-        else if (ModuleType.Weapon.ToString().ToLower().Equals(s)) {
-            return ModuleType.Weapon;
+        else if (ModuleType.WEAPON.ToString().ToLower().Equals(s)) {
+            return ModuleType.WEAPON;
         }
 
-        return ModuleType.Standard;
+        return ModuleType.STANDARD;
     }
 
     // Fields n shit \\
@@ -106,10 +107,42 @@ public partial class Module : Damageable {
 		// @TODO: pick up logic & set logic
 	}
 
+    // ReadXml
+    public new static GameObject ReadXml(XmlReader reader, Component workingObj)
+    {
+        Module module = (Module)workingObj;
+
+        reader.Read();
+        module.portType = Port.StringToPortType(reader.ReadString());
+
+        reader.Read();
+        module.moduleType = Module.StringToModuleType(reader.ReadString());
+
+        reader.Read();
+        module.operational = XmlUtils.DeserializeBool(reader);
+
+        reader.Read();
+        module.adrift = XmlUtils.DeserializeBool(reader);
+
+        reader.Read();
+        module.energyCap = int.Parse(reader.ReadString());
+
+        reader.Read();
+        module.energyRegen = int.Parse(reader.ReadString());
+
+        reader.Read();
+        module.thrustPower = float.Parse(reader.ReadString());
+
+        return workingObj.gameObject;
+    }
+    
     // provide serialization for "STANDARD TYPES" pass on later? hmm...
     public override void WriteXml(XmlWriter writer)
     {
         base.WriteXml(writer);
+
+        writer.WriteStartElement("MODULE");
+
         writer.WriteElementString("PORT_TYPE", portType.ToString());
         writer.WriteElementString("MODULE_TYPE", moduleType.ToString());
         XmlUtils.SerializeBool(writer, operational, "OPERATIONAL");
@@ -117,6 +150,7 @@ public partial class Module : Damageable {
         writer.WriteElementString("ENERGY_CAP", energyCap.ToString());
         writer.WriteElementString("ENERGY_REGEN", energyRegen.ToString());
         writer.WriteElementString("THRUST_POWER", thrustPower.ToString());
-    }
 
+        writer.WriteEndElement();
+    }
 }

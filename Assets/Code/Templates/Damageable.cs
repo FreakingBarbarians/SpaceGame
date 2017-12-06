@@ -40,11 +40,31 @@ public class Damageable : MyMonoBehaviour {
         throw new NotImplementedException("Function Die in " + this.GetType().Name + " not Implemented");
     }
 
+    public new static GameObject ReadXml(XmlReader reader, Component workingObj)
+    {
+        Damageable damageable = (Damageable)workingObj;
+
+        reader.Read();
+        damageable.faction = SpaceGameGlobal.StringToFaction(reader.ReadString());
+
+        reader.Read();
+        damageable.maxhp = int.Parse(reader.ReadString());
+
+        reader.Read();
+        damageable.curhp = int.Parse(reader.ReadString());
+
+        return workingObj.gameObject;
+    }
+
     public override void WriteXml(XmlWriter writer) {
         base.WriteXml(writer);
+        writer.WriteStartElement("DAMAGEABLE");
+
         writer.WriteElementString("FACTION", faction.ToString());
         writer.WriteElementString("MAX_HP", maxhp.ToString());
         writer.WriteElementString("CUR_HP", curhp.ToString());
+
+        writer.WriteEndElement();
     }
 
 }

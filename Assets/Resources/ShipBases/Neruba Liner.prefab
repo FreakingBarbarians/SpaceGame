@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 4167082042638096}
   - component: {fileID: 212430100351148826}
   - component: {fileID: 114002415747460986}
+  - component: {fileID: 114335445410738048}
   m_Layer: 0
   m_Name: Neruba Liner
   m_TagString: Untagged
@@ -227,7 +228,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290617937668252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.413, y: 0.722, z: 0}
+  m_LocalPosition: {x: 0.418, y: 0.725, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4952366738504090}
@@ -510,6 +511,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+--- !u!114 &114335445410738048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290617937668252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd379c8a04246416ea3c6eb1886f6358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UP: 119
+  DOWN: 115
+  LEFT: 97
+  RIGHT: 100
+  WEAPON_UP: 273
+  WEAPON_DOWN: 274
+  WEAPON_LEFT: 276
+  WEAPON_RIGHT: 275
+  FIRE1: 32
+  FIRE2: 304
+  FIRE3: 306
+  FIRE4: 305
+  MASK1: 1
+  MASK2: 2
+  MASK3: 4
+  MASK4: 8
 --- !u!114 &114350505406869500
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -35,7 +35,7 @@ public class Port : MonoBehaviour {
     public bool Connect(Module module) {
 
         if (module.portType != type) {
-            Debug.LogWarning("Type Mismatch");
+            Debug.LogWarning("Type Mismatch: " + module.portType.ToString() + "|" + gameObject.name + " " + module.gameObject.name + "|" + type.ToString());
 			return false;
         }
 
@@ -56,8 +56,7 @@ public class Port : MonoBehaviour {
         module.Register(this);
 
         module.OnConnect();
-        if (type == PortType.MAIN)
-        {
+        if (type == PortType.MAIN) {
             root.OnMainPortConnected(module);
         }
         else if (type == PortType.SMALL) {

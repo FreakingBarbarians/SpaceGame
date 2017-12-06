@@ -11,14 +11,16 @@ public class TestSerialize : MonoBehaviour {
     public string source;
     public bool run = false;
 
+    public TextAsset shipFile;
+
     private void Update()
     {
         if (!run) {
             run = true;
-            SpaceSerializerDeserializer.SerializeShipToFile(shipToSerialize, path);
-            SpaceSerializerDeserializer.SerializeModuleToFile(moduletoSerialize, path2);
-            //SpaceSerializerDeserializer.DeserializeShip(source);
+            //SpaceSerializerDeserializer.SerializeShipToFile(shipToSerialize, path);
+            //SpaceSerializerDeserializer.SerializeModuleToFile(moduletoSerialize, path2);
+            //SpaceSerializerDeserializer.DeserializeModule(source);
+            SpaceSerializerDeserializer.DeserializeShip(shipFile.text);
         }
     }
-
 }

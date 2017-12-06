@@ -15,34 +15,37 @@ public class MyMonoBehaviour : IUnityXmlSerializable {
     }
 
     // deserialize from given xml reader
-    public override Component ReadXml(XmlReader reader, Component workingObj)
+    public static GameObject ReadXml(XmlReader reader, Component workingObj)
     {
-        //string name = "";
-        //string path = "";
+        string name = "";
+        string path = "";
 
-        //while (reader.Read()) {
-        //    if (reader.IsStartElement()) {
-        //        switch (reader.Name.ToString()) {
-        //            case "BASE_NAME":
-        //                name = reader.ReadString();
-        //                break;
-        //            case "BASE_PATH":
-        //                path = reader.ReadString();
-        //                break;
-        //        }
-        //    }
-        //}
+        reader.Read();
+        name = reader.ReadString();
 
-        //GameObject go = Instantiate(Resources.Load<GameObject>(path) as GameObject);
-        //MyMonoBehaviour myMono = go.GetComponent<MyMonoBehaviour>();
-        //return myMono;
-        return workingObj;
+        reader.Read();
+        path = reader.ReadString();
+
+        GameObject prefab = Instantiate(Resources.Load(path) as GameObject);
+
+        reader.Read();
+        prefab.transform.position = XmlUtils.DeserializeVector3(reader);
+
+        reader.Read();
+        prefab.transform.rotation = XmlUtils.DeserializeQuaternion(reader);
+
+        return prefab;
     }
 
     public override void WriteXml(XmlWriter writer)
     {
+        writer.WriteStartElement("BASE");
+
         writer.WriteElementString("BASE_NAME", BASE_NAME);
         writer.WriteElementString("BASE_PATH", BASE_PATH);
         XmlUtils.SerializeVector3(writer, transform.position, "POSITION");
+        XmlUtils.SerializeQuaternion(writer, transform.rotation, "ROTATION");
+
+        writer.WriteEndElement();
     }
 }

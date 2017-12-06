@@ -11,9 +11,6 @@ using System.Xml.Serialization;
 
 [Serializable]
 public partial class Ship : Damageable {
-    private Vector3 sessionPos;
-    private Quaternion sessionRotation;
-
     public float speedMax;
     public float speedCur;
 
@@ -32,7 +29,7 @@ public partial class Ship : Damageable {
 
 	private Vector2 MoveDirection;
 
-    private void Start()
+    public void Start()
     {
         transform.gameObject.layer = LayerMask.NameToLayer("Ship");
 		annie = GetComponent<Animator> ();
@@ -83,6 +80,33 @@ public partial class Ship : Damageable {
 	}
 
     public override void WriteXml(XmlWriter writer) {
+        writer.WriteStartElement("SHIP");
         base.WriteXml(writer);
+        writer.WriteElementString("SPEED_MAX", speedMax.ToString());
+        writer.WriteElementString("ENERGY_MAX", energyMax.ToString());
+        writer.WriteElementString("ENERGY_CUR", energyMax.ToString());
+        writer.WriteElementString("ENERGY_REGEN", energyRegen.ToString());
+        foreach (Port mainPort in mainPorts)
+        {
+            writer.WriteStartElement("MAIN_PORT");
+            if (mainPort.IsConnected())
+            {
+                mainPort.GetModule().WriteXml(writer);
+            }
+            else {
+                writer.WriteString("");
+            }
+            writer.WriteEndElement();
+        }
+        foreach (Port port in ports) {
+            writer.WriteStartElement("PORT");
+            if (port.IsConnected()) {
+                port.GetModule().WriteXml(writer);
+            } else {
+                writer.WriteString("");
+            }
+            writer.WriteEndElement();
+        }
+        writer.WriteEndElement();
     }
 }
