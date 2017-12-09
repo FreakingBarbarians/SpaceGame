@@ -53,6 +53,10 @@ public class Port : MonoBehaviour {
 
         module.transform.position = transform.position;
         module.transform.SetParent(transform);
+        module.transform.localPosition = new Vector3
+            (module.transform.localPosition.x,
+            module.transform.localPosition.y,
+            transform.localPosition.y/10f);
         module.Register(this);
 
         module.OnConnect();
@@ -82,6 +86,8 @@ public class Port : MonoBehaviour {
 		else if (type == PortType.SMALL) {
 			root.OnMainPortDisconnected (module);
 		}
+
+        module = null;
     }
 
 	public void Eject(){

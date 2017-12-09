@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Xml.Serialization;
 using System.Xml;
 
+// unused as of now
+
 public class ModuleBuilder {
 // ALL modules have these fields \\
     public Module.ModuleType moduleType = Module.ModuleType.STANDARD;

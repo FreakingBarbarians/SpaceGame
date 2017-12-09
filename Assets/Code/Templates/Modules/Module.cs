@@ -34,8 +34,10 @@ public partial class Module : Damageable {
 	public bool adrift = false;
 
     // these fields will be set when re-generating the ship
-	protected Port root;
-	protected Ship rootShip;
+    [HideInInspector]
+	public Port root;
+    [HideInInspector]
+    public Ship rootShip;
 	protected Animator annie;
 
 	void Start(){
