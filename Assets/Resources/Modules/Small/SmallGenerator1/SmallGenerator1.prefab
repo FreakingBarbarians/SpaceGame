@@ -99,16 +99,21 @@ MonoBehaviour:
   BASE_NAME: SmallGenerator1
   BASE_PATH: Modules/Small/SmallGenerator1/SmallGenerator1
   faction: 0
-  maxhp: 2031
-  curhp: 1241
+  maxhp: 15
+  curhp: 15
   invincible: 0
   portType: 0
   moduleType: 0
   operational: 1
   adrift: 0
-  energyCap: 0
-  energyRegen: 2
-  thrustPower: 0
+  root: {fileID: 0}
+  rootShip: {fileID: 0}
+  EnergyMax: 5
+  EnergyRegen: 5
+  DeltaPositionMax: 0
+  DeltaPositionFactor: 0
+  DeltaRotationMax: 0
+  DeltaRotationAcceleration: 0
 --- !u!212 &212505741217941936
 SpriteRenderer:
   m_ObjectHideFlags: 1

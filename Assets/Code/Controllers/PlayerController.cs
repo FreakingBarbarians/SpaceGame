@@ -4,29 +4,44 @@ using UnityEngine;
 
 [RequireComponent(typeof(Ship))]
 public class PlayerController : MonoBehaviour {
-	public static PlayerController instance;
+    public
+    enum ControlMode
+    {
+        MouseTurn,
+        MouseAim
+    }
 
-	public KeyCode UP 			= KeyCode.W;
-	public KeyCode DOWN 		= KeyCode.S;
-	public KeyCode LEFT 		= KeyCode.A;
-	public KeyCode RIGHT 		= KeyCode.D;
 
-	public KeyCode WEAPON_UP 	= KeyCode.UpArrow;   
-	public KeyCode WEAPON_DOWN 	= KeyCode.DownArrow;  
-	public KeyCode WEAPON_LEFT 	= KeyCode.LeftArrow;  
-	public KeyCode WEAPON_RIGHT = KeyCode.RightArrow;  
+    public static PlayerController instance;
 
-	public KeyCode FIRE1 = KeyCode.Space;
-	public KeyCode FIRE2 = KeyCode.LeftShift;
-	public KeyCode FIRE3 = KeyCode.LeftControl;
-	public KeyCode FIRE4 = KeyCode.RightControl;
+    public KeyCode UP = KeyCode.W;
+    public KeyCode DOWN = KeyCode.S;
+    public KeyCode LEFT = KeyCode.A;
+    public KeyCode RIGHT = KeyCode.D;
 
-	public int MASK1 = 1;
-	public int MASK2 = 2;
-	public int MASK3 = 4;
-	public int MASK4 = 8;
+    public KeyCode ROTATE_LEFT = KeyCode.Q;
+    public KeyCode ROTATE_RIGHT = KeyCode.E;
 
-	private Ship ship;
+    public KeyCode BRAKE = KeyCode.LeftControl;
+
+    public KeyCode WEAPON_UP = KeyCode.UpArrow;
+    public KeyCode WEAPON_DOWN = KeyCode.DownArrow;
+    public KeyCode WEAPON_LEFT = KeyCode.LeftArrow;
+    public KeyCode WEAPON_RIGHT = KeyCode.RightArrow;
+
+    public KeyCode FIRE1 = KeyCode.Space;
+    public KeyCode FIRE2 = KeyCode.LeftShift;
+    public KeyCode FIRE3 = KeyCode.LeftControl;
+    public KeyCode FIRE4 = KeyCode.RightControl;
+
+    public int MASK1 = 1;
+    public int MASK2 = 2;
+    public int MASK3 = 4;
+    public int MASK4 = 8;
+
+    public ControlMode MODE = ControlMode.MouseAim;
+
+    private Ship ship;
 
 	private Vector2 weaponVector = new Vector2 (0, 0);
 	private bool weaponDirty = false;
@@ -88,7 +103,6 @@ public class PlayerController : MonoBehaviour {
 		fcDirty = false;
 	}
 
-
 	private void movementControl(){
 		Vector2 moveVector = new Vector2 (0, 0);
 
@@ -107,58 +121,103 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey (RIGHT)) {
 			moveVector.x++;
 		}
-		ship.ChangeDirection (moveVector);
+
+        if (Input.GetKey(ROTATE_LEFT))
+        {
+            ship.Rotate(1);
+        }
+        else if (Input.GetKey(ROTATE_RIGHT))
+        {
+            ship.Rotate(-1);
+        }
+
+        if (Input.GetKey(BRAKE)) {
+            ship.Brake();
+        }
+
+        ship.Thrust(moveVector);
 	}
 
 	private void weaponControl(){
-		// Weapon Up/Down
-		if (Input.GetKeyDown(WEAPON_UP)) {
-			weaponVector.y++;
-			weaponDirty = true;
-		}
-		if (Input.GetKeyUp(WEAPON_UP)) {
-			weaponVector.y--;
-			weaponDirty = true;
-		}
-		if (Input.GetKeyDown(WEAPON_DOWN)) {
-			weaponVector.y--;
-			weaponDirty = true;
-		}
-		if (Input.GetKeyUp(WEAPON_DOWN)) {
-			weaponVector.y++;
-			weaponDirty = true;
-		}
+        if (MODE == ControlMode.MouseAim)
+        {
+            mouseWeaponControl();
+        }
+        else
+        {
+            kbWeaponControl();
+        }
 
-		// Weapon Left/Right
-		if (Input.GetKeyDown(WEAPON_LEFT)) {
-			weaponVector.x--;
-			weaponDirty = true;
-		}
-		if (Input.GetKeyUp(WEAPON_LEFT)) {
-			weaponVector.x++;
-			weaponDirty = true;
-		}
-		if (Input.GetKeyDown(WEAPON_RIGHT)) {
-			weaponVector.x++;
-			weaponDirty = true;
-		}
-		if (Input.GetKeyUp(WEAPON_RIGHT)) {
-			weaponVector.x--;
-			weaponDirty = true;
-		}
-
-		if (weaponDirty) {
-			// up is gun facing
-			Quaternion rot = Quaternion.LookRotation (Vector3.forward, weaponVector);
-
-			foreach (Weapon wep in ship.weapons) {
-				wep.transform.rotation = rot;
-			}
-
-		}
 		weaponDirty = false;
 	}
+    private void kbWeaponControl() {
+        if (Input.GetKeyDown(WEAPON_UP))
+        {
+            weaponVector.y++;
+            weaponDirty = true;
+        }
+        if (Input.GetKeyUp(WEAPON_UP))
+        {
+            weaponVector.y--;
+            weaponDirty = true;
+        }
+        if (Input.GetKeyDown(WEAPON_DOWN))
+        {
+            weaponVector.y--;
+            weaponDirty = true;
+        }
+        if (Input.GetKeyUp(WEAPON_DOWN))
+        {
+            weaponVector.y++;
+            weaponDirty = true;
+        }
 
+        // Weapon Left/Right
+        if (Input.GetKeyDown(WEAPON_LEFT))
+        {
+            weaponVector.x--;
+            weaponDirty = true;
+        }
+        if (Input.GetKeyUp(WEAPON_LEFT))
+        {
+            weaponVector.x++;
+            weaponDirty = true;
+        }
+        if (Input.GetKeyDown(WEAPON_RIGHT))
+        {
+            weaponVector.x++;
+            weaponDirty = true;
+        }
+        if (Input.GetKeyUp(WEAPON_RIGHT))
+        {
+            weaponVector.x--;
+            weaponDirty = true;
+        }
+
+        if (weaponDirty)
+        {
+            // up is gun facing
+            Quaternion rot = Quaternion.LookRotation(Vector3.forward, weaponVector);
+
+            foreach (Weapon wep in ship.weapons)
+            {
+                wep.transform.rotation = rot;
+            }
+
+        }
+    }
+    private void mouseWeaponControl() {
+        weaponVector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        weaponDirty = true;
+
+        if (weaponDirty)
+        {
+            foreach (Weapon wep in ship.weapons)
+            {
+                wep.PointTowards(weaponVector);
+            }
+        }
+    }
 	public Ship GetShip(){
 		return ship;
 	}

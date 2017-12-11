@@ -76,6 +76,9 @@ public class SpaceSerializerDeserializer : MonoBehaviour
                         case "DAMAGEABLE":
                             Damageable.ReadXml(reader, workingShip);
                             break;
+                        case "SHIP_DATA":
+                            Ship.ReadXml(reader, workingShip);
+                            break;
                         case "MAIN_PORT":
                             module = DeserializeModule(reader);
                             if (module)
@@ -191,7 +194,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
             if (reader.IsStartElement())
             {
                 switch (reader.LocalName)
-                {
+                {   
                     case "BASE":
                         workingGO = MyMonoBehaviour.ReadXml(reader, null);
                         workingCO = workingGO.GetComponent<Module>();

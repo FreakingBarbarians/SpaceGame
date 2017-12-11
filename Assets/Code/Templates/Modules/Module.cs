@@ -127,13 +127,22 @@ public partial class Module : Damageable {
         module.adrift = XmlUtils.DeserializeBool(reader);
 
         reader.Read();
-        module.energyCap = int.Parse(reader.ReadString());
+        module.EnergyMax = int.Parse(reader.ReadString());
 
         reader.Read();
-        module.energyRegen = int.Parse(reader.ReadString());
+        module.EnergyRegen = int.Parse(reader.ReadString());
 
         reader.Read();
-        module.thrustPower = float.Parse(reader.ReadString());
+        module.DeltaRotationMax = float.Parse(reader.ReadString());
+
+        reader.Read();
+        module.DeltaPositionFactor = float.Parse(reader.ReadString());
+
+        reader.Read();
+        module.DeltaRotationMax = float.Parse(reader.ReadString());
+
+        reader.Read();
+        module.DeltaRotationAcceleration = float.Parse(reader.ReadString());
 
         return workingObj.gameObject;
     }
@@ -149,9 +158,12 @@ public partial class Module : Damageable {
         writer.WriteElementString("MODULE_TYPE", moduleType.ToString());
         XmlUtils.SerializeBool(writer, operational, "OPERATIONAL");
         XmlUtils.SerializeBool(writer, adrift, "ADRIFT");
-        writer.WriteElementString("ENERGY_CAP", energyCap.ToString());
-        writer.WriteElementString("ENERGY_REGEN", energyRegen.ToString());
-        writer.WriteElementString("THRUST_POWER", thrustPower.ToString());
+        writer.WriteElementString("ENERGY_CAP", EnergyMax.ToString());
+        writer.WriteElementString("ENERGY_REGEN", EnergyRegen.ToString());
+        writer.WriteElementString("DELTA_POSITION_MAX", DeltaPositionMax.ToString());
+        writer.WriteElementString("DELTA_POSITION_FACTOR", DeltaPositionFactor.ToString());
+        writer.WriteElementString("DELTA_ROTATION_MAX", DeltaRotationMax.ToString());
+        writer.WriteElementString("DELTA_ROTATION_ACCELERATION", DeltaRotationAcceleration.ToString());
 
         writer.WriteEndElement();
     }

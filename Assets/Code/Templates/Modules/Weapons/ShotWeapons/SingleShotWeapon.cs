@@ -46,7 +46,7 @@ public class SingleShotWeapon : ShotWeapon {
 		if ((this.WeaponMask & WeaponMask) != 0) {
 			// fire
 			if(released && cooldownTimer <= 0){
-				if (rootShip.energyCur < energyCost) {
+				if (rootShip.EnergyCur < energyCost) {
 					return;
 				}
 
@@ -66,10 +66,13 @@ public class SingleShotWeapon : ShotWeapon {
 				bullet.transform.position = Muzzle.transform.position;
 				bullet.transform.rotation = Muzzle.transform.rotation;
 
+                bullet.damage = this.Damage;
+                bullet.velocity = this.Velocity;
+
 				// activate bullet
 				bullet.gameObject.SetActive (true);
 
-				rootShip.energyCur -= energyCost;
+				rootShip.EnergyCur -= energyCost;
 			}
 		} else {
 			// stop fire

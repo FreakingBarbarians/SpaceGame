@@ -40,6 +40,12 @@ public class Weapon : Module {
         }
     }
 
+    public virtual void PointTowards(Vector3 point) {
+        point = new Vector3(point.x, point.y, transform.position.z);
+        Debug.DrawLine(transform.position, point);
+        transform.up = Vector3.RotateTowards(transform.up, point - transform.position, Mathf.Infinity, 0);
+    }
+
     public new static GameObject ReadXml(XmlReader reader, Component workingObj) {
         Weapon weapon = (Weapon)workingObj;
 

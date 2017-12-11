@@ -25,8 +25,7 @@ public class Port : MonoBehaviour {
     public PortType type;
     private Module module;
 
-    [NonSerialized]    
-    private Ship root;
+    public Ship root;
 
     public bool IsConnected() {
         return (module != null);
@@ -58,14 +57,8 @@ public class Port : MonoBehaviour {
             module.transform.localPosition.y,
             transform.localPosition.y/10f);
         module.Register(this);
-
         module.OnConnect();
-        if (type == PortType.MAIN) {
-            root.OnMainPortConnected(module);
-        }
-        else if (type == PortType.SMALL) {
-            root.OnPortConnected(module);
-        }
+        root.OnPortConnected(module);
         return true;
     }
 
@@ -78,15 +71,7 @@ public class Port : MonoBehaviour {
         module.Register(null);
 
         module.OnDisconnect();
-
-		if (type == PortType.MAIN)
-		{
-			root.OnMainPortDisconnected (module);
-		}
-		else if (type == PortType.SMALL) {
-			root.OnMainPortDisconnected (module);
-		}
-
+        root.OnPortDisconnected(module);
         module = null;
     }
 
@@ -100,15 +85,9 @@ public class Port : MonoBehaviour {
 		module.Register (null);
 		module.OnDisconnect ();
 
-		if (type == PortType.MAIN)
-		{
-			root.OnMainPortDisconnected (module);
-		}
-		else if (type == PortType.SMALL) {
-			root.OnMainPortDisconnected (module);
-		}
-		// Module stuff.
-	}
+        root.OnPortDisconnected(module);
+        // Module stuff.
+    }
 
     public void Register(Ship ship) {
         this.root = ship;   

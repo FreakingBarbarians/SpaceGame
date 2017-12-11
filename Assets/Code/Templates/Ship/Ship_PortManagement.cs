@@ -22,78 +22,60 @@ public partial class Ship : Damageable{
 		}
 	}
 
-	public void OnPortDisabled(Module mod){
-		energyRegen -= mod.energyRegen;
-		energyMax -= mod.energyCap;
-		energyCur = Mathf.Min(energyCur, energyMax);
-		speedMax -= mod.thrustPower;
-		speedCur = Mathf.Min(speedCur, speedMax);
-	}
+    public void OnPortDisabled(Module mod) {
+        moduleEnableHelper(mod, false);
+    }
 
-	public void OnPortEnabled(Module mod){
-		energyRegen += mod.energyRegen;
-		energyMax += mod.energyCap;
-		energyCur += mod.energyCap;
-		speedMax += mod.thrustPower;
-		speedCur += mod.thrustPower;
-	}
-
-	public void OnMainPortConnected(Module mod) {
-		maxhp += mod.maxhp;
-		curhp += mod.curhp;
-		energyRegen += mod.energyRegen;
-		energyMax += mod.energyCap;
-		energyCur += mod.energyCap;
-		speedMax += mod.thrustPower;
-		speedCur += mod.thrustPower;
-		connectHelper (mod);
-	}
-
-	public void OnMainPortDisconnected(Module mod) {
-		maxhp -= mod.maxhp;
-		curhp = Mathf.Min (curhp, maxhp);
-		energyRegen -= mod.energyRegen;
-		energyMax -= mod.energyCap;
-		energyCur = Mathf.Min(energyCur, energyMax);
-		speedMax -= mod.thrustPower;
-		speedCur = Mathf.Min(speedCur, speedMax);
-		disconnectHelper (mod);
-	}
+    public void OnPortEnabled(Module mod) {
+        moduleEnableHelper(mod, true);
+    }
 
 	public void OnPortConnected(Module mod) {
-		// stuff
-		// update max stats
-		energyRegen += mod.energyRegen;
-		energyMax += mod.energyCap;
-		energyCur += mod.energyCap;
-		speedMax += mod.thrustPower;
-		speedCur += mod.thrustPower;
-		connectHelper (mod);
-	}
+        moduleConnectHelper(mod, true);
+        moduleEnableHelper(mod, true, mod.portType == Port.PortType.MAIN);
+    }
 
 	public void OnPortDisconnected(Module mod) {
-		// more stuff
-		energyRegen -= mod.energyRegen;
-		energyMax -= mod.energyCap;
-		energyCur = Mathf.Min(energyCur, energyMax);
-		speedMax -= mod.thrustPower;
-		speedCur = Mathf.Min(speedCur, speedMax);
-		disconnectHelper (mod);
+        moduleConnectHelper(mod, false);
+        moduleEnableHelper(mod, false, mod.portType == Port.PortType.MAIN);
 	}
 
-	private void connectHelper(Module mod){
-		if (mod.moduleType == Module.ModuleType.WEAPON) {
-			weapons.Add ((Weapon)mod);
-		}
-		mod.RegisterShip (this);
-		mod.faction = faction;
-	}
+    private void moduleConnectHelper(Module mod, bool connecting) {
+        switch (connecting) {
+            case true:
+                if (mod.moduleType == Module.ModuleType.WEAPON)
+                {
+                    weapons.Add((Weapon)mod);
+                }
+                mod.RegisterShip(this);
+                mod.faction = faction;
+                break;
+            case false:
+                if (mod.moduleType == Module.ModuleType.WEAPON)
+                {
+                    weapons.Remove((Weapon)mod);
+                }
+                mod.RegisterShip(null);
+                mod.faction = FACTION.NEUTRAL_FACTION;
+                break;
+        }
+    }
 
-	private void disconnectHelper(Module mod){
-		if (mod.moduleType == Module.ModuleType.WEAPON) {
-			weapons.Remove ((Weapon)mod);
-		}
-		mod.RegisterShip (this);
-		mod.faction = FACTION.NEUTRAL_FACTION;
-	}
+    private void moduleEnableHelper(Module mod, bool addingBenefits, bool mainModule = false) {
+        int mult = addingBenefits ? 1 : -1;
+
+        EnergyRegen += mult * mod.EnergyRegen;
+        EnergyMax += mult * mod.EnergyMax;
+        EnergyCur = Mathf.Min(EnergyCur, EnergyMax);
+        DeltaPositionFactor += mult * mod.DeltaPositionFactor;
+        DeltaRotationMax += mult * mod.DeltaRotationMax;
+        DeltaPositionFactor += mult * mod.DeltaPositionFactor;
+        DeltaPositionMax += mult * mod.DeltaPositionMax;
+        if (mainModule) {
+            maxhp += mult * mod.maxhp;
+            curhp = Mathf.Min(maxhp, curhp);
+        }
+    }
+
+    // fix up my naming conventions...
 }

@@ -106,9 +106,14 @@ MonoBehaviour:
   moduleType: 0
   operational: 1
   adrift: 0
-  energyCap: 500
-  energyRegen: 2
-  thrustPower: 0.2
+  root: {fileID: 0}
+  rootShip: {fileID: 0}
+  EnergyMax: 500
+  EnergyRegen: 0
+  DeltaPositionMax: 0
+  DeltaPositionFactor: 0
+  DeltaRotationMax: 0
+  DeltaRotationAcceleration: 0
 --- !u!212 &212037261568790342
 SpriteRenderer:
   m_ObjectHideFlags: 1

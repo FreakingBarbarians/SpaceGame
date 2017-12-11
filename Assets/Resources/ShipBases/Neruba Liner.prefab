@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4873548248016758}
   - component: {fileID: 114053313253711168}
   - component: {fileID: 61710601532373316}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (7)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4944355888140298}
   - component: {fileID: 114971712739526494}
   - component: {fileID: 61876608137744824}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (10)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4950258512899312}
   - component: {fileID: 114480295211668682}
   - component: {fileID: 61995691412209580}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (5)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4680203426515026}
   - component: {fileID: 114487472491034488}
   - component: {fileID: 61247700256889188}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (2)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4167082042638096}
   - component: {fileID: 212430100351148826}
   - component: {fileID: 114002415747460986}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Neruba Liner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4697808686901896}
   - component: {fileID: 114350505406869500}
   - component: {fileID: 61072945080379522}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (4)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 4348425024159356}
   - component: {fileID: 114226872491895462}
   - component: {fileID: 61636723979458636}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (11)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4181621940235970}
   - component: {fileID: 114061406134108294}
   - component: {fileID: 61054276264429504}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (1)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 4168390908606790}
   - component: {fileID: 114423940934605304}
   - component: {fileID: 61319731569409844}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (3)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 4400496123948658}
   - component: {fileID: 114604448140030316}
   - component: {fileID: 61183287898842752}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (6)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 4749415515396406}
   - component: {fileID: 114229842406123124}
   - component: {fileID: 61067443717401280}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (9)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 4952366738504090}
   - component: {fileID: 114101588032579018}
   - component: {fileID: 61918624857109672}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 4946002023075218}
   - component: {fileID: 114047731076190026}
   - component: {fileID: 61622271239435678}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (8)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290617937668252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.27562177, y: -1.6188356, z: 0.49790668}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4952366738504090}
@@ -730,11 +730,15 @@ MonoBehaviour:
   maxhp: 0
   curhp: 0
   invincible: 0
-  speedMax: 0
-  speedCur: 0
-  energyMax: 0
-  energyCur: 0
-  energyRegen: 0
+  EnergyMax: 0
+  EnergyCur: 0
+  DeltaRotation: 0
+  DeltaRotationMax: 30
+  DeltaRotationAcceleration: 5
+  DeltaPosition: {x: 0, y: 0}
+  DeltaPositionMax: 2.5
+  DeltaPositionFactor: 0.7
+  EnergyRegen: 0
   ports:
   - {fileID: 114101588032579018}
   - {fileID: 114061406134108294}
@@ -762,6 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114053313253711168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -774,6 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114061406134108294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -786,6 +792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114101588032579018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -798,6 +805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114226872491895462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -810,6 +818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  root: {fileID: 114002415747460986}
 --- !u!114 &114229842406123124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -822,6 +831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114350505406869500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -834,6 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114423940934605304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -846,6 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114480295211668682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -858,6 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114487472491034488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -870,6 +883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114604448140030316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -882,6 +896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  root: {fileID: 114002415747460986}
 --- !u!114 &114971712739526494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -894,6 +909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  root: {fileID: 114002415747460986}
 --- !u!212 &212430100351148826
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -128,22 +128,31 @@ MonoBehaviour:
   BASE_NAME: SimpleGun
   BASE_PATH: Modules/Main/SimpleGun/SimpleGun
   faction: 0
-  maxhp: 20
-  curhp: 20
+  maxhp: 25
+  curhp: 25
   invincible: 0
   portType: 1
   moduleType: 1
   operational: 1
   adrift: 0
-  energyCap: 0
-  energyRegen: 0
-  thrustPower: 1
+  root: {fileID: 0}
+  rootShip: {fileID: 0}
+  EnergyMax: 0
+  EnergyRegen: 0
+  DeltaPositionMax: 0
+  DeltaPositionFactor: 0
+  DeltaRotationMax: 0
+  DeltaRotationAcceleration: 0
   weaponType: 1
+  WeaponMask: 1
   cooldown: 1
-  energyCost: 24
+  cooldownTimer: 0
+  energyCost: 12
   bulletPrefab: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f,
     type: 2}
   Muzzle: {fileID: 1194242300318558}
+  Damage: 1
+  Velocity: 5
   released: 1
 --- !u!212 &212493930745431754
 SpriteRenderer:

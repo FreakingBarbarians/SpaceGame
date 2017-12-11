@@ -9,6 +9,6 @@ public class EnergyIndicator : TickingUI {
 
 
 	override public void Refresh(){
-		textComponent.text = "Energy: " + PlayerController.instance.GetShip ().energyCur + "/" + PlayerController.instance.GetShip ().energyMax;
+		textComponent.text = "Energy: " + PlayerController.instance.GetShip ().EnergyCur + "/" + PlayerController.instance.GetShip ().EnergyMax;
 	}
 }

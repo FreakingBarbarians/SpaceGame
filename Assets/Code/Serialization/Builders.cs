@@ -41,8 +41,8 @@ public class ModuleBuilder {
         target.portType = portType;
         target.maxhp = maxHP;
         target.curhp = curHP;
-        target.energyCap = energyCap;
-        target.energyRegen = energyRegen;
+        target.EnergyMax = energyCap;
+        target.EnergyRegen = energyRegen;
         target.operational = operational;
         target.adrift = adrift;
 
