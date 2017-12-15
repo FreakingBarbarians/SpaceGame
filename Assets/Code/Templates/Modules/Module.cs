@@ -143,7 +143,6 @@ public partial class Module : Damageable {
 
         reader.Read();
         module.DeltaRotationAcceleration = float.Parse(reader.ReadString());
-
         return workingObj.gameObject;
     }
     
@@ -152,7 +151,7 @@ public partial class Module : Damageable {
     {
         base.WriteXml(writer);
 
-        writer.WriteStartElement("MODULE");
+        writer.WriteStartElement("MODULE_DATA");
 
         writer.WriteElementString("PORT_TYPE", portType.ToString());
         writer.WriteElementString("MODULE_TYPE", moduleType.ToString());

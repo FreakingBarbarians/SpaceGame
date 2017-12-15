@@ -154,7 +154,6 @@ public partial class Ship : Damageable {
     }
 
     public override void WriteXml(XmlWriter writer) {
-        writer.WriteStartElement("SHIP");
         base.WriteXml(writer);
 
         writer.WriteStartElement("SHIP_DATA");
@@ -174,22 +173,22 @@ public partial class Ship : Damageable {
             writer.WriteStartElement("MAIN_PORT");
             if (mainPort.IsConnected())
             {
-                mainPort.GetModule().WriteXml(writer);
+                SpaceSerializerDeserializer.MyMonoSerializeToStream(writer, mainPort.GetModule());
             }
             else {
-                writer.WriteString("");
+                writer.WriteElementString("MODULE", "EMPTY");
             }
             writer.WriteEndElement();
         }
         foreach (Port port in ports) {
             writer.WriteStartElement("PORT");
             if (port.IsConnected()) {
-                port.GetModule().WriteXml(writer);
+                SpaceSerializerDeserializer.MyMonoSerializeToStream(writer, port.GetModule());
             } else {
-                writer.WriteString("");
+                // insert blank module for good iteration!
+                writer.WriteElementString("MODULE", "EMPTY");
             }
             writer.WriteEndElement();
         }
-        writer.WriteEndElement();
     }
 }

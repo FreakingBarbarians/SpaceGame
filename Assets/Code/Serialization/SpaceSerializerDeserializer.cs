@@ -18,12 +18,31 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         settings.NewLineChars = "\n";
         XmlWriter xmlWriter = XmlWriter.Create(memstrm, settings);
         {
-            thing.WriteXml(xmlWriter);
+            MyMonoSerializeToStream(xmlWriter, thing);   
         }
         xmlWriter.Flush();
         memstrm.Seek(0, SeekOrigin.Begin);
         string returnval = System.Text.Encoding.UTF8.GetString(memstrm.ToArray());
         return returnval;
+    }
+
+    public static void MyMonoSerializeToStream(XmlWriter xmlWriter,  IUnityXmlSerializable thing) {
+
+        if (thing is Ship)
+        {
+            xmlWriter.WriteStartElement("SHIP");
+        }
+        else if (thing is Module)
+        {
+            xmlWriter.WriteStartElement("MODULE");
+        }
+        else {
+            xmlWriter.WriteStartElement("UNKOWN");
+        }
+
+        thing.WriteXml(xmlWriter);
+
+        xmlWriter.WriteEndElement();
     }
 
     public static string SerializeShip(Ship ship)
@@ -49,81 +68,63 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 
     public static Ship DeserializeShip(string source)
     {
-        GameObject workingGO = null;
-        Ship workingShip = null;
-        int mainPortNum = 0;
-        int portNum = 0;
+
 
         using (Stream s = GenerateStreamFromString(source))
         {
             XmlReaderSettings readerSettings = new XmlReaderSettings();
             readerSettings.IgnoreWhitespace = true;
             XmlReader reader = XmlReader.Create(s, readerSettings);
-
-            while (reader.Read() && (!reader.LocalName.Equals("SHIP")))
-            {
-                if (reader.IsStartElement())
-                {
-                    Module module = null;
-                    // Debug.Log(reader.LocalName);
-                    switch (reader.LocalName)
-                    {
-                        case "BASE":
-                            workingGO = MyMonoBehaviour.ReadXml(reader, null);
-                            workingShip = workingGO.GetComponent<Ship>();
-                            workingShip.Start();
-                            break;
-                        case "DAMAGEABLE":
-                            Damageable.ReadXml(reader, workingShip);
-                            break;
-                        case "SHIP_DATA":
-                            Ship.ReadXml(reader, workingShip);
-                            break;
-                        case "MAIN_PORT":
-                            module = DeserializeModule(reader);
-                            if (module)
-                            {
-                                workingShip.mainPorts[mainPortNum].Connect(module);
-                            }
-                            mainPortNum++;
-                            break;
-                        case "PORT":
-                            module = DeserializeModule(reader);
-                            if (module)
-                            {
-                                workingShip.ports[portNum].Connect(module);
-                            }
-                            portNum++;
-                            break;
-                    }
-                }
-            }
-            return workingShip;
+            return DeserializeShip(reader);
         }
     }
-
     // expects reader that had just read the ship tag?
     // expects ignorewhitespace to be true
-    public static Ship DeserializeShip(XmlReader xmlReader) {
-        string name = "";
-        string path = "";
-        Ship ship = null;
-        xmlReader.ReadStartElement();
-        // get path and name
-        XmlUtils.ReadTo(xmlReader, "BASE_NAME");
-        name = xmlReader.ReadString();
+    public static Ship DeserializeShip(XmlReader reader) {
+        GameObject workingGO = null;
+        Ship workingShip = null;
+        int mainPortNum = 0;
+        int portNum = 0;
 
-        xmlReader.Read();
-        path = xmlReader.ReadString();
-
-        GameObject go = Instantiate(Resources.Load(path) as GameObject);
-        ship = go.GetComponent<Ship>();
-        ship.BASE_NAME = name;
-        ship.BASE_PATH = path;
-
-        xmlReader.Read();
-        go.transform.position = XmlUtils.DeserializeVector3(xmlReader);
-        return ship;
+        while (reader.Read() && (!reader.LocalName.Equals("SHIP")))
+        {
+            if (reader.IsStartElement())
+            {
+                Module module = null;
+                // Debug.Log(reader.LocalName);
+                switch (reader.LocalName)
+                {
+                    case "BASE":
+                        workingGO = MyMonoBehaviour.ReadXml(reader, null);
+                        workingShip = workingGO.GetComponent<Ship>();
+                        workingShip.Start();
+                        break;
+                    case "DAMAGEABLE":
+                        Damageable.ReadXml(reader, workingShip);
+                        break;
+                    case "SHIP_DATA":
+                        Ship.ReadXml(reader, workingShip);
+                        break;
+                    case "MAIN_PORT":
+                        module = DeserializeModule(reader);
+                        if (module)
+                        {
+                            workingShip.mainPorts[mainPortNum].Connect(module);
+                        }
+                        mainPortNum++;
+                        break;
+                    case "PORT":
+                        module = DeserializeModule(reader);
+                        if (module)
+                        {
+                            workingShip.ports[portNum].Connect(module);
+                        }
+                        portNum++;
+                        break;
+                }
+            }
+        }
+        return workingShip;
     }
 
     public static string SerializeModule(Module module)
@@ -184,12 +185,12 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         }
         return (Module) workingCO;
     }
-    // stops when it reads port or main port
+    // stops when it reads Module close tags
     public static Module DeserializeModule(XmlReader reader)
     {
         GameObject workingGO = null;
         Component workingCO = null;
-        while (reader.Read() && !(reader.LocalName == "PORT" || reader.LocalName == "MAIN_PORT"))
+        while (reader.Read() && !(!reader.IsStartElement() && reader.LocalName.Equals("MODULE")))
         {
             if (reader.IsStartElement())
             {
@@ -202,7 +203,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
                     case "DAMAGEABLE":
                         Damageable.ReadXml(reader, workingCO);
                         break;
-                    case "MODULE":
+                    case "MODULE_DATA":
                         Module.ReadXml(reader, workingCO);
                         break;
                     case "SINGLE_SHOT_WEAPON":
@@ -216,10 +217,10 @@ public class SpaceSerializerDeserializer : MonoBehaviour
                         break;
                 }
             }
-        } 
-
+        }
         return (Module)workingCO;
     }
+
     public static Stream GenerateStreamFromString(string s)
     {
         MemoryStream stream = new MemoryStream();
