@@ -176,7 +176,7 @@ public partial class Ship : Damageable {
                 SpaceSerializerDeserializer.MyMonoSerializeToStream(writer, mainPort.GetModule());
             }
             else {
-                writer.WriteElementString("MODULE", "EMPTY");
+                writer.WriteElementString("MODULE", "EMPTY  ");
             }
             writer.WriteEndElement();
         }
