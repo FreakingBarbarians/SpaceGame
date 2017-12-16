@@ -28,14 +28,13 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 
     public static void MyMonoSerializeToStream(XmlWriter xmlWriter,  IUnityXmlSerializable thing) {
 
-        if (thing is Ship)
-        {
-            xmlWriter.WriteStartElement("SHIP");
-        }
-        else if (thing is Module)
-        {
-            xmlWriter.WriteStartElement("MODULE");
-        }
+		if (thing is Ship) {
+			xmlWriter.WriteStartElement ("SHIP");
+		} else if (thing is Module) {
+			xmlWriter.WriteStartElement ("MODULE");
+		} else if (thing is GameState) {
+			xmlWriter.WriteStartElement ("GAME_STATE");
+		}
         else {
             xmlWriter.WriteStartElement("UNKOWN");
         }
@@ -44,6 +43,30 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 
         xmlWriter.WriteEndElement();
     }
+
+	public static void MyMonoSerializeToFile(IUnityXmlSerializable thing, string path){
+		FileStream fs = File.Create (path);
+		byte[] bytes = Encoding.UTF8.GetBytes(MyMonoSerializeToString(thing));
+		int size = bytes.Length;
+		fs.Write(bytes, 0, size);
+		fs.Close();
+		fs.Dispose();
+	}
+
+	public static IUnityXmlSerializable MyMonoDeserialize(XmlReader reader){
+		switch (reader.LocalName) {
+		case "MODULE":
+			return DeserializeModule (reader);
+			break;
+		case "SHIP":
+			return DeserializeShip (reader);
+			break;
+		default:
+			return null;
+			break;
+		}
+		return null;
+	}
 
     public static string SerializeShip(Ship ship)
     {
@@ -58,7 +81,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 
     public static void SerializeShipToFile(Ship ship, string path)
     {
-        FileStream fs = new FileStream(path, FileMode.Truncate);
+		FileStream fs = new FileStream(path, FileMode.CreateNew);
         byte[] bytes = Encoding.UTF8.GetBytes(MyMonoSerializeToString(ship));
         int size = bytes.Length;
         fs.Write(bytes, 0, size);
@@ -68,8 +91,6 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 
     public static Ship DeserializeShip(string source)
     {
-
-
         using (Stream s = GenerateStreamFromString(source))
         {
             XmlReaderSettings readerSettings = new XmlReaderSettings();
@@ -146,6 +167,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         fs.Close();
         fs.Dispose();
     }
+
     // expects to be on the <module> tag
     public static Module DeserializeModule(string source) {
 
@@ -221,8 +243,45 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         return (Module)workingCO;
     }
 
-    public static Stream GenerateStreamFromString(string s)
-    {
+	public static void DeserializeGameState(string source){
+		using (Stream s = GenerateStreamFromString(source))
+		{
+			XmlReaderSettings readerSettings = new XmlReaderSettings();
+			readerSettings.IgnoreWhitespace = true;
+			XmlReader reader = XmlReader.Create(s, readerSettings);
+			DeserializeGameState(reader);
+		}
+	}
+
+	// expects to be at Gamestate
+	// assumes that there already is an empty gamestate object?
+	public static void DeserializeGameState(XmlReader reader) {
+		while (reader.Read ()) {
+			if (reader.IsStartElement ()) {
+				switch (reader.LocalName) {
+				case "OBJECTS":
+					DeserializeGameStateObjects (reader);
+					break;
+				case "Homo-Erotic Encounter":
+					break;
+				}
+			}
+		}
+	}
+
+	private static void DeserializeGameStateObjects(XmlReader reader) {
+		// while has readable xml, and has not reached the end tag for objects
+		while(reader.Read() && !(!reader.IsStartElement() && reader.LocalName.Equals("OBJECTS"))) {
+			if (reader.IsStartElement ()) {
+				IUnityXmlSerializable serializable = MyMonoDeserialize (reader);
+				if (serializable) {
+					GameState.instance.AddObject (serializable);
+				}
+			}
+		}
+	}
+
+    public static Stream GenerateStreamFromString(string s) {
         MemoryStream stream = new MemoryStream();
         StreamWriter writer = new StreamWriter(stream);
         writer.Write(s);

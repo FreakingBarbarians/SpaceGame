@@ -46,7 +46,7 @@ public class ShipEditor : MonoBehaviour {
             OnPress();
         }
 
-    }
+    } 
 
     public virtual void OnRelease()
     {

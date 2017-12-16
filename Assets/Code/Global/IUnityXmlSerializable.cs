@@ -6,5 +6,5 @@ using System.Xml;
 using System.Xml.Schema;
 
 public class IUnityXmlSerializable : MonoBehaviour {
-    public virtual void WriteXml(XmlWriter writer) { }
+    public virtual void WriteXml(XmlWriter writer) {}
 }

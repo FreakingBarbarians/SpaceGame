@@ -12,6 +12,7 @@ public class TestSerialize : MonoBehaviour {
     public bool run = false;
 
     public TextAsset shipFile;
+	public TextAsset gameStateFile;
 
     private void Update()
     {
@@ -21,6 +22,8 @@ public class TestSerialize : MonoBehaviour {
             //SpaceSerializerDeserializer.SerializeModuleToFile(moduletoSerialize, path2);
             //SpaceSerializerDeserializer.DeserializeModule(source);
             SpaceSerializerDeserializer.DeserializeShip(shipFile.text);
+			// SpaceSerializerDeserializer.MyMonoSerializeToFile (GameState.instance, "GameState.xml");
+			SpaceSerializerDeserializer.DeserializeGameState(gameStateFile.text);
         }
     }
 }

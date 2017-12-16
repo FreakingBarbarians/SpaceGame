@@ -35,6 +35,24 @@ public class ShipPicker : MonoBehaviour {
         }
 	}
 
+	public void NextShip() {
+		InstancedObjects [chosen].SetActive (false);
+		chosen++;
+		if (chosen >= InstancedObjects.Count) {
+			chosen = InstancedObjects.Count - 1;
+		}
+		InstancedObjects [chosen].SetActive (true);
+	}
+
+	public void PreviousShip(){
+		InstancedObjects [chosen].SetActive (false);
+		chosen--;
+		if (chosen <= 0) {
+			chosen = 0;
+		}
+		InstancedObjects [chosen].SetActive (true);
+	}
+
     public GameObject GetCurrentShip() {
         if (chosen == -1) {
             return null;
