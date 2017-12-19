@@ -135,7 +135,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
                 switch (reader.LocalName)
                 {
                     case "BASE":
-                        workingGO = MyMonoBehaviour.ReadXml(reader, null);
+                        workingGO = MyPrefab.ReadXml(reader, null);
                         workingShip = workingGO.GetComponent<Ship>();
                         workingShip.Start();
                         break;
@@ -202,7 +202,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
                 if (reader.IsStartElement()) {
                     switch (reader.LocalName) {
                         case "BASE":
-                            workingGO = MyMonoBehaviour.ReadXml(reader, null);
+                            workingGO = MyPrefab.ReadXml(reader, null);
                             workingCO = workingGO.GetComponent<Module>();
                             break;
                         case "DAMAGEABLE":
@@ -240,7 +240,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
                 switch (reader.LocalName)
                 {   
                     case "BASE":
-                        workingGO = MyMonoBehaviour.ReadXml(reader, null);
+                        workingGO = MyPrefab.ReadXml(reader, null);
                         workingCO = workingGO.GetComponent<Module>();
                         break;
                     case "DAMAGEABLE":

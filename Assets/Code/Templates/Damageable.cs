@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Xml;
 using System.Xml.Serialization;
 
-public class Damageable : MyMonoBehaviour {
+public class Damageable : MyPrefab {
 
 	public FACTION faction;
 

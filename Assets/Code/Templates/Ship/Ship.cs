@@ -107,6 +107,22 @@ public partial class Ship : Damageable {
         DeltaRotation *= (1 - Time.deltaTime);
     }
 
+	public void SetFaction(FACTION faction){
+		foreach (Port p in ports) {
+			if (p.IsConnected ()) {
+				p.GetModule ().faction = faction;
+			}
+		}
+
+		foreach (Port p in mainPorts) {
+			if(p.IsConnected()){
+				p.GetModule ().faction = faction;
+			}
+		}
+
+		this.faction = faction;
+	}
+
 	public override void Die ()
 	{
 		this.enabled = false;

@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Node : MonoBehaviour {
+// @TODO: T will inherit form ai_base
+public abstract class Node<T> : MonoBehaviour {
 	[SerializeField]
-	private Node parent;
-	private List<Node> children;
+	private Node<T> parent;
+	private List<Node<T>> children;
 
-	public virtual List<Node> Continue () {
-				
+	private NodeStatus status;
+
+	public virtual List<Decision<T>> Continue () {
+		return null;
+	}
+
+	public NodeStatus GetStatus(){
+		return status;
 	}
 }

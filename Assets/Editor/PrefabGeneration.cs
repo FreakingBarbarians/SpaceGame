@@ -22,10 +22,10 @@ public class PrefabGeneration : MonoBehaviour {
             GameObject[] objects = Resources.LoadAll<GameObject>(parsedFolder);
             foreach (GameObject go in objects)
             {
-                MyMonoBehaviour[] monos = go.GetComponentsInChildren<MyMonoBehaviour>();
+                MyPrefab[] monos = go.GetComponentsInChildren<MyPrefab>();
                 string path = AssetDatabase.GetAssetPath(go);
                 Debug.Log(path + "|" + go.name);
-                foreach (MyMonoBehaviour m in monos)
+                foreach (MyPrefab m in monos)
                 {
                     m.BASE_NAME = go.name;
                     m.BASE_PATH = GetResourcesPath(path);

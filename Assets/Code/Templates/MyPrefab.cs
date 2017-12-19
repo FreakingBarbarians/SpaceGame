@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Schema;
 
-public class MyMonoBehaviour : IUnityXmlSerializable {
+public class MyPrefab : IUnityXmlSerializable {
 	public string BASE_NAME;
 	public string BASE_PATH;
 

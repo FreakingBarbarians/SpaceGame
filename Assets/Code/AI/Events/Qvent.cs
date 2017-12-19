@@ -3,27 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Qvent {
+namespace QventSystem {
 
 	// Extend this to include your own EventTypes
 	public enum QventType {
-		NONE
+		NONE,
+		STANDARD,
+		SHIP_DETECTED
 	}
 	
 	// [EventType|PayloadType|Payload]
 	public struct Qvent {
-		public QventType QventType;
-		public Type PayloadType;
-		public object Payload;
+		public readonly QventType QventType;
+		public readonly Type PayloadType;
+		public readonly object Payload;
 
-		public Qvent(QventType EventType){
-			this.EventType = EventType;
+		public Qvent(QventType QventType){
+			this.QventType = QventType;
 			PayloadType = null;
 			Payload = null;
 		}
 
-		public Qvent(QventType EventType, Type PayloadType, object Payload){
-			this.EventType = EventType;
+		public Qvent(QventType QventType, Type PayloadType, object Payload){
+			this.QventType = QventType;
 			this.PayloadType = PayloadType;
 			this.Payload = Payload;
 		}
@@ -32,7 +34,7 @@ namespace Qvent {
 
 	// Its up to you to queue the events if u want to.
 	public interface QventHandler {
-		void HandleEvent(Qvent myEvent);
+		void HandleQvent(Qvent myEvent);
 	}
 
 	// this is enough!
