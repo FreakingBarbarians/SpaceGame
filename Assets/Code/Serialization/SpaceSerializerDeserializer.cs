@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
@@ -9,6 +10,22 @@ using System.Xml.Schema;
 
 public class SpaceSerializerDeserializer : MonoBehaviour
 {
+
+	private class DeserializationMethod : Attribute {
+		public Type SerializationType;
+
+		public DeserializationMethod(Type SerializationType){
+			this.SerializationType = SerializationType;
+		}
+	}
+
+	private static Dictionary<Type, Func<IUnityXmlSerializable>> deserializers;
+
+	static SpaceSerializerDeserializer() {
+		deserializers = new Dictionary<Type,Func<IUnityXmlSerializable>> ();
+		// method attribute reflection here!
+	}
+
     public static string MyMonoSerializeToString(IUnityXmlSerializable thing)
     {
         MemoryStream memstrm = new MemoryStream();
@@ -67,7 +84,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 		}
 		return null;
 	}
-
+		
     public static string SerializeShip(Ship ship)
     {
         MemoryStream memstrm = new MemoryStream();
@@ -89,6 +106,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         fs.Dispose();
     }
 
+
     public static Ship DeserializeShip(string source)
     {
         using (Stream s = GenerateStreamFromString(source))
@@ -101,6 +119,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
     }
     // expects reader that had just read the ship tag?
     // expects ignorewhitespace to be true
+	[DeserializationMethod(typeof(Ship))]
     public static Ship DeserializeShip(XmlReader reader) {
         GameObject workingGO = null;
         Ship workingShip = null;
@@ -207,7 +226,9 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         }
         return (Module) workingCO;
     }
+
     // stops when it reads Module close tags
+	[DeserializationMethod(typeof(Module))]
     public static Module DeserializeModule(XmlReader reader)
     {
         GameObject workingGO = null;
@@ -255,6 +276,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 
 	// expects to be at Gamestate
 	// assumes that there already is an empty gamestate object?
+	[DeserializationMethod(typeof(GameState))]
 	public static void DeserializeGameState(XmlReader reader) {
 		while (reader.Read ()) {
 			if (reader.IsStartElement ()) {
@@ -290,3 +312,8 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         return stream;
     }
 }
+
+// @TODO: Method attribute reflection in static constructor
+// @TODO: Rejig type lookup to use System Type instead of hard-coded strings
+// @TODO: Re-order some of the methods to give less headaches
+// @TODO: Documentation, hah...

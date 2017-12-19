@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : MonoBehaviour {
+public abstract class Node : MonoBehaviour {
+	[SerializeField]
+	private Node parent;
+	private List<Node> children;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public virtual List<Node> Continue () {
+				
 	}
 }

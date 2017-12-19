@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Decision : MonoBehaviour {
+public enum DecisionResult
+{
+	FAIL,
+	RUNNING,
+	SUCCESS
+}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+public abstract class Decision<T> : Node {
+	public virtual DecisionResult Run(T source, float deltaTime){
+		Debug.LogWarning ("Unimplemented Run in Abstract \"DECISION\" Class");
 	}
 }
