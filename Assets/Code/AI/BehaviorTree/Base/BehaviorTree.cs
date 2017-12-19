@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using QventSystem;
-// @TODO: Change where t: qvent -> where t: some_ai_class i will make some day
-// @TODO: Serialize and Deserialize This Piece of SHIT :/
-// @TODO: Make IUnityXmlSerializable an interface...
-// @TODO: Fix this ugly mess with generic types yuck.
+// @TODO: Likely ai will have prefab.
+// @NOTE: I don't really wanna write serialization for BTrees so, we can't do things like adapt ai params in realtime.
+// Maybe one day? c:
 public class BehaviorTree<T> : QventSystem.QventHandler {
 
 	// Time until the tree iterates over the tree from the root.
@@ -75,7 +74,6 @@ public class BehaviorTree<T> : QventSystem.QventHandler {
 		}
 	}
 
-	// @TODO: pass event down from some_ai_class
 	public void HandleQvent(Qvent e) {
 		if (shortcuts.ContainsKey (e.QventType)) {
 			foreach (Decision<T> dec in shortcuts[e.QventType]) {

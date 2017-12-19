@@ -4,7 +4,7 @@ using UnityEngine;
 using QventSystem;
 using System;
 public class FollowEnemy : Decision<AIShip> {
-
+	
 	private Ship enemy;
 
 	public override NodeStatus Run(AIShip source, float deltaTime) {
