@@ -23,7 +23,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 
 	static SpaceSerializerDeserializer() {
 		deserializers = new Dictionary<Type,Func<IUnityXmlSerializable>> ();
-		// method attribute reflection here!
+		// @TODO: method attribute reflection here!
 	}
 
     public static string MyMonoSerializeToString(IUnityXmlSerializable thing)
@@ -74,15 +74,11 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 		switch (reader.LocalName) {
 		case "MODULE":
 			return DeserializeModule (reader);
-			break;
 		case "SHIP":
 			return DeserializeShip (reader);
-			break;
 		default:
 			return null;
-			break;
 		}
-		return null;
 	}
 		
     public static string SerializeShip(Ship ship)
