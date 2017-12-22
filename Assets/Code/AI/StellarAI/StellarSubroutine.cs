@@ -7,9 +7,16 @@ namespace StellarAI{
 	public class StellarSubroutine :  StellarNode, QventHandler {
 		// Some sort of advanced function here :/
 		public virtual float CalculateUrgency() { return -1f;}
-
-		protected override void onFinish (StellarStatus status)
+		public QventType Trigger;
+		protected override void init ()
 		{
+			base.init ();
+		}
+
+		protected override void onFinish (StellarStatus finstatus)
+		{
+			status = StellarStatus.IDLE;
+
 			if (Parent) {
 				Parent.ChildFinished (StellarStatus.SUCCESS);
 			} else {
@@ -21,8 +28,34 @@ namespace StellarAI{
 			if (!Parent) {
 				// @TODO: Tournament Logic To See If The SubRoutine Overrides Current SubRoutine
 				aiSystem.ActiveRoutine = this;
+				Run ();
 			}
 			// ... 
+		}
+
+		protected override void onBegin ()
+		{
+			base.onBegin ();
+			if (Children.Count >= 1) {
+				Children [0].Run ();
+			}
+		}
+
+		public void SetRoot(StellarSystem system) {
+			if (!setup) {
+				init ();
+			}
+			aiSystem = system;
+			cachedRoot = system.Root;
+			foreach (StellarNode child in Children) {
+				child.Register (this);
+			}
+		}
+
+		public override void ChildFinished (StellarStatus finstatus)
+		{
+			base.ChildFinished (finstatus);
+			onFinish (finstatus);
 		}
 	}
 }

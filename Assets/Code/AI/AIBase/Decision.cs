@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using QventSystem;
 
-public abstract class Decision : Node, IEventEmitter {
+public abstract class Decision : Node, IQventEmitter {
 	protected List<QventHandler> Listeners = new List<QventHandler>();
 
 	public virtual NodeStatus Run(float deltaTime) {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using QventSystem;
 
-public class OnTriggerEnter2DEvent : MonoBehaviour, IEventEmitter {
+public class OnTriggerEnter2DEvent : MonoBehaviour, IQventEmitter {
 	Collider2D colly;
 	public List<QventHandler> Listeners = new List<QventHandler>();
 

@@ -18,19 +18,21 @@ namespace StellarAI {
 			}
 		}
 
-		public override void ChildFinished (StellarStatus status)
+		public override void ChildFinished (StellarStatus finstatus)
 		{
-			if (status == StellarStatus.FAIL) {
-				if (index <= Children.Count) {
+			if (finstatus == StellarStatus.FAIL) {
+				if (index < Children.Count) {
+					Debug.Log (index + "|" + Children.Count);
 					Children [index].Run();
 					index++;
 				} else {
 					onFinish (StellarStatus.FAIL);
 				}
-			} else if (status == StellarStatus.SUCCESS) {
+			} else if (finstatus == StellarStatus.SUCCESS) {
 				index = 0;
 				onFinish (StellarStatus.SUCCESS);
 			}
 		}
+
 	}
 }
