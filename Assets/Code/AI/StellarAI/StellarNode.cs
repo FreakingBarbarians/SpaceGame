@@ -25,6 +25,7 @@ namespace StellarAI {
 
 		protected virtual void init() {
 			FindChildren ();
+			setup = true;
 		}
 			
 		public virtual void Run() {
