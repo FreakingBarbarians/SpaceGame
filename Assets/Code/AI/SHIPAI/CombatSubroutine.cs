@@ -14,7 +14,7 @@ public class CombatSubroutine : StellarSubroutine {
 
 	public void FixedUpdate(){
 		if (RefreshRateTimer <= 0) {
-			CullEnemiesOutOfRange ();
+			CullEnemies ();
 			RefreshRateTimer += RefreshRate;
 		}
 		RefreshRateTimer -= Time.fixedDeltaTime;
@@ -44,10 +44,10 @@ public class CombatSubroutine : StellarSubroutine {
 		}
 	}
 
-	private void CullEnemiesOutOfRange() {
+	private void CullEnemies() {
 		List<Ship> toRemove = new List<Ship> ();
 		foreach (Ship ship in targets) {
-			if (Vector2.Distance (ship.transform.position, transform.position) >= ChaseRange) {
+			if (Vector2.Distance (ship.transform.position, transform.position) >= ChaseRange || ship.curhp <= 0) {
 				toRemove.Add (ship);
 			}
 		}
@@ -66,12 +66,13 @@ public class CombatSubroutine : StellarSubroutine {
 	}
 
 	void OnTriggerEnter2D (Collider2D coll){
-		Debug.Log ("ENTER");
 		FindEnemies ();
 		Ship ship;
 		if ((ship = coll.gameObject.GetComponent<Ship>())) {
-			aiSystem.HandleQvent (new Qvent (QventType.SHIP_DETECTED));
-			targets.Add (ship);
+			if (ship.faction != cachedRoot.faction) {
+				aiSystem.HandleQvent (new Qvent (QventType.SHIP_DETECTED));
+				targets.Add (ship);
+			}
 		}
 	}
 }

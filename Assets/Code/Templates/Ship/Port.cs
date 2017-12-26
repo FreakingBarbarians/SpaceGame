@@ -23,6 +23,8 @@ public class Port : MonoBehaviour {
     };
 
     public PortType type;
+
+	[SerializeField][HideInInspector]
     private Module module;
 
     public Ship root;
@@ -90,7 +92,10 @@ public class Port : MonoBehaviour {
     }
 
     public void Register(Ship ship) {
-        this.root = ship;   
+        this.root = ship;
+		if (module) {
+			module.faction = ship.faction;
+		}
     }
 
     public Module GetModule() {

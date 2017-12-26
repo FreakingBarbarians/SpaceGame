@@ -11,6 +11,11 @@ public class Bullet : Damager, IPoolable {
 
 	[Range(1,10)]
 	public float velocity;
+
+	[Range(1,60)]
+	public float LifeTime;
+	private float LifeTimer;
+
 	private Rigidbody2D rb;
 
 	private bool initialized = false;
@@ -20,12 +25,21 @@ public class Bullet : Damager, IPoolable {
 		return BASE_NAME;	
 	}
 
+	public void FixedUpdate() {
+		if (LifeTimer <= 0) {
+			gameObject.SetActive (false);
+			BulletPoolManager.instance.Free (BASE_NAME, this);
+		}
+		LifeTimer -= Time.deltaTime;
+	}
+
 	void Start(){
 		if (rb == null) {
 			rb = GetComponent<Rigidbody2D> ();
 		}
 		rb.gravityScale = 0;
 		rb.mass = 1;
+		LifeTimer = LifeTime;
 	}
 
 	void OnEnable(){
@@ -33,10 +47,15 @@ public class Bullet : Damager, IPoolable {
 			Start ();
 		}
 		rb.velocity = transform.up * velocity;
+		LifeTimer = LifeTime;
 	}
 
 	public void OnTriggerEnter2D(Collider2D col){
 		Damageable damager = col.gameObject.GetComponent<Damageable> ();
+
+		if (damager == null) {
+			Debug.Log(col.gameObject.name);
+		}
 
 		if (damager.faction == this.faction) {
 			return;

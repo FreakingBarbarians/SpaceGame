@@ -8,7 +8,11 @@ public class GameState : IUnityXmlSerializable {
 	public static GameState instance;
 
 	[SerializeField]
-	private Dictionary <IUnityXmlSerializable, IUnityXmlSerializable> Objects;
+	private Dictionary <IUnityXmlSerializable, IUnityXmlSerializable> Objects; 
+	// Bring it down more.
+	// We need more meta
+	// MORE META!!!!
+
 
 	public void Start(){
 		if (instance) {

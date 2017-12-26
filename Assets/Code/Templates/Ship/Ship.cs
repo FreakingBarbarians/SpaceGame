@@ -61,6 +61,12 @@ public partial class Ship : Damageable {
         transform.Rotate(0, 0, DeltaRotation * Time.deltaTime);
     }
 
+	public void Fire(int mask) {
+		foreach (Weapon w in weapons) {
+			w.UpdateWeaponState (mask);
+		}
+	}
+
 	private void tick(){
 		EnergyCur = Mathf.Min (EnergyMax, EnergyCur + EnergyRegen);
 	}
@@ -95,6 +101,12 @@ public partial class Ship : Damageable {
         DeltaRotation = 0;
         transform.up = Vector3.RotateTowards(transform.up, target, DeltaRotationMax * 3.141f / 180f * Time.deltaTime, 0.0f);
     }
+
+	public void PointWeaponsTowards(Vector2 target) {
+		foreach (Weapon w in weapons) {
+			w.PointTowards (target);
+		}
+	}
 
     public void Brake() {
         if (DeltaPosition.magnitude <= 0.2) {

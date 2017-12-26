@@ -6,6 +6,7 @@ using QventSystem;
 
 public class AttackEnemyDecision : StellarProcess {
 	private CombatSubroutine cachedSubroutine;
+	private bool bit = false;
 	protected override void onBegin ()
 	{
 		if (!(subRoutine is CombatSubroutine)) {
@@ -14,6 +15,7 @@ public class AttackEnemyDecision : StellarProcess {
 		}
 		base.onBegin ();
 		cachedSubroutine = (CombatSubroutine) subRoutine;
+		cachedRoot.Fire (~0); // all
 	}
 
 	public override void Process ()
@@ -26,7 +28,28 @@ public class AttackEnemyDecision : StellarProcess {
 		Vector2 dir = cachedSubroutine.targets [0].transform.position - transform.position;
 		cachedRoot.Thrust (dir);
 		cachedRoot.RotateTowards (dir);
-		// @TODO: weapon ctonrol and fireing.
+		cachedRoot.PointWeaponsTowards (cachedSubroutine.targets[0].transform.position);
 
+		if(bit) {
+			cachedRoot.Fire (~0);
+			bit = !bit;
+		} else {
+			cachedRoot.Fire(0);
+			bit = !bit;
+		}
+
+		// @TODO: weapon ctonrol and fireing.
+	}
+
+	protected override void onFinish (StellarStatus status)
+	{
+		cachedRoot.Fire (0);
+		base.onFinish (status);
+	}
+
+	public override void OnInterrupt ()
+	{
+		cachedRoot.Fire(0);
+		base.OnInterrupt ();
 	}
 }

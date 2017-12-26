@@ -151,8 +151,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f,
     type: 2}
   Muzzle: {fileID: 1194242300318558}
-  Damage: 1
-  Velocity: 5
+  Damage: 20
+  Velocity: 10
   released: 1
 --- !u!212 &212493930745431754
 SpriteRenderer:
@@ -163,6 +163,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -178,6 +179,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

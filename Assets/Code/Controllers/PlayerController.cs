@@ -212,10 +212,7 @@ public class PlayerController : MonoBehaviour {
 
         if (weaponDirty)
         {
-            foreach (Weapon wep in ship.weapons)
-            {
-                wep.PointTowards(weaponVector);
-            }
+			ship.PointWeaponsTowards (weaponVector);
         }
     }
 	public Ship GetShip(){
