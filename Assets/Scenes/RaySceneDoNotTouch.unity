@@ -189,7 +189,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4167082042638096, guid: 6f92fcf33de692141851b66f209c0a49, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1290617937668252, guid: 6f92fcf33de692141851b66f209c0a49, type: 2}
       propertyPath: m_IsActive
@@ -459,7 +459,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4642976457457196, guid: aa767ab5364c34251a96dd4045ebf3d9, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1536386180919464, guid: aa767ab5364c34251a96dd4045ebf3d9, type: 2}
       propertyPath: m_IsActive
@@ -505,7 +505,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4249660392749064, guid: 8b469fd02ac694c54ae22b2542603d1c, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b469fd02ac694c54ae22b2542603d1c, type: 2}
@@ -784,7 +784,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4442148765291562, guid: b0176fd08345b40f1a87eb60c9135ae8, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1834841444942498, guid: b0176fd08345b40f1a87eb60c9135ae8, type: 2}
       propertyPath: m_IsActive
@@ -830,7 +830,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4418320495638300, guid: 0535155eccd8c459a9633485aaa1f82f, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f, type: 2}
       propertyPath: m_IsActive
@@ -934,58 +934,63 @@ MonoBehaviour:
   moduletoSerialize: {fileID: 0}
   path: testShip.xml
   path2: testModule.xml
-  source: "<?xml version=\"1.0\" encoding=\"utf-8\"?> <SHIP> \t<BASE> \t\t<BASE_NAME>Neruba
+  source: "<?xml version=\"1.0\" encoding=\"utf-8\"?> <Ship> \t<BASE> \t\t<BASE_NAME>Neruba
     Liner</BASE_NAME> \t\t<BASE_PATH>ShipBases/Neruba Liner</BASE_PATH> \t\t<POSITION>
     \t\t\t<X>0.5</X> \t\t\t<Y>0</Y> \t\t\t<Z>-5.75</Z> \t\t</POSITION> \t\t<ROTATION>
     \t\t\t<X>0</X> \t\t\t<Y>0</Y> \t\t\t<Z>0</Z> \t\t\t<W>1</W> \t\t</ROTATION> \t</BASE>
-    \t<DAMAGEABLE> \t\t<FACTION>PLAYER_FACTION</FACTION> \t\t<MAX_HP>320</MAX_HP>
-    \t\t<CUR_HP>320</CUR_HP> \t</DAMAGEABLE> \t<SPEED_MAX>1.2</SPEED_MAX> \t<ENERGY_MAX>500</ENERGY_MAX>
-    \t<ENERGY_CUR>500</ENERGY_CUR> \t<ENERGY_REGEN>8</ENERGY_REGEN> \t<MAIN_PORT>
-    \t\t<BASE> \t\t\t<BASE_NAME>DummyMain</BASE_NAME> \t\t\t<BASE_PATH>Modules/Main/DummyPort/DummyMain</BASE_PATH>
-    \t\t\t<POSITION> \t\t\t\t<X>0.505</X> \t\t\t\t<Y>-0.124</Y> \t\t\t\t<Z>-5.7624</Z>
-    \t\t\t</POSITION> \t\t\t<ROTATION> \t\t\t\t<X>0</X> \t\t\t\t<Y>0</Y> \t\t\t\t<Z>0.999989</Z>
-    \t\t\t\t<W>0.0046831</W> \t\t\t</ROTATION> \t\t</BASE> \t\t<DAMAGEABLE> \t\t\t<FACTION>PLAYER_FACTION</FACTION>
-    \t\t\t<MAX_HP>300</MAX_HP> \t\t\t<CUR_HP>300</CUR_HP> \t\t</DAMAGEABLE> \t\t<MODULE>
-    \t\t\t<PORT_TYPE>MAIN</PORT_TYPE> \t\t\t<MODULE_TYPE>STANDARD</MODULE_TYPE> \t\t\t<OPERATIONAL>TRUE</OPERATIONAL>
-    \t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t<ENERGY_CAP>500</ENERGY_CAP> \t\t\t<ENERGY_REGEN>2</ENERGY_REGEN>
-    \t\t\t<THRUST_POWER>0.2</THRUST_POWER> \t\t</MODULE> \t</MAIN_PORT> \t<MAIN_PORT>
-    \t\t<BASE> \t\t\t<BASE_NAME>SimpleGun</BASE_NAME> \t\t\t<BASE_PATH>Modules/Main/SimpleGun/SimpleGun</BASE_PATH>
-    \t\t\t<POSITION> \t\t\t\t<X>0.505</X> \t\t\t\t<Y>-0.559</Y> \t\t\t\t<Z>-5.8059</Z>
-    \t\t\t</POSITION> \t\t\t<ROTATION> \t\t\t\t<X>0</X> \t\t\t\t<Y>0</Y> \t\t\t\t<Z>0</Z>
-    \t\t\t\t<W>1</W> \t\t\t</ROTATION> \t\t</BASE> \t\t<DAMAGEABLE> \t\t\t<FACTION>PLAYER_FACTION</FACTION>
-    \t\t\t<MAX_HP>20</MAX_HP> \t\t\t<CUR_HP>20</CUR_HP> \t\t</DAMAGEABLE> \t\t<MODULE>
-    \t\t\t<PORT_TYPE>MAIN</PORT_TYPE> \t\t\t<MODULE_TYPE>WEAPON</MODULE_TYPE> \t\t\t<OPERATIONAL>TRUE</OPERATIONAL>
-    \t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t<ENERGY_CAP>0</ENERGY_CAP> \t\t\t<ENERGY_REGEN>0</ENERGY_REGEN>
-    \t\t\t<THRUST_POWER>1</THRUST_POWER> \t\t</MODULE> \t\t<WEAPON> \t\t\t<WEAPON_TYPE>SINGLE_SHOT_WEAPON</WEAPON_TYPE>
-    \t\t\t<WEAPON_MASK>1</WEAPON_MASK> \t\t</WEAPON> \t\t<SHOT_WEAPON> \t\t\t<COOLDOWN>1</COOLDOWN>
-    \t\t\t<COOLDOWN_TIMER>0</COOLDOWN_TIMER> \t\t\t<ENERGY_COST>24</ENERGY_COST> \t\t</SHOT_WEAPON>
-    \t\t<SINGLE_SHOT_WEAPON> \t\t\t<DAMAGE>0</DAMAGE> \t\t\t<VELOCITY>0</VELOCITY>
-    \t\t</SINGLE_SHOT_WEAPON> \t</MAIN_PORT> \t<PORT> \t\t<BASE> \t\t\t<BASE_NAME>SmallGenerator1</BASE_NAME>
-    \t\t\t<BASE_PATH>Modules/Small/SmallGenerator1/SmallGenerator1</BASE_PATH> \t\t\t<POSITION>
-    \t\t\t\t<X>0.498</X> \t\t\t\t<Y>0.663</Y> \t\t\t\t<Z>-5.6837</Z> \t\t\t</POSITION>
-    \t\t\t<ROTATION> \t\t\t\t<X>0</X> \t\t\t\t<Y>0</Y> \t\t\t\t<Z>0</Z> \t\t\t\t<W>1</W>
-    \t\t\t</ROTATION> \t\t</BASE> \t\t<DAMAGEABLE> \t\t\t<FACTION>PLAYER_FACTION</FACTION>
-    \t\t\t<MAX_HP>2031</MAX_HP> \t\t\t<CUR_HP>1241</CUR_HP> \t\t</DAMAGEABLE> \t\t<MODULE>
-    \t\t\t<PORT_TYPE>SMALL</PORT_TYPE> \t\t\t<MODULE_TYPE>STANDARD</MODULE_TYPE> \t\t\t<OPERATIONAL>TRUE</OPERATIONAL>
-    \t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t<ENERGY_CAP>0</ENERGY_CAP> \t\t\t<ENERGY_REGEN>2</ENERGY_REGEN>
-    \t\t\t<THRUST_POWER>0</THRUST_POWER> \t\t</MODULE> \t</PORT> \t<PORT></PORT> \t<PORT>
-    \t\t<BASE> \t\t\t<BASE_NAME>SmallGenerator1</BASE_NAME> \t\t\t<BASE_PATH>Modules/Small/SmallGenerator1/SmallGenerator1</BASE_PATH>
-    \t\t\t<POSITION> \t\t\t\t<X>0.504</X> \t\t\t\t<Y>0.156</Y> \t\t\t\t<Z>-5.7344</Z>
-    \t\t\t</POSITION> \t\t\t<ROTATION> \t\t\t\t<X>0</X> \t\t\t\t<Y>0</Y> \t\t\t\t<Z>0</Z>
-    \t\t\t\t<W>1</W> \t\t\t</ROTATION> \t\t</BASE> \t\t<DAMAGEABLE> \t\t\t<FACTION>PLAYER_FACTION</FACTION>
-    \t\t\t<MAX_HP>2031</MAX_HP> \t\t\t<CUR_HP>1241</CUR_HP> \t\t</DAMAGEABLE> \t\t<MODULE>
-    \t\t\t<PORT_TYPE>SMALL</PORT_TYPE> \t\t\t<MODULE_TYPE>STANDARD</MODULE_TYPE> \t\t\t<OPERATIONAL>TRUE</OPERATIONAL>
-    \t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t<ENERGY_CAP>0</ENERGY_CAP> \t\t\t<ENERGY_REGEN>2</ENERGY_REGEN>
-    \t\t\t<THRUST_POWER>0</THRUST_POWER> \t\t</MODULE> \t</PORT> \t<PORT></PORT> \t<PORT></PORT>
-    \t<PORT></PORT> \t<PORT></PORT> \t<PORT></PORT> \t<PORT></PORT> \t<PORT> \t\t<BASE>
-    \t\t\t<BASE_NAME>SmallGenerator1</BASE_NAME> \t\t\t<BASE_PATH>Modules/Small/SmallGenerator1/SmallGenerator1</BASE_PATH>
-    \t\t\t<POSITION> \t\t\t\t<X>0.505</X> \t\t\t\t<Y>-0.85</Y> \t\t\t\t<Z>-5.835</Z>
-    \t\t\t</POSITION> \t\t\t<ROTATION> \t\t\t\t<X>0</X> \t\t\t\t<Y>0</Y> \t\t\t\t<Z>0</Z>
-    \t\t\t\t<W>1</W> \t\t\t</ROTATION> \t\t</BASE> \t\t<DAMAGEABLE> \t\t\t<FACTION>PLAYER_FACTION</FACTION>
-    \t\t\t<MAX_HP>2031</MAX_HP> \t\t\t<CUR_HP>1241</CUR_HP> \t\t</DAMAGEABLE> \t\t<MODULE>
-    \t\t\t<PORT_TYPE>SMALL</PORT_TYPE> \t\t\t<MODULE_TYPE>STANDARD</MODULE_TYPE> \t\t\t<OPERATIONAL>TRUE</OPERATIONAL>
-    \t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t<ENERGY_CAP>0</ENERGY_CAP> \t\t\t<ENERGY_REGEN>2</ENERGY_REGEN>
-    \t\t\t<THRUST_POWER>0</THRUST_POWER> \t\t</MODULE> \t</PORT> </SHIP>"
+    \t<DAMAGEABLE> \t\t<FACTION>PLAYER_FACTION</FACTION> \t\t<MAX_HP>300</MAX_HP>
+    \t\t<CUR_HP>0</CUR_HP> \t</DAMAGEABLE> \t<SHIP_DATA> \t\t<DELTA_ROTATION_MAX>30</DELTA_ROTATION_MAX>
+    \t\t<DELTA_ROTATION_ACCELERATION>5</DELTA_ROTATION_ACCELERATION> \t\t<DELTA_POSITION_MAX>2.5</DELTA_POSITION_MAX>
+    \t\t<DELTA_POSITION_FACTOR>0.7</DELTA_POSITION_FACTOR> \t\t<ENERGY_MAX>515</ENERGY_MAX>
+    \t\t<ENERGY_CUR>515</ENERGY_CUR> \t\t<ENERGY_REGEN>15</ENERGY_REGEN> \t</SHIP_DATA>
+    \t<MAIN_PORT> \t\t<MODULE>EMPTY  </MODULE> \t</MAIN_PORT> \t<MAIN_PORT> \t\t<Module>
+    \t\t\t<BASE> \t\t\t\t<BASE_NAME>DummyMain</BASE_NAME> \t\t\t\t<BASE_PATH>Modules/Main/DummyPort/DummyMain</BASE_PATH>
+    \t\t\t\t<POSITION> \t\t\t\t\t<X>0.505</X> \t\t\t\t\t<Y>-0.559</Y> \t\t\t\t\t<Z>-5.8059</Z>
+    \t\t\t\t</POSITION> \t\t\t\t<ROTATION> \t\t\t\t\t<X>0</X> \t\t\t\t\t<Y>0</Y> \t\t\t\t\t<Z>0.8188624</Z>
+    \t\t\t\t\t<W>0.5739898</W> \t\t\t\t</ROTATION> \t\t\t</BASE> \t\t\t<DAMAGEABLE>
+    \t\t\t\t<FACTION>PLAYER_FACTION</FACTION> \t\t\t\t<MAX_HP>300</MAX_HP> \t\t\t\t<CUR_HP>300</CUR_HP>
+    \t\t\t</DAMAGEABLE> \t\t\t<MODULE_DATA> \t\t\t\t<PORT_TYPE>MAIN</PORT_TYPE> \t\t\t\t<MODULE_TYPE>STANDARD</MODULE_TYPE>
+    \t\t\t\t<OPERATIONAL>TRUE</OPERATIONAL> \t\t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t\t<ENERGY_CAP>500</ENERGY_CAP>
+    \t\t\t\t<ENERGY_REGEN>0</ENERGY_REGEN> \t\t\t\t<DELTA_POSITION_MAX>0</DELTA_POSITION_MAX>
+    \t\t\t\t<DELTA_POSITION_FACTOR>0</DELTA_POSITION_FACTOR> \t\t\t\t<DELTA_ROTATION_MAX>0</DELTA_ROTATION_MAX>
+    \t\t\t\t<DELTA_ROTATION_ACCELERATION>0</DELTA_ROTATION_ACCELERATION> \t\t\t</MODULE_DATA>
+    \t\t</Module> \t</MAIN_PORT> \t<PORT> \t\t<Module> \t\t\t<BASE> \t\t\t\t<BASE_NAME>SmallGenerator1</BASE_NAME>
+    \t\t\t\t<BASE_PATH>Modules/Small/SmallGenerator1/SmallGenerator1</BASE_PATH> \t\t\t\t<POSITION>
+    \t\t\t\t\t<X>0.498</X> \t\t\t\t\t<Y>0.663</Y> \t\t\t\t\t<Z>-5.6837</Z> \t\t\t\t</POSITION>
+    \t\t\t\t<ROTATION> \t\t\t\t\t<X>0</X> \t\t\t\t\t<Y>0</Y> \t\t\t\t\t<Z>0</Z> \t\t\t\t\t<W>1</W>
+    \t\t\t\t</ROTATION> \t\t\t</BASE> \t\t\t<DAMAGEABLE> \t\t\t\t<FACTION>PLAYER_FACTION</FACTION>
+    \t\t\t\t<MAX_HP>15</MAX_HP> \t\t\t\t<CUR_HP>15</CUR_HP> \t\t\t</DAMAGEABLE> \t\t\t<MODULE_DATA>
+    \t\t\t\t<PORT_TYPE>SMALL</PORT_TYPE> \t\t\t\t<MODULE_TYPE>STANDARD</MODULE_TYPE>
+    \t\t\t\t<OPERATIONAL>TRUE</OPERATIONAL> \t\t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t\t<ENERGY_CAP>5</ENERGY_CAP>
+    \t\t\t\t<ENERGY_REGEN>5</ENERGY_REGEN> \t\t\t\t<DELTA_POSITION_MAX>0</DELTA_POSITION_MAX>
+    \t\t\t\t<DELTA_POSITION_FACTOR>0</DELTA_POSITION_FACTOR> \t\t\t\t<DELTA_ROTATION_MAX>0</DELTA_ROTATION_MAX>
+    \t\t\t\t<DELTA_ROTATION_ACCELERATION>0</DELTA_ROTATION_ACCELERATION> \t\t\t</MODULE_DATA>
+    \t\t</Module> \t</PORT> \t<PORT> \t\t<MODULE>EMPTY</MODULE> \t</PORT> \t<PORT>
+    \t\t<MODULE>EMPTY</MODULE> \t</PORT> \t<PORT> \t\t<Module> \t\t\t<BASE> \t\t\t\t<BASE_NAME>SmallGenerator1</BASE_NAME>
+    \t\t\t\t<BASE_PATH>Modules/Small/SmallGenerator1/SmallGenerator1</BASE_PATH> \t\t\t\t<POSITION>
+    \t\t\t\t\t<X>0.219</X> \t\t\t\t\t<Y>-0.086</Y> \t\t\t\t\t<Z>-5.7586</Z> \t\t\t\t</POSITION>
+    \t\t\t\t<ROTATION> \t\t\t\t\t<X>0</X> \t\t\t\t\t<Y>0</Y> \t\t\t\t\t<Z>0</Z> \t\t\t\t\t<W>1</W>
+    \t\t\t\t</ROTATION> \t\t\t</BASE> \t\t\t<DAMAGEABLE> \t\t\t\t<FACTION>PLAYER_FACTION</FACTION>
+    \t\t\t\t<MAX_HP>15</MAX_HP> \t\t\t\t<CUR_HP>15</CUR_HP> \t\t\t</DAMAGEABLE> \t\t\t<MODULE_DATA>
+    \t\t\t\t<PORT_TYPE>SMALL</PORT_TYPE> \t\t\t\t<MODULE_TYPE>STANDARD</MODULE_TYPE>
+    \t\t\t\t<OPERATIONAL>TRUE</OPERATIONAL> \t\t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t\t<ENERGY_CAP>5</ENERGY_CAP>
+    \t\t\t\t<ENERGY_REGEN>5</ENERGY_REGEN> \t\t\t\t<DELTA_POSITION_MAX>0</DELTA_POSITION_MAX>
+    \t\t\t\t<DELTA_POSITION_FACTOR>0</DELTA_POSITION_FACTOR> \t\t\t\t<DELTA_ROTATION_MAX>0</DELTA_ROTATION_MAX>
+    \t\t\t\t<DELTA_ROTATION_ACCELERATION>0</DELTA_ROTATION_ACCELERATION> \t\t\t</MODULE_DATA>
+    \t\t</Module> \t</PORT> \t<PORT> \t\t<MODULE>EMPTY</MODULE> \t</PORT> \t<PORT>
+    \t\t<MODULE>EMPTY</MODULE> \t</PORT> \t<PORT> \t\t<MODULE>EMPTY</MODULE> \t</PORT>
+    \t<PORT> \t\t<MODULE>EMPTY</MODULE> \t</PORT> \t<PORT> \t\t<Module> \t\t\t<BASE>
+    \t\t\t\t<BASE_NAME>SmallGenerator1</BASE_NAME> \t\t\t\t<BASE_PATH>Modules/Small/SmallGenerator1/SmallGenerator1</BASE_PATH>
+    \t\t\t\t<POSITION> \t\t\t\t\t<X>0.783</X> \t\t\t\t\t<Y>-0.594</Y> \t\t\t\t\t<Z>-5.8094</Z>
+    \t\t\t\t</POSITION> \t\t\t\t<ROTATION> \t\t\t\t\t<X>0</X> \t\t\t\t\t<Y>0</Y> \t\t\t\t\t<Z>0</Z>
+    \t\t\t\t\t<W>1</W> \t\t\t\t</ROTATION> \t\t\t</BASE> \t\t\t<DAMAGEABLE> \t\t\t\t<FACTION>PLAYER_FACTION</FACTION>
+    \t\t\t\t<MAX_HP>15</MAX_HP> \t\t\t\t<CUR_HP>15</CUR_HP> \t\t\t</DAMAGEABLE> \t\t\t<MODULE_DATA>
+    \t\t\t\t<PORT_TYPE>SMALL</PORT_TYPE> \t\t\t\t<MODULE_TYPE>STANDARD</MODULE_TYPE>
+    \t\t\t\t<OPERATIONAL>TRUE</OPERATIONAL> \t\t\t\t<ADRIFT>FALSE</ADRIFT> \t\t\t\t<ENERGY_CAP>5</ENERGY_CAP>
+    \t\t\t\t<ENERGY_REGEN>5</ENERGY_REGEN> \t\t\t\t<DELTA_POSITION_MAX>0</DELTA_POSITION_MAX>
+    \t\t\t\t<DELTA_POSITION_FACTOR>0</DELTA_POSITION_FACTOR> \t\t\t\t<DELTA_ROTATION_MAX>0</DELTA_ROTATION_MAX>
+    \t\t\t\t<DELTA_ROTATION_ACCELERATION>0</DELTA_ROTATION_ACCELERATION> \t\t\t</MODULE_DATA>
+    \t\t</Module> \t</PORT> \t<PORT> \t\t<MODULE>EMPTY</MODULE> \t</PORT> </Ship>"
   run: 0
   shipFile: {fileID: 4900000, guid: df3a1cb16e4376a4bac734e8fa600c27, type: 3}
   gameStateFile: {fileID: 4900000, guid: 954b79502f7b94a03a3326ba78ff034c, type: 3}

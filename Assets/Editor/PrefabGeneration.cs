@@ -27,8 +27,10 @@ public class PrefabGeneration : MonoBehaviour {
                 Debug.Log(path + "|" + go.name);
                 foreach (MyPrefab m in monos)
                 {
-                    m.BASE_NAME = go.name;
-                    m.BASE_PATH = GetResourcesPath(path);
+					if (m.transform.parent == null) {
+						m.BASE_NAME = go.name;
+						m.BASE_PATH = GetResourcesPath (path);
+					}
                 }
             }
         }

@@ -7,9 +7,12 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Text;
 using System.Xml.Schema;
+using System.Reflection;
 
 public class SpaceSerializerDeserializer : MonoBehaviour
 {
+	
+	public delegate IUnityXmlSerializable  DType(XmlReader XmlReader);
 
 	private class DeserializationMethod : Attribute {
 		public Type SerializationType;
@@ -19,11 +22,39 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 		}
 	}
 
-	private static Dictionary<Type, Func<IUnityXmlSerializable>> deserializers;
+	private static Dictionary<String, DType> deserializers;
+	private static Dictionary<String, String> typeLookup;
+
 
 	static SpaceSerializerDeserializer() {
-		deserializers = new Dictionary<Type,Func<IUnityXmlSerializable>> ();
-		// @TODO: method attribute reflection here!
+		deserializers = new Dictionary<String, DType> ();
+		typeLookup = new Dictionary<String,String> ();
+		// @TODO: Improve On Reflection
+		MethodInfo[] info = typeof(SpaceSerializerDeserializer).GetMethods();
+		foreach (MethodInfo inf in info) {
+			object[] attributes = inf.GetCustomAttributes (typeof(DeserializationMethod), true);
+			if (attributes.Length >= 1) {
+				DeserializationMethod deserializer = attributes [0] as DeserializationMethod;
+				deserializers.Add (deserializer.SerializationType.Name, Delegate.CreateDelegate(typeof(DType), inf) as DType);
+				Debug.Log ("Added Deserializer of Type " + deserializer.SerializationType.Name);
+			}
+		}
+
+		// Ship Related
+		typeLookup.Add (typeof(Ship).Name, typeof(Ship).Name);
+
+		typeLookup.Add (typeof(Module).Name, typeof(Module).Name);
+		typeLookup.Add (typeof(Weapon).Name, typeof(Module).Name);
+		typeLookup.Add (typeof(ShotWeapon).Name, typeof(Module).Name);
+		typeLookup.Add (typeof(SingleShotWeapon).Name, typeof(Module).Name);
+
+		// TO BE REMOVED @TODO: Remove this
+		typeLookup.Add (typeof(GameState).Name, typeof(GameState).Name);
+
+		// Game State Related
+		typeLookup.Add (typeof(GalaxyManager).Name, typeof(GalaxyManager).Name);
+
+		typeLookup.Add (typeof(Sector).Name, typeof(Sector).Name);
 	}
 
     public static string MyMonoSerializeToString(IUnityXmlSerializable thing)
@@ -45,16 +76,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 
     public static void MyMonoSerializeToStream(XmlWriter xmlWriter,  IUnityXmlSerializable thing) {
 
-		if (thing is Ship) {
-			xmlWriter.WriteStartElement ("SHIP");
-		} else if (thing is Module) {
-			xmlWriter.WriteStartElement ("MODULE");
-		} else if (thing is GameState) {
-			xmlWriter.WriteStartElement ("GAME_STATE");
-		}
-        else {
-            xmlWriter.WriteStartElement("UNKOWN");
-        }
+		xmlWriter.WriteStartElement (typeLookup [thing.GetType ().Name]);
 
         thing.WriteXml(xmlWriter);
 
@@ -70,14 +92,22 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 		fs.Dispose();
 	}
 
-	public static IUnityXmlSerializable MyMonoDeserialize(XmlReader reader){
-		switch (reader.LocalName) {
-		case "MODULE":
-			return DeserializeModule (reader);
-		case "SHIP":
-			return DeserializeShip (reader);
-		default:
-			return null;
+	public static IUnityXmlSerializable MyMonoDeserialize(XmlReader reader) {
+		
+//		switch (reader.LocalName) {
+//		case typeof(Module).Name:
+//			return DeserializeModule (reader);
+//		case typeof(Ship).Name:
+//			return DeserializeShip (reader);
+//		default:
+//			return null;
+//		}
+
+		DType func = deserializers[typeLookup[reader.LocalName]];
+		if (func != null) {
+			return func.Invoke (reader);
+		} else {
+			throw new Exception ("NO DESERIALIZER FOR: " + reader.LocalName);
 		}
 	}
 		
@@ -122,8 +152,9 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         int mainPortNum = 0;
         int portNum = 0;
 
-        while (reader.Read() && (!reader.LocalName.Equals("SHIP")))
+		while (reader.Read() && !(!reader.IsStartElement() && reader.LocalName.Equals(typeof(Ship).Name)))
         {
+			Debug.Log (reader.LocalName);
             if (reader.IsStartElement())
             {
                 Module module = null;
@@ -194,33 +225,8 @@ public class SpaceSerializerDeserializer : MonoBehaviour
             XmlReaderSettings readerSettings = new XmlReaderSettings();
             readerSettings.IgnoreWhitespace = true;
             XmlReader reader = XmlReader.Create(s, readerSettings);
-            while (reader.Read()) {
-                if (reader.IsStartElement()) {
-                    switch (reader.LocalName) {
-                        case "BASE":
-                            workingGO = MyPrefab.ReadXml(reader, null);
-                            workingCO = workingGO.GetComponent<Module>();
-                            break;
-                        case "DAMAGEABLE":
-                            Damageable.ReadXml(reader, workingCO);
-                            break;
-                        case "MODULE":
-                            Module.ReadXml(reader, workingCO);
-                            break;
-                        case "SINGLE_SHOT_WEAPON":
-                            SingleShotWeapon.ReadXml(reader, workingCO);
-                            break;
-                        case "WEAPON":
-                            Weapon.ReadXml(reader, workingCO);
-                            break;
-                        case "SHOT_WEAPON":
-                            ShotWeapon.ReadXml(reader, workingCO);
-                            break;
-                    }
-                }
-            }
+			return DeserializeModule (reader);
         }
-        return (Module) workingCO;
     }
 
     // stops when it reads Module close tags
@@ -229,7 +235,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
     {
         GameObject workingGO = null;
         Component workingCO = null;
-        while (reader.Read() && !(!reader.IsStartElement() && reader.LocalName.Equals("MODULE")))
+		while (reader.Read() && !(!reader.IsStartElement() && reader.LocalName.Equals(typeof(Module).Name)))
         {
             if (reader.IsStartElement())
             {
@@ -273,7 +279,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 	// expects to be at Gamestate
 	// assumes that there already is an empty gamestate object?
 	[DeserializationMethod(typeof(GameState))]
-	public static void DeserializeGameState(XmlReader reader) {
+	public static GameState DeserializeGameState(XmlReader reader) {
 		while (reader.Read ()) {
 			if (reader.IsStartElement ()) {
 				switch (reader.LocalName) {
@@ -285,6 +291,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 				}
 			}
 		}
+		return null;
 	}
 
 	private static void DeserializeGameStateObjects(XmlReader reader) {
@@ -294,6 +301,80 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 				IUnityXmlSerializable serializable = MyMonoDeserialize (reader);
 				if (serializable) {
 					GameState.instance.AddObject (serializable);
+				}
+			}
+		}
+	}
+
+	// Special note: Galaxy manager is an instance singleton. So this should be set before deserialization is called. :)
+	[DeserializationMethod(typeof(GalaxyManager))]
+	public static GalaxyManager DeserializeGalaxyManager(XmlReader reader) { 
+		GalaxyManager galman = GalaxyManager.instance;
+		while (reader.Read ()) {
+			if (reader.IsStartElement ()) {
+				switch (reader.LocalName) {
+				case "GALAXY_DATA":
+					GalaxyManager.ReadXml (reader, galman);
+					break;
+				case "Sector":
+					Sector sector = DeserializeSector (reader);
+					Debug.Log (sector.index);
+					galman.SetSector (sector, sector.index);
+					break;
+				}
+			}
+		}
+		return galman;
+	}
+
+	public static GalaxyManager DeserializeGalaxyManager(string source){
+		using (Stream s = GenerateStreamFromString(source))
+		{
+			XmlReaderSettings readerSettings = new XmlReaderSettings();
+			readerSettings.IgnoreWhitespace = true;
+			XmlReader reader = XmlReader.Create(s, readerSettings);
+			return DeserializeGalaxyManager(reader);
+		}
+	}
+
+	[DeserializationMethod(typeof(Sector))]
+	public static Sector DeserializeSector(XmlReader reader){
+		GameObject sectorObj = new GameObject ();
+		Sector sector = sectorObj.AddComponent<Sector>();
+		while (reader.Read () && !(!reader.IsStartElement() && reader.LocalName.Equals(typeof(Sector).Name))) {
+			if (reader.IsStartElement ()) {
+				switch (reader.LocalName) {
+				case "SECTOR_DATA":
+					Sector.ReadXml (reader, sector);
+					break;
+				case "OBJECTS":
+					PopulateSectorWithObjects (reader, sector);
+					break;
+				}
+			}
+		}
+		// maybe we should unload default?
+		// sector.Unload ();
+		// @TODO: DECIDE HERE
+		return sector;
+	}
+
+	private static void PopulateSectorWithObjects(XmlReader reader, Sector sector) {
+		while (reader.Read () && !(!reader.IsStartElement () && reader.LocalName.Equals ("OBJECTS"))) {
+			if (reader.IsStartElement ()) {
+				Debug.Log (reader.LocalName);
+				try{
+					DType deserializer = deserializers [reader.LocalName];
+					if(deserializer != null) {
+						IUnityXmlSerializable deserializedThing = deserializer.Invoke(reader);
+						if(deserializedThing){
+							sector.Objects.Add(deserializedThing.gameObject);
+						}
+					} else {
+						Debug.LogError("Cannot find deserialization method for: " + reader.LocalName);
+					}
+				} catch (KeyNotFoundException k){
+					Debug.LogError ("Cannot find Type Mapping for: " + reader.LocalName);
 				}
 			}
 		}
@@ -309,7 +390,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
     }
 }
 
-// @TODO: Method attribute reflection in static constructor
-// @TODO: Rejig type lookup to use System Type instead of hard-coded strings
-// @TODO: Re-order some of the methods to give less headaches
-// @TODO: Documentation, hah...
+// @TODO: Method attribute reflection in static constructor // sorta done
+// @TODO: Rejig type lookup to use System Type instead of hard-coded strings // sorta happened
+// @TODO: Re-order some of the methods to give less headaches // lel
+// @TODO: Documentation, hah... // HA

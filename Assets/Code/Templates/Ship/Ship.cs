@@ -31,7 +31,8 @@ public partial class Ship : Damageable {
 
     private float timer = SpaceGameGlobal.TICK_RATE;
 
-    private Animator annie;
+	[SerializeField]
+    protected Animator annie;
 
     public List<Port> ports = new List<Port>();
     public List<Port> mainPorts = new List<Port>();
@@ -204,7 +205,7 @@ public partial class Ship : Damageable {
                 SpaceSerializerDeserializer.MyMonoSerializeToStream(writer, mainPort.GetModule());
             }
             else {
-                writer.WriteElementString("MODULE", "EMPTY  ");
+				writer.WriteElementString(typeof(Module).Name, "EMPTY");
             }
             writer.WriteEndElement();
         }
@@ -214,7 +215,7 @@ public partial class Ship : Damageable {
                 SpaceSerializerDeserializer.MyMonoSerializeToStream(writer, port.GetModule());
             } else {
                 // insert blank module for good iteration!
-                writer.WriteElementString("MODULE", "EMPTY");
+				writer.WriteElementString(typeof(Module).Name, "EMPTY");
             }
             writer.WriteEndElement();
         }

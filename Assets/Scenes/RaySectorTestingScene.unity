@@ -266,7 +266,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72601c9c25484efd8586590cb2c551b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1505200076624978, guid: ec484829a2d0f43d39ae7e78e87bce1c, type: 2}
+  prefab: {fileID: 1026003878785874, guid: e37687bfb0d3d4c5a8782ea05e20b87b, type: 2}
+  prefab2: {fileID: 1622515808692270, guid: 607135e138d50479d9f978c7e71aed9a, type: 2}
+  GalManSource: {fileID: 4900000, guid: 3816c3d72a9e74592b148c59cfd61232, type: 3}
 --- !u!4 &1164426439
 Transform:
   m_ObjectHideFlags: 0

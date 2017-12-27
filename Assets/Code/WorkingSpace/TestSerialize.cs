@@ -23,7 +23,7 @@ public class TestSerialize : MonoBehaviour {
             //SpaceSerializerDeserializer.DeserializeModule(source);
             SpaceSerializerDeserializer.DeserializeShip(shipFile.text);
 			// SpaceSerializerDeserializer.MyMonoSerializeToFile (GameState.instance, "GameState.xml");
-			SpaceSerializerDeserializer.DeserializeGameState(gameStateFile.text);
+			// SpaceSerializerDeserializer.DeserializeGameState(gameStateFile.text);
         }
     }
 }
