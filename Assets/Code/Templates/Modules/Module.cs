@@ -27,6 +27,9 @@ public partial class Module : Damageable {
 
     // Fields n shit \\
 
+	// this will be saved in prefab so no need to serialize :D
+	public int ScrapCost;
+
     // serialize/deserialize these fields
     public Port.PortType portType;
 	public ModuleType moduleType;
@@ -152,7 +155,6 @@ public partial class Module : Damageable {
         base.WriteXml(writer);
 
         writer.WriteStartElement("MODULE_DATA");
-
         writer.WriteElementString("PORT_TYPE", portType.ToString());
         writer.WriteElementString("MODULE_TYPE", moduleType.ToString());
         XmlUtils.SerializeBool(writer, operational, "OPERATIONAL");

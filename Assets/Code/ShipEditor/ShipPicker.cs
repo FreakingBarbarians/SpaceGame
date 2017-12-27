@@ -36,6 +36,7 @@ public class ShipPicker : MonoBehaviour {
 	}
 
 	public void NextShip() {
+		ShipEditor.instance.ClearShip ();
 		InstancedObjects [chosen].SetActive (false);
 		chosen++;
 		if (chosen >= InstancedObjects.Count) {
@@ -45,6 +46,7 @@ public class ShipPicker : MonoBehaviour {
 	}
 
 	public void PreviousShip(){
+		ShipEditor.instance.ClearShip ();
 		InstancedObjects [chosen].SetActive (false);
 		chosen--;
 		if (chosen <= 0) {

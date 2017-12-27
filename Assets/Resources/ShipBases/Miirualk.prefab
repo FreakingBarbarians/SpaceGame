@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4553981282317798}
   - component: {fileID: 114889951659477126}
   - component: {fileID: 61342821069076718}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (6)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4931302352186052}
   - component: {fileID: 114957011994408612}
   - component: {fileID: 61995427552989868}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (1)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4498903822161272}
   - component: {fileID: 114135738986876650}
   - component: {fileID: 61845020571841134}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (7)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4715801421871574}
   - component: {fileID: 114110353534360918}
   - component: {fileID: 61202726321161356}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4112668199025554}
   - component: {fileID: 114201994067714896}
   - component: {fileID: 61195273462734726}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (10)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4757569504326128}
   - component: {fileID: 114794299956142732}
   - component: {fileID: 61575054666294222}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (5)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 4088110874326434}
   - component: {fileID: 114483655633817762}
   - component: {fileID: 61340650892162322}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (2)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4324843586715824}
   - component: {fileID: 114940431289178352}
   - component: {fileID: 61079650909991738}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (11)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 4288364339517620}
   - component: {fileID: 114880970714526162}
   - component: {fileID: 61258056372065374}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (8)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 4177842906483020}
   - component: {fileID: 114390130897653692}
   - component: {fileID: 61466036201559878}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (3)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 4089478054773844}
   - component: {fileID: 114866906962998630}
   - component: {fileID: 61783686359344682}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (4)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 4413188089554466}
   - component: {fileID: 114169948198955326}
   - component: {fileID: 61656212449999468}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Port (9)
   m_TagString: Port
   m_Icon: {fileID: 0}
@@ -225,7 +225,9 @@ GameObject:
   - component: {fileID: 4249660392749064}
   - component: {fileID: 212206907871774706}
   - component: {fileID: 114096135009799736}
-  m_Layer: 12
+  - component: {fileID: 61858763778308928}
+  - component: {fileID: 50212607082731226}
+  m_Layer: 8
   m_Name: Miirualk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,6 +415,26 @@ Transform:
   m_Father: {fileID: 4249660392749064}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50212607082731226
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983254995984314}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61079650909991738
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -688,6 +710,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
+--- !u!61 &61858763778308928
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983254995984314}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 1}
+    newSize: {x: 4, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4, y: 1}
+  m_EdgeRadius: 0
 --- !u!61 &61995427552989868
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -724,12 +771,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95db0579acf7684a9a98d530cd53971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BASE_NAME: 
-  BASE_PATH: 
+  BASE_NAME: Miirualk
+  BASE_PATH: ShipBases/Miirualk
   faction: 2
   maxhp: 0
   curhp: 0
   invincible: 0
+  IsPlayer: 0
+  ScrapCost: 0
   EnergyMax: 0
   EnergyCur: 0
   DeltaRotation: 0
@@ -739,6 +788,7 @@ MonoBehaviour:
   DeltaPositionMax: 2
   DeltaPositionFactor: 1
   EnergyRegen: 0
+  annie: {fileID: 0}
   ports:
   - {fileID: 114483655633817762}
   - {fileID: 114390130897653692}
@@ -766,6 +816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114135738986876650
 MonoBehaviour:
@@ -779,6 +830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114169948198955326
 MonoBehaviour:
@@ -792,6 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114201994067714896
 MonoBehaviour:
@@ -805,6 +858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114390130897653692
 MonoBehaviour:
@@ -818,6 +872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114483655633817762
 MonoBehaviour:
@@ -831,6 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114794299956142732
 MonoBehaviour:
@@ -844,6 +900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114866906962998630
 MonoBehaviour:
@@ -857,6 +914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114880970714526162
 MonoBehaviour:
@@ -870,6 +928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114889951659477126
 MonoBehaviour:
@@ -883,6 +942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114940431289178352
 MonoBehaviour:
@@ -896,6 +956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!114 &114957011994408612
 MonoBehaviour:
@@ -909,6 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  module: {fileID: 0}
   root: {fileID: 114096135009799736}
 --- !u!212 &212206907871774706
 SpriteRenderer:

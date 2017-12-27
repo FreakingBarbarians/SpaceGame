@@ -8,7 +8,7 @@ public class Capsule : MonoBehaviour {
     public GameObject Item = null;
     public Image ItemImage;
 
-    public void SetItem(GameObject item) {
+	public virtual void SetItem(GameObject item) {
         if (!item) {
             Debug.LogWarning("Set Item: Null Item in container");
         }
@@ -19,7 +19,6 @@ public class Capsule : MonoBehaviour {
                 ItemImage.sprite = rendy.sprite;
             }
         }
-
         Item = item;
 
     }

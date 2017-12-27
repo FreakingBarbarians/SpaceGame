@@ -368,7 +368,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 					if(deserializer != null) {
 						IUnityXmlSerializable deserializedThing = deserializer.Invoke(reader);
 						if(deserializedThing){
-							sector.Objects.Add(deserializedThing.gameObject);
+							sector.AddToSector(deserializedThing.gameObject);
 						}
 					} else {
 						Debug.LogError("Cannot find deserialization method for: " + reader.LocalName);

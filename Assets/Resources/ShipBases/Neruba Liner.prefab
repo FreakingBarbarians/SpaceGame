@@ -89,6 +89,8 @@ GameObject:
   - component: {fileID: 4167082042638096}
   - component: {fileID: 212430100351148826}
   - component: {fileID: 114002415747460986}
+  - component: {fileID: 61750790812024648}
+  - component: {fileID: 50354760998097974}
   m_Layer: 8
   m_Name: Neruba Liner
   m_TagString: Untagged
@@ -413,6 +415,26 @@ Transform:
   m_Father: {fileID: 4167082042638096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50354760998097974
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290617937668252}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61054276264429504
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -638,6 +660,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
+--- !u!61 &61750790812024648
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290617937668252}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2}
+  m_EdgeRadius: 0
 --- !u!61 &61876608137744824
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -739,6 +786,7 @@ MonoBehaviour:
   DeltaPositionMax: 2.5
   DeltaPositionFactor: 0.7
   EnergyRegen: 0
+  annie: {fileID: 0}
   ports:
   - {fileID: 114101588032579018}
   - {fileID: 114061406134108294}
@@ -766,6 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114053313253711168
 MonoBehaviour:
@@ -779,6 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114061406134108294
 MonoBehaviour:
@@ -792,6 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114101588032579018
 MonoBehaviour:
@@ -805,6 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114226872491895462
 MonoBehaviour:
@@ -818,6 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114229842406123124
 MonoBehaviour:
@@ -831,6 +884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114350505406869500
 MonoBehaviour:
@@ -844,6 +898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114423940934605304
 MonoBehaviour:
@@ -857,6 +912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114480295211668682
 MonoBehaviour:
@@ -870,6 +926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114487472491034488
 MonoBehaviour:
@@ -883,6 +940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114604448140030316
 MonoBehaviour:
@@ -896,6 +954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!114 &114971712739526494
 MonoBehaviour:
@@ -909,6 +968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  module: {fileID: 0}
   root: {fileID: 114002415747460986}
 --- !u!212 &212430100351148826
 SpriteRenderer:
@@ -919,6 +979,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -934,6 +995,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

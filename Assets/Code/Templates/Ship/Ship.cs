@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
+using QventSystem;
 
 // Set this script to execute before port
 // I'm probably abusing partial here and not using S.R.P properly :(
 // oh well.
 
 [Serializable]
-public partial class Ship : Damageable {
+public partial class Ship : Damageable, IQventEmitter {
+	public bool IsPlayer;
+
+	public int ScrapCost;
 
 	public int EnergyMax;
 	public int EnergyCur;
@@ -40,7 +44,14 @@ public partial class Ship : Damageable {
 
     public void Start()
     {
-        transform.gameObject.layer = LayerMask.NameToLayer("Ship");
+
+		if (IsPlayer) {
+			transform.gameObject.layer = LayerMask.NameToLayer ("Player");
+			// add player controller?
+		} else {
+			transform.gameObject.layer = LayerMask.NameToLayer ("Ship");
+		}
+
 		annie = GetComponent<Animator> ();
         // register all of our ports
         foreach (Port p in ports) {
@@ -146,17 +157,28 @@ public partial class Ship : Damageable {
 			p.Eject ();
 		}
 
+		// @TODO:
 		// some advanced code
 		/*
 		 * Goal: Each module will be set "drifting" and dissappear when leaving the camera bounds
 		 * Modules can "Survive" the explosion where they can be picked up by the ship via contact.
 		 * And used in the ship later on
+		 * 
+		 * Alternatively we can create some object that drops. Like a box.
+		 * Ooooh schematics. Yes They should drop some schematics.
 		 */
 
+		Qvent qvent = new Qvent (QventType.DESTROYED, typeof(Ship), this);
+
+		foreach (QventHandler listeners in Listeners) {
+			listeners.HandleQvent (qvent);
+		}
 	}
 
     public new static GameObject ReadXml(XmlReader reader, Component workingCO) {
         Ship ship = (Ship)workingCO;
+		reader.Read ();
+		ship.IsPlayer = XmlUtils.DeserializeBool (reader);
 
         reader.Read();
         ship.DeltaRotationMax = float.Parse(reader.ReadString());
@@ -186,7 +208,7 @@ public partial class Ship : Damageable {
         base.WriteXml(writer);
 
         writer.WriteStartElement("SHIP_DATA");
-
+		XmlUtils.SerializeBool (writer, IsPlayer, "IS_PLAYER");
         writer.WriteElementString("DELTA_ROTATION_MAX", DeltaRotationMax.ToString());
         writer.WriteElementString("DELTA_ROTATION_ACCELERATION", DeltaRotationAcceleration.ToString());
         writer.WriteElementString("DELTA_POSITION_MAX", DeltaPositionMax.ToString());
@@ -220,4 +242,20 @@ public partial class Ship : Damageable {
             writer.WriteEndElement();
         }
     }
+
+	// QventEmitter Interface Declaration
+
+	// @TODO: Please generate this at runtime. ahhhhhhh
+	public List<QventHandler> Listeners = new List<QventHandler> ();
+
+	public void RegisterListener (QventHandler Listener) {
+		if (!Listeners.Contains (Listener)) {
+			Listeners.Add (Listener);
+		}
+	}
+
+	public void UnregisterListener (QventHandler Listener) {
+		Listeners.Remove (Listener);
+	}
+
 }

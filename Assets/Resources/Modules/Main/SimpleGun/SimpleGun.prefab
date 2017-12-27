@@ -131,6 +131,7 @@ MonoBehaviour:
   maxhp: 25
   curhp: 25
   invincible: 0
+  ScrapCost: 8
   portType: 1
   moduleType: 1
   operational: 1

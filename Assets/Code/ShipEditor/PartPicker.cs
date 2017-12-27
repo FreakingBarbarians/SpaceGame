@@ -48,7 +48,7 @@ public class PartPicker : MonoBehaviour {
                 xEndPaddding + xcount * (xPadding + ElementWidth), 
                 -(yEndPadding + ycount * (yPadding + ElementWidth)));
             xcount++;
-            if (xcount == ElementWidth) {
+			if (xcount == ElementsPerRow) {
                 xcount = 0;
                 ycount++;
             }

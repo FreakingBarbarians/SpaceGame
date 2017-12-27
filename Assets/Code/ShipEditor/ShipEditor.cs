@@ -7,11 +7,13 @@ public class ShipEditor : MonoBehaviour {
 
     public static ShipEditor instance;
     public List<GameObject> ActiveItems;
+	public List<GameObject> DanglingItems;
     public PartPicker PartPicker;
 
     public void Start()
     {
         ActiveItems = new List<GameObject>();
+		DanglingItems = new List<GameObject> ();
         if (instance) {
             Debug.LogWarning("More than one ShipEditor Instance");
             return;
@@ -25,7 +27,10 @@ public class ShipEditor : MonoBehaviour {
             // already has
         }
         else {
-            ActiveItems.Add(GameObject.Instantiate(capsuleItem));
+			Module m = capsuleItem.GetComponent<Module> ();
+			if (PlayerData.instance.RemoveScrap (m.ScrapCost)) {
+				ActiveItems.Add (GameObject.Instantiate (capsuleItem));
+			}
         }
     }
 
@@ -46,6 +51,14 @@ public class ShipEditor : MonoBehaviour {
             OnPress();
         }
 
+		if (Input.GetKeyDown (KeyCode.C)) {
+			ClearDangling ();
+		}
+
+		if(Input.GetKeyDown(KeyCode.X)){
+			ClearShip ();
+		}
+
     } 
 
     public virtual void OnRelease()
@@ -55,6 +68,9 @@ public class ShipEditor : MonoBehaviour {
         {
             foreach (GameObject item in ActiveItems)
             {
+				DanglingItems.Remove (item);
+				Module m = item.GetComponent<Module> ();
+				PlayerData.instance.AddScrap (m.ScrapCost);
                 Destroy(item);
             }
             ActiveItems.Clear();
@@ -66,9 +82,16 @@ public class ShipEditor : MonoBehaviour {
             foreach (RaycastHit2D hit in hits) {
                 if (ActiveItems.Count >= 1 && hit.collider.gameObject.CompareTag("Port")) {
                     Port port = hit.collider.gameObject.GetComponent<Port>();
-                    port.Connect(ActiveItems[0].GetComponent<Module>());
+					if (!port.Connect (ActiveItems [0].GetComponent<Module> ())) {
+						DanglingItems.Add (ActiveItems [0]);
+					} else {
+						DanglingItems.Remove (ActiveItems [0]);
+						ActiveItems.RemoveAt(0);
+					}
                 }
             }
+
+			DanglingItems.AddRange(ActiveItems);
             ActiveItems.Clear();
         }
     }
@@ -79,19 +102,26 @@ public class ShipEditor : MonoBehaviour {
         }
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, ~(1 << 12));
+		RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, ~((1 << 12) | ( 1 << 8)));
 
         if (hits.Length >= 1) {
             RaycastHit2D hit = hits[0];
 
             Debug.Log(hit.collider.gameObject.name);
+
             if (hit.collider.gameObject.CompareTag("Port")) {
                 return;
             }
-            if (hit.collider.gameObject.GetComponent<Module>().root) {
+
+			Module m = hit.collider.GetComponent<Module> ();
+			Port p = m.root;
+
+			if (p && p.root.gameObject == ShipPicker.instance.GetCurrentShip()) {
                 hit.collider.gameObject.GetComponent<Module>().root.Disconnect();
-            }
-            ActiveItems.Add(hit.collider.gameObject);
+				ActiveItems.Add(m.gameObject);
+			} else if (DanglingItems.Contains(m.gameObject)) {
+				ActiveItems.Add(m.gameObject);
+			}
         }
     }
 
@@ -111,4 +141,38 @@ public class ShipEditor : MonoBehaviour {
         }
         return false;
     }
+
+	public void ClearDangling() {
+		foreach (GameObject obj in DanglingItems) {
+			Module m = obj.GetComponent<Module> ();
+			PlayerData.instance.AddScrap (m.ScrapCost);
+			Destroy (obj);
+		}
+		DanglingItems.Clear ();
+	}
+
+	public void ClearAll() {
+		ClearDangling ();
+		ClearShip ();
+	}
+
+	public void ClearShip() {
+		Ship ship = ShipPicker.instance.GetCurrentShip ().GetComponent<Ship> ();
+		foreach (Port p in ship.ports) {
+			if (p.IsConnected ()) {
+				Module m = p.GetModule ();
+				p.Disconnect ();
+				PlayerData.instance.AddScrap (m.ScrapCost);
+				Destroy (m.gameObject);
+			}
+		}
+		foreach (Port p in ship.mainPorts) {
+			if (p.IsConnected ()) {
+				Module m = p.GetModule ();
+				p.Disconnect ();
+				PlayerData.instance.AddScrap (m.ScrapCost);
+				Destroy (m.gameObject);
+			}
+		}
+	}
 }

@@ -48,6 +48,7 @@ public class GalaxyManager : IUnityXmlSerializable {
 				Sectors [y,x] = sector;
 				sector.index = new Vector2Int (x, y);
 				sectorGO.transform.position = SectorToWorldPoint (new Vector2Int (x, y));
+				sectorGO.transform.SetParent (this.transform);
 			}
 		}
 		initialized = true;
@@ -77,7 +78,7 @@ public class GalaxyManager : IUnityXmlSerializable {
 			Vector2Int sectorPos = WorldToSectorPoint(GO.transform.position);
 			// @TODO add to the sector
 			if(Sectors[sectorPos.y, sectorPos.x]){
-				Sectors[sectorPos.y, sectorPos.x].Objects.Add(GO);
+				Sectors[sectorPos.y, sectorPos.x].AddToSector(GO);
 			} else {
 				Debug.LogWarning("Sector Does not Exist: " + sectorPos.x + " " + sectorPos.y);
 			}
@@ -194,7 +195,7 @@ public class GalaxyManager : IUnityXmlSerializable {
 			GameObject go = GameObject.Instantiate (prefab);
 			go.transform.position = position;
 			go.transform.rotation = rotation;
-			sector.Objects.Add (go);
+			sector.AddToSector(go);
 			return go;
 		} else {
 			return null;
