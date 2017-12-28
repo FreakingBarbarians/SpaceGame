@@ -24,7 +24,7 @@ public class Port : MonoBehaviour {
 
     public PortType type;
 
-	[SerializeField][HideInInspector]
+	[SerializeField]
     private Module module;
 
     public Ship root;

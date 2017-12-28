@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloatingItemManager : MonoBehaviour {
+public class WidgetManager : MonoBehaviour {
 	public GameObject FloatingSchematic;
 	public GameObject FreeFloatingScrap;
+	public GameObject HealthBar;
+	public GameObject FloatingNumber;
 
-	public static FloatingItemManager instance;
+	public static WidgetManager instance;
 
 	public void Start() {
 		if (instance) {
@@ -24,10 +26,21 @@ public class FloatingItemManager : MonoBehaviour {
 	}
 
 	public GameObject CreateFloatingScrap(int value, Vector2 pos) {
-		Debug.Log ("Created scrap with val: " + value);
 		GameObject go = GalaxyManager.SpawnWorldObject (FreeFloatingScrap, pos);
 		FloatingScrap fs = go.GetComponent<FloatingScrap> ();
 		fs.ScrapValue = value;
 		return go;
+	}
+
+	public GameObject CreateHealthBar(){
+		return GameObject.Instantiate (HealthBar);
+	}
+
+	public GameObject CreateFloatingNumber(Color startCol, Color endCol, float duration, float velocity, string text) {
+		GameObject floaty = Instantiate (FloatingNumber);
+		FloatingNumber num = floaty.GetComponent<FloatingNumber> ();
+		num.duration = duration;num.upVelocity = velocity; num.text = text;
+		num.startingColor = startCol;num.endColor = endCol;
+		return floaty;
 	}
 }

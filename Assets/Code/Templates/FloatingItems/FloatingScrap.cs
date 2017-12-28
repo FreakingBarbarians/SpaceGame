@@ -23,6 +23,9 @@ public class FloatingScrap : FloatingItem {
 		foreach (QventHandler l in Listeners) {
 			l.HandleQvent (qvent);
 		}
+
+		WidgetManager.instance.CreateFloatingNumber (Color.gray, Color.clear, 1, 0.2f, ScrapValue.ToString ()).transform.position = transform.position;
+
 		Destroy (gameObject);
 	}
 }

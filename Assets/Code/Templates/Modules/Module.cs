@@ -47,12 +47,18 @@ public partial class Module : Damageable {
 	protected Animator annie;
 
 	void Start(){
+		Init ();
+	}
+
+	protected virtual void Init() {
 		annie = GetComponent<Animator> ();
 		if (annie == null) {
 			annie = gameObject.AddComponent<Animator> ();
 		}
-
+		AddHealthBar ();
 	}
+
+
 
     public void Register (Port port) {
         this.root = port;
@@ -74,8 +80,9 @@ public partial class Module : Damageable {
 
 	public override void DoDamage (int amt)
 	{
+		base.DoDamage (amt);
+
 		annie.SetTrigger ("Damaged");
-		this.curhp = Mathf.Max (curhp - amt, 0);
 
 		if (portType == Port.PortType.MAIN) {
 			rootShip.DoDamage (amt);
@@ -84,13 +91,20 @@ public partial class Module : Damageable {
 		if (curhp == 0) {
 			Die ();
 		}
+
 	}
 
 	public override void DoHeal (int amt)
 	{
-		this.curhp += amt;
+		base.DoHeal (amt);
+		annie.SetBool ("Die", false);
 		if (operational == false) {
-			// revive
+			annie.Rebind ();
+			operational = true;
+			if (rootShip) {
+				rootShip.OnPortEnabled (this);
+			}
+			gameObject.layer = LayerMask.NameToLayer ("Module");
 		}
 	}
 
@@ -99,8 +113,14 @@ public partial class Module : Damageable {
 
 		annie.SetBool ("Die",true);
 		operational = false;
-		gameObject.layer = LayerMask.NameToLayer ("Debris");
-		rootShip.OnPortDisabled (this);
+		if (portType == Port.PortType.MAIN) {
+			
+		} else {
+			gameObject.layer = LayerMask.NameToLayer ("Debris");
+		}
+		if (rootShip) {
+			rootShip.OnPortDisabled (this);
+		}
 		// other stuff
 	}
 
@@ -112,9 +132,9 @@ public partial class Module : Damageable {
 		GameObject debris;
 
 		if (Utils.Rollf (chance, 100)) {
-			debris = FloatingItemManager.instance.CreateFloatingSchematic (this, transform.position);
+			debris = WidgetManager.instance.CreateFloatingSchematic (this, transform.position);
 		} else {
-			debris = FloatingItemManager.instance.CreateFloatingScrap ((int)(ScrapCost * (0.5f + Random.value/2)), transform.position);
+			debris = WidgetManager.instance.CreateFloatingScrap ((int)(ScrapCost * (0.5f + Random.value/2)), transform.position);
 		}
 
 		Rigidbody2D rb = debris.GetComponent<Rigidbody2D> ();

@@ -12,7 +12,11 @@ namespace QventSystem {
 		SHIP_DETECTED,
 		DECISION_EVENT,
 		DESTROYED,
-		REMOVED_FROM_GAME_WORLD
+		REMOVED_FROM_GAME_WORLD,
+		DAMAGED,
+		HEALED,
+		STRUCTURE_CHANGED,
+
 	}
 	
 	// [EventType|PayloadType|Payload]

@@ -59,8 +59,7 @@ public class PlayerData : IUnityXmlSerializable {
 		} else {
 			KnownModules [module.BASE_PATH] = prefab;
 		}
-
-		Debug.Log ("Added " + module.BASE_PATH);
+			
 	}
 
 	public void RemoveModule(GameObject prefab) {
@@ -70,7 +69,6 @@ public class PlayerData : IUnityXmlSerializable {
 		}
 		if (KnownModules.ContainsKey (module.BASE_PATH)) {
 			KnownModules.Remove (module.BASE_PATH);
-			Debug.Log ("Removed " + module.BASE_PATH);
 		}
 	}
 

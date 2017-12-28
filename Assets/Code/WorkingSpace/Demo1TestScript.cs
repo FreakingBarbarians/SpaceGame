@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Demo1TestScript : MonoBehaviour {
 	public string resourcePath;
-	public FloatingSchematic floaty;
+	public Ship s;
 
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.L)) {
-			floaty.SetItem(resourcePath);	
+			s.BeginRepair ();
 		}
 	}
 }

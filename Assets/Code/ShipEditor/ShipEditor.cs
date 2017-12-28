@@ -37,7 +37,6 @@ public class ShipEditor : MonoBehaviour {
 	}
 
     public void OnCapsuleClicked(GameObject capsuleItem) {
-		Debug.Log ("CAPSULE");
         if (ActiveItems.Count >= 1)
         {
             // already has
@@ -122,9 +121,6 @@ public class ShipEditor : MonoBehaviour {
 
         if (hits.Length >= 1) {
             RaycastHit2D hit = hits[0];
-
-            Debug.Log(hit.collider.gameObject.name);
-
             if (hit.collider.gameObject.CompareTag("Port")) {
                 return;
             }

@@ -16,6 +16,9 @@ public class CameraManager : MonoBehaviour {
 
 	private bool inRange = true;
 
+	public int maxSize = 50;
+	public int minSize = 3;
+
 	// Use this for initialization
 	void Start () {
 		if (instance) {
@@ -63,5 +66,21 @@ public class CameraManager : MonoBehaviour {
 
 	public GameObject GetToFollow(){
 		return toFollow;
+	}
+
+	public void IncreaseSize() {
+		if (Camera.main.orthographicSize >= maxSize) {
+			return;
+		} else {
+			Camera.main.orthographicSize += 1;
+		}
+	}
+
+	public void DecreaseSize() {
+		if (Camera.main.orthographicSize <= minSize) {
+			return;
+		} else {
+			Camera.main.orthographicSize -= 1;
+		}
 	}
 }

@@ -63,6 +63,7 @@ public class Bullet : Damager, IPoolable {
 
 		if (damager != null) {
 			damager.DoDamage (damage);
+			WidgetManager.instance.CreateFloatingNumber (Color.red, Color.clear, 1, 0.1f, damage.ToString ()).transform.position = transform.position;
 		}
 
 		gameObject.SetActive (false);

@@ -19,15 +19,13 @@ public class SingleShotWeapon : ShotWeapon {
 
 	public bool released = true;
 
-	void Start() {
-		annie = GetComponent<Animator> ();
-		if (annie == null) {
-			annie = gameObject.AddComponent<Animator> ();
-		}
+	protected override void Init ()
+	{
+		base.Init ();
 		bulletComponent = bulletPrefab.GetComponent<Bullet> ();
 
-        bulletComponent.damage = Damage;
-        bulletComponent.velocity = Velocity;
+		bulletComponent.damage = Damage;
+		bulletComponent.velocity = Velocity;
 
 		annie.speed = 1f / cooldown;
 	}

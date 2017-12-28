@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
 
     public KeyCode BRAKE = KeyCode.LeftControl;
 
+	public KeyCode REPAIR = KeyCode.R;
+
     public KeyCode WEAPON_UP = KeyCode.UpArrow;
     public KeyCode WEAPON_DOWN = KeyCode.DownArrow;
     public KeyCode WEAPON_LEFT = KeyCode.LeftArrow;
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour {
 		movementControl ();
 		weaponControl ();
 		fireControl ();
-
+		SystemsControl ();
 	}
 
 	private void fireControl(){
@@ -206,7 +208,8 @@ public class PlayerController : MonoBehaviour {
 
         }
     }
-    private void mouseWeaponControl() {
+    
+	private void mouseWeaponControl() {
         weaponVector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         weaponDirty = true;
 
@@ -215,6 +218,19 @@ public class PlayerController : MonoBehaviour {
 			ship.PointWeaponsTowards (weaponVector);
         }
     }
+
+	private void SystemsControl() {
+
+		if (Input.GetKeyDown (REPAIR)) {
+			if (ship.State == Ship.ShipState.REPAIR) {
+				ship.StopRepair ();
+			} else {
+				ship.BeginRepair ();
+			}
+		}
+
+	}
+
 	public Ship GetShip(){
 		return ship;
 	}

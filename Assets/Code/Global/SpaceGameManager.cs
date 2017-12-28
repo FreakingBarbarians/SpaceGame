@@ -73,5 +73,12 @@ public class SpaceGameManager : MonoBehaviour {
 			}
 		}
 
+		if (Input.mouseScrollDelta.y != 0) {
+			if (Input.mouseScrollDelta.y > 0) {
+				CameraManager.instance.IncreaseSize ();
+			} else {
+				CameraManager.instance.DecreaseSize ();
+			}
+		}
 	}
 }

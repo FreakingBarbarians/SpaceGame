@@ -9,7 +9,18 @@ using QventSystem;
 // oh well.
 
 [Serializable]
-public partial class Ship : Damageable, IQventEmitter {
+public partial class Ship : Damageable {
+	public enum ShipState
+	{
+		NORMAL,
+		COMBAT,
+		REPAIR
+	};
+
+	private HealthBar hpb;
+
+	public ShipState State = ShipState.NORMAL;
+
 	public bool IsPlayer;
 
 	public int ScrapCost;
@@ -68,7 +79,7 @@ public partial class Ship : Damageable, IQventEmitter {
         foreach (Port p in mainPorts) {
             p.Register(this);
         }
-
+		AddHealthBar ();
     }
 
 	public void FixedUpdate(){
@@ -82,6 +93,11 @@ public partial class Ship : Damageable, IQventEmitter {
     }
 
 	public void Fire(int mask) {
+
+		if (State == ShipState.REPAIR) {
+			return;
+		}
+
 		foreach (Weapon w in weapons) {
 			w.UpdateWeaponState (mask);
 		}
@@ -89,10 +105,71 @@ public partial class Ship : Damageable, IQventEmitter {
 
 	private void tick(){
 		EnergyCur = Mathf.Min (EnergyMax, EnergyCur + EnergyRegen);
+		if (State == ShipState.REPAIR) {
+			Repair (SpaceGameGlobal.TICK_RATE);
+		}
+	}
+
+	public override void Repair (float time)
+	{
+		base.Repair (time);
+		foreach (Port p in ports) {
+			Module m;
+			if ((m = p.GetModule ())) {
+				m.Repair (time);			
+			}
+		}
+
+		foreach (Port p in mainPorts) {
+			Module m;
+			if ((m = p.GetModule ())) {
+				m.Repair (time);			
+			}
+		}
+	}
+
+	public void BeginRepair() {
+		if (DeltaRotation == 0 && DeltaPosition.magnitude == 0) {
+			SetState (ShipState.REPAIR);
+		}
+	}
+
+	public void StopRepair() {
+		SetState (ShipState.NORMAL);
+	}
+
+	public void SetState(ShipState state){
+		this.State = state;
+	}
+
+	protected override void AddHealthBar ()
+	{
+		GameObject hpBar = WidgetManager.instance.CreateHealthBar ();
+		hpBar.transform.position = transform.position;
+		hpBar.transform.SetParent (transform);
+		HealthBar bar = hpBar.GetComponent<HealthBar> ();
+		bar.source = this;
+		RegisterListener (bar);
+
+		bar.Refresh ();
+
+		Vector2 offset;
+
+		Sprite s = GetComponent<SpriteRenderer> ().sprite;
+		float yoffset =  s.textureRect.size.y / s.pixelsPerUnit;
+
+		hpBar.transform.position += new Vector3 (0, -yoffset/2, 0);
+		hpBar.transform.localScale = new Vector3 (0.09f, 0.09f, 1);
+		hpb = bar;
 	}
 
     public void Thrust(Vector2 thrustDir)
     {
+		
+		if (State == ShipState.REPAIR) {
+			return;
+		}
+
         DeltaPosition += thrustDir.normalized * Time.deltaTime * DeltaPositionFactor;
         if (DeltaPosition.magnitude > DeltaPositionMax)
         {
@@ -102,6 +179,11 @@ public partial class Ship : Damageable, IQventEmitter {
 
     public void Rotate(float dir)
     {
+
+		if (State == ShipState.REPAIR) {
+			return;
+		}
+
         DeltaRotation += dir * DeltaRotationAcceleration * Time.deltaTime;
         if (Mathf.Abs(DeltaRotation) > DeltaRotationMax)
         {
@@ -118,6 +200,11 @@ public partial class Ship : Damageable, IQventEmitter {
 
     public void RotateTowards(Vector2 target)
     {
+
+		if (State == ShipState.REPAIR) {
+			return;
+		}
+
         DeltaRotation = 0;
         transform.up = Vector3.RotateTowards(transform.up, target, DeltaRotationMax * 3.141f / 180f * Time.deltaTime, 0.0f);
     }
@@ -129,6 +216,12 @@ public partial class Ship : Damageable, IQventEmitter {
 	}
 
     public void Brake() {
+
+
+		if (State == ShipState.REPAIR) {
+			return;
+		}
+
         if (DeltaPosition.magnitude <= 0.2) {
             DeltaPosition *= 0;
         }
@@ -168,7 +261,7 @@ public partial class Ship : Damageable, IQventEmitter {
 		int num = UnityEngine.Random.Range (1, 11);
 
 		for (int i = 0; i < num; i++) {
-			GameObject debris = FloatingItemManager.instance.CreateFloatingScrap (ScrapCost/100, transform.position);
+			GameObject debris = WidgetManager.instance.CreateFloatingScrap (ScrapCost/100, transform.position);
 			Rigidbody2D rb = debris.GetComponent<Rigidbody2D> ();
 			Vector2 away = UnityEngine.Random.insideUnitCircle;
 			rb.velocity = away.normalized * UnityEngine.Random.value;
@@ -252,20 +345,4 @@ public partial class Ship : Damageable, IQventEmitter {
             writer.WriteEndElement();
         }
     }
-
-	// QventEmitter Interface Declaration
-
-	// @TODO: Please generate this at runtime. ahhhhhhh
-	public List<QventHandler> Listeners = new List<QventHandler> ();
-
-	public void RegisterListener (QventHandler Listener) {
-		if (!Listeners.Contains (Listener)) {
-			Listeners.Add (Listener);
-		}
-	}
-
-	public void UnregisterListener (QventHandler Listener) {
-		Listeners.Remove (Listener);
-	}
-
 }
