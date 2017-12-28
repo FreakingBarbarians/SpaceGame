@@ -7,8 +7,7 @@ public class ShipPicker : MonoBehaviour {
     public static ShipPicker instance;
 
     public List<GameObject> Source;
-    public GameObject ShipSpawnPos;
-    private List<GameObject> InstancedObjects;
+	private GameObject currentShip;
 
     int chosen = -1;
 
@@ -20,45 +19,13 @@ public class ShipPicker : MonoBehaviour {
             return;
         }
         instance = this;
-
-        InstancedObjects = new List<GameObject>();
-        foreach (GameObject go in Source) {
-            GameObject inst = Instantiate(go);
-            inst.SetActive(false);
-            inst.transform.position = ShipSpawnPos.transform.position;
-            InstancedObjects.Add(inst);
-        }
-
-        if (InstancedObjects.Count >= 1) {
-            InstancedObjects[0].SetActive(true);
-            chosen = 0;
-        }
 	}
 
-	public void NextShip() {
-		ShipEditor.instance.ClearShip ();
-		InstancedObjects [chosen].SetActive (false);
-		chosen++;
-		if (chosen >= InstancedObjects.Count) {
-			chosen = InstancedObjects.Count - 1;
-		}
-		InstancedObjects [chosen].SetActive (true);
-	}
-
-	public void PreviousShip(){
-		ShipEditor.instance.ClearShip ();
-		InstancedObjects [chosen].SetActive (false);
-		chosen--;
-		if (chosen <= 0) {
-			chosen = 0;
-		}
-		InstancedObjects [chosen].SetActive (true);
+	public void SetShip(GameObject Ship) {
+		// to do
 	}
 
     public GameObject GetCurrentShip() {
-        if (chosen == -1) {
-            return null;
-        }
-        return InstancedObjects[chosen];
+		return currentShip;
     }
 }

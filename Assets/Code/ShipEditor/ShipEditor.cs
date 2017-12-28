@@ -9,7 +9,10 @@ public class ShipEditor : MonoBehaviour {
     public List<GameObject> ActiveItems;
 	public List<GameObject> DanglingItems;
     public PartPicker PartPicker;
+	public GameObject BuildPaneCenter;
 
+	// Camera space.
+	private Vector2 offset;
     public void Start()
     {
         ActiveItems = new List<GameObject>();
@@ -20,6 +23,18 @@ public class ShipEditor : MonoBehaviour {
         }
         instance = this;
     }
+		
+	public void Enable() {
+		gameObject.SetActive (true);
+		offset = PlayerData.instance.PlayerShip.transform.position - BuildPaneCenter.transform.position;
+		Debug.DrawLine (PlayerData.instance.PlayerShip.transform.position, BuildPaneCenter.transform.position);
+		CameraManager.instance.AddOffset (offset);
+	}
+
+	public void Disable() {
+		gameObject.SetActive (false);
+		CameraManager.instance.AddOffset (-offset);
+	}
 
     public void OnCapsuleClicked(GameObject capsuleItem) {
         if (ActiveItems.Count >= 1)

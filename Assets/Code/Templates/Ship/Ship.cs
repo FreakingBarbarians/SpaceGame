@@ -44,9 +44,16 @@ public partial class Ship : Damageable, IQventEmitter {
 
     public void Start()
     {
-
+		
 		if (IsPlayer) {
 			transform.gameObject.layer = LayerMask.NameToLayer ("Player");
+
+			if (PlayerData.instance.PlayerShip != this) {
+				Debug.LogWarning ("More than one PlayerShip");
+				return;
+			} else {
+				PlayerData.instance.PlayerShip = this;
+			}
 			// add player controller?
 		} else {
 			transform.gameObject.layer = LayerMask.NameToLayer ("Ship");
@@ -61,6 +68,7 @@ public partial class Ship : Damageable, IQventEmitter {
         foreach (Port p in mainPorts) {
             p.Register(this);
         }
+
     }
 
 	public void FixedUpdate(){

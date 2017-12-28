@@ -7,9 +7,13 @@ using QventSystem;
 public class PlayerData : IUnityXmlSerializable {
 
 	public static PlayerData instance;
+
 	public int Scrap = 0;
 	// stores paths to the thing instead. yeah? YEAH
 	public Dictionary<string, GameObject> KnownModules = new Dictionary<string, GameObject> ();
+
+	// everything to be serialized by sector
+	public Ship PlayerShip;
 
 	public void Start() {
 		if (instance) {
@@ -97,4 +101,6 @@ public class PlayerData : IUnityXmlSerializable {
 
 		writer.WriteEndElement ();
 	}
+
+
 }
