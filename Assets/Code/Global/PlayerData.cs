@@ -53,7 +53,13 @@ public class PlayerData : IUnityXmlSerializable {
 		if (!(module = prefab.GetComponent<Module> ())) {
 			Debug.LogWarning ("Not a module! " + prefab.name);	
 		}
-		KnownModules [module.BASE_PATH] = prefab;
+
+		if (KnownModules.ContainsKey (module.BASE_PATH)) {
+			AddScrap (module.ScrapCost);
+		} else {
+			KnownModules [module.BASE_PATH] = prefab;
+		}
+
 		Debug.Log ("Added " + module.BASE_PATH);
 	}
 

@@ -168,7 +168,7 @@ public partial class Ship : Damageable, IQventEmitter {
 		int num = UnityEngine.Random.Range (1, 11);
 
 		for (int i = 0; i < num; i++) {
-			GameObject debris = FloatingItemManager.instance.CreateFloatingScrap (ScrapCost / 10, transform.position);
+			GameObject debris = FloatingItemManager.instance.CreateFloatingScrap (ScrapCost/100, transform.position);
 			Rigidbody2D rb = debris.GetComponent<Rigidbody2D> ();
 			Vector2 away = UnityEngine.Random.insideUnitCircle;
 			rb.velocity = away.normalized * UnityEngine.Random.value;

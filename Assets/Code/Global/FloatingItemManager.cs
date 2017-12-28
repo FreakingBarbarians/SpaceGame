@@ -24,6 +24,7 @@ public class FloatingItemManager : MonoBehaviour {
 	}
 
 	public GameObject CreateFloatingScrap(int value, Vector2 pos) {
+		Debug.Log ("Created scrap with val: " + value);
 		GameObject go = GalaxyManager.SpawnWorldObject (FreeFloatingScrap, pos);
 		FloatingScrap fs = go.GetComponent<FloatingScrap> ();
 		fs.ScrapValue = value;

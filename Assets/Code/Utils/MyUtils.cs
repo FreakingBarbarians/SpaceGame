@@ -61,7 +61,7 @@ public class Utils {
 		float chance = samplespace / domain;
 		float result = UnityEngine.Random.value;
 
-		if (result > chance) {
+		if (chance > result) {
 			return true;
 		}
 

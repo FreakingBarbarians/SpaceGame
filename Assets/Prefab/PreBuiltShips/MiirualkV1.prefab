@@ -1115,6 +1115,8 @@ MonoBehaviour:
   maxhp: 15
   curhp: 15
   invincible: 0
+  ScrapCost: 0
+  RarityMult: 100
   portType: 0
   moduleType: 0
   operational: 1
@@ -1200,6 +1202,8 @@ MonoBehaviour:
   maxhp: 15
   curhp: 15
   invincible: 0
+  ScrapCost: 0
+  RarityMult: 100
   portType: 0
   moduleType: 0
   operational: 1
@@ -1229,6 +1233,8 @@ MonoBehaviour:
   maxhp: 300
   curhp: 300
   invincible: 0
+  ScrapCost: 0
+  RarityMult: 100
   portType: 1
   moduleType: 0
   operational: 1
@@ -1286,6 +1292,8 @@ MonoBehaviour:
   maxhp: 325
   curhp: 0
   invincible: 0
+  IsPlayer: 0
+  ScrapCost: 500
   EnergyMax: 510
   EnergyCur: 70
   DeltaRotation: 0
@@ -1329,6 +1337,8 @@ MonoBehaviour:
   maxhp: 25
   curhp: 25
   invincible: 0
+  ScrapCost: 0
+  RarityMult: 100
   portType: 1
   moduleType: 1
   operational: 1

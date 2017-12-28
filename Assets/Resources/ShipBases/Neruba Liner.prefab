@@ -777,6 +777,8 @@ MonoBehaviour:
   maxhp: 0
   curhp: 0
   invincible: 0
+  IsPlayer: 0
+  ScrapCost: 500
   EnergyMax: 0
   EnergyCur: 0
   DeltaRotation: 0
