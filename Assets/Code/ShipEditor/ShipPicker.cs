@@ -7,10 +7,6 @@ public class ShipPicker : MonoBehaviour {
     public static ShipPicker instance;
 
     public List<GameObject> Source;
-	private GameObject currentShip;
-
-    int chosen = -1;
-
 	// Use this for initialization
 
 	void Start () {
@@ -26,6 +22,6 @@ public class ShipPicker : MonoBehaviour {
 	}
 
     public GameObject GetCurrentShip() {
-		return currentShip;
+		return PlayerData.instance.PlayerShip.gameObject;
     }
 }

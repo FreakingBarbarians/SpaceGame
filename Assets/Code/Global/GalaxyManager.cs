@@ -83,7 +83,8 @@ public class GalaxyManager : IUnityXmlSerializable {
 				Debug.LogWarning("Sector Does not Exist: " + sectorPos.x + " " + sectorPos.y);
 			}
 		} catch (IndexOutOfRangeException e) {
-			Debug.LogWarning ("Out of Galaxy Bounds " + GO.name);
+			
+			Debug.LogWarning ("Out of Galaxy Bounds " + GO.name  + " " + e.Message);
 		}
 	}
 

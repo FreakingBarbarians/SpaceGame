@@ -30,6 +30,9 @@ public partial class Module : Damageable {
 	// this will be saved in prefab so no need to serialize :D
 	public int ScrapCost;
 
+	[Range(1,100)]
+	public int RarityMult = 100;
+
     // serialize/deserialize these fields
     public Port.PortType portType;
 	public ModuleType moduleType;
@@ -93,6 +96,7 @@ public partial class Module : Damageable {
 
 	public override void Die()
 	{
+
 		annie.SetBool ("Die",true);
 		operational = false;
 		gameObject.layer = LayerMask.NameToLayer ("Debris");
@@ -103,12 +107,24 @@ public partial class Module : Damageable {
 	public void SetAdrift(){
 		this.adrift = true;
 
-		Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D> ();
+		float chance = (float)RarityMult + ((float)RarityMult / 2) * ((float)curhp / maxhp);
+
+		GameObject debris;
+
+		if (Utils.Rollf (chance, 100)) {
+			debris = FloatingItemManager.instance.CreateFloatingSchematic (this, transform.position);
+		} else {
+			debris = FloatingItemManager.instance.CreateFloatingScrap ((int)(ScrapCost * (0.5f + Random.value/2)), transform.position);
+		}
+
+		Rigidbody2D rb = debris.GetComponent<Rigidbody2D> ();
 
 		Vector2 away = transform.position - rootShip.transform.position;
 		rb.velocity = away.normalized * Random.value;
-		gameObject.layer = LayerMask.NameToLayer ("Debris");
+		gameObject.layer = LayerMask.NameToLayer ("PlayerOnly");
 		rb.gravityScale = 0;
+
+		GameObject.Destroy (gameObject);
 		// @TODO: pick up logic & set logic
 	}
 

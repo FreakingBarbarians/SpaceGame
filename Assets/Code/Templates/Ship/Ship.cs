@@ -165,22 +165,24 @@ public partial class Ship : Damageable, IQventEmitter {
 			p.Eject ();
 		}
 
-		// @TODO:
-		// some advanced code
-		/*
-		 * Goal: Each module will be set "drifting" and dissappear when leaving the camera bounds
-		 * Modules can "Survive" the explosion where they can be picked up by the ship via contact.
-		 * And used in the ship later on
-		 * 
-		 * Alternatively we can create some object that drops. Like a box.
-		 * Ooooh schematics. Yes They should drop some schematics.
-		 */
+		int num = UnityEngine.Random.Range (1, 11);
+
+		for (int i = 0; i < num; i++) {
+			GameObject debris = FloatingItemManager.instance.CreateFloatingScrap (ScrapCost / 10, transform.position);
+			Rigidbody2D rb = debris.GetComponent<Rigidbody2D> ();
+			Vector2 away = UnityEngine.Random.insideUnitCircle;
+			rb.velocity = away.normalized * UnityEngine.Random.value;
+			gameObject.layer = LayerMask.NameToLayer ("PlayerOnly");
+			rb.gravityScale = 0;
+		}
 
 		Qvent qvent = new Qvent (QventType.DESTROYED, typeof(Ship), this);
 
 		foreach (QventHandler listeners in Listeners) {
 			listeners.HandleQvent (qvent);
 		}
+
+		GameObject.Destroy (this.gameObject);
 	}
 
     public new static GameObject ReadXml(XmlReader reader, Component workingCO) {

@@ -14,6 +14,8 @@ public class CameraManager : MonoBehaviour {
 	private bool LerpToTarget = false;
 	private bool IgnoreTolerance = false;
 
+	private bool inRange = true;
+
 	// Use this for initialization
 	void Start () {
 		if (instance) {
@@ -30,6 +32,9 @@ public class CameraManager : MonoBehaviour {
 		if (!IgnoreTolerance) {
 			if (Vector3.Distance (Camera.main.transform.position, toFollow.transform.position + offset) >= Tolerance) {
 				LerpToTarget = true;
+				inRange = false;
+			} else {
+				inRange = true;
 			}
 		}
 
@@ -37,6 +42,10 @@ public class CameraManager : MonoBehaviour {
 			Vector3 newpos = Vector3.Lerp (Camera.main.transform.position, toFollow.transform.position + offset, Time.deltaTime * LerpFactor);
 			Camera.main.transform.position = newpos;
 			LerpToTarget = false;
+		}
+
+		if (inRange) {
+			Camera.main.transform.position = toFollow.transform.position + offset;
 		}
 	}
 

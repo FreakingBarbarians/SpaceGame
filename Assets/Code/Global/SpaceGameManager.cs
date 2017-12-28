@@ -24,9 +24,11 @@ public class SpaceGameManager : MonoBehaviour {
 		switch (mode) {
 		case GameMode.NORMAL:
 			ShipEditor.instance.Disable ();
+			PlayerData.instance.PlayerShip.GetComponent<PlayerController> ().enabled = true;
 			break;
 		case GameMode.EDITOR:
 			ShipEditor.instance.Enable ();
+			PlayerData.instance.PlayerShip.GetComponent<PlayerController> ().enabled = false;
 			break;
 		}
 
@@ -38,6 +40,7 @@ public class SpaceGameManager : MonoBehaviour {
 		case GameMode.SETUP:
 			GameObject chosen = Utils.getRandomEntry<GameObject> (StartingShips);
 			GameObject starter = Instantiate (chosen);
+			starter.AddComponent<PlayerController> ();
 			Ship ship = starter.GetComponent<Ship> ();
 			ship.SetFaction (FACTION.PLAYER_FACTION);
 			ship.IsPlayer = true;

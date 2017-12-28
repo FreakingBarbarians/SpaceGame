@@ -53,6 +53,7 @@ public class Port : MonoBehaviour {
         this.module = module;
 
         module.transform.position = transform.position;
+		module.transform.rotation = transform.rotation;
         module.transform.SetParent(transform);
         module.transform.localPosition = new Vector3
             (module.transform.localPosition.x,

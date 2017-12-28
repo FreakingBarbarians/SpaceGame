@@ -37,6 +37,7 @@ public class ShipEditor : MonoBehaviour {
 	}
 
     public void OnCapsuleClicked(GameObject capsuleItem) {
+		Debug.Log ("CAPSULE");
         if (ActiveItems.Count >= 1)
         {
             // already has
@@ -117,7 +118,7 @@ public class ShipEditor : MonoBehaviour {
         }
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, ~((1 << 12) | ( 1 << 8)));
+		RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, ~((1 << 12) | ( 1 << 8) | (1 << 14)));
 
         if (hits.Length >= 1) {
             RaycastHit2D hit = hits[0];

@@ -7,8 +7,6 @@ public class TestScrip : MonoBehaviour {
 	public GameObject prefab;
 	public GameObject prefab2;
 	public TextAsset GalManSource;
-	private bool run = false;
-
 
 	private void Update(){
 

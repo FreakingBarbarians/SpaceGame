@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Collections.Generic;
 public class Utils {
 
 
@@ -56,5 +55,16 @@ public class Utils {
 			}
 		}
 		return last;
+	}
+
+	public static bool Rollf(float samplespace, float domain) {
+		float chance = samplespace / domain;
+		float result = UnityEngine.Random.value;
+
+		if (result > chance) {
+			return true;
+		}
+
+		return false;
 	}
 }

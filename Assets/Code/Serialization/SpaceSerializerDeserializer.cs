@@ -214,20 +214,20 @@ public class SpaceSerializerDeserializer : MonoBehaviour
         fs.Dispose();
     }
 
-    // expects to be on the <module> tag
-    public static Module DeserializeModule(string source) {
-
-        GameObject workingGO = null;
-        Component workingCO = null;
-
-        using (Stream s = GenerateStreamFromString(source))
-        {
-            XmlReaderSettings readerSettings = new XmlReaderSettings();
-            readerSettings.IgnoreWhitespace = true;
-            XmlReader reader = XmlReader.Create(s, readerSettings);
-			return DeserializeModule (reader);
-        }
-    }
+//    // expects to be on the <module> tag
+//    public static Module DeserializeModule(string source) {
+//
+//        GameObject workingGO = null;
+//        Component workingCO = null;
+//
+//        using (Stream s = GenerateStreamFromString(source))
+//        {
+//            XmlReaderSettings readerSettings = new XmlReaderSettings();
+//            readerSettings.IgnoreWhitespace = true;
+//            XmlReader reader = XmlReader.Create(s, readerSettings);
+//			return DeserializeModule (reader);
+//        }
+//    }
 
     // stops when it reads Module close tags
 	[DeserializationMethod(typeof(Module))]
@@ -374,7 +374,7 @@ public class SpaceSerializerDeserializer : MonoBehaviour
 						Debug.LogError("Cannot find deserialization method for: " + reader.LocalName);
 					}
 				} catch (KeyNotFoundException k){
-					Debug.LogError ("Cannot find Type Mapping for: " + reader.LocalName);
+					Debug.LogError ("Cannot find Type Mapping for: " + reader.LocalName + " " + k.Message);
 				}
 			}
 		}

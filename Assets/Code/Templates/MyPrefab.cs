@@ -17,11 +17,10 @@ public class MyPrefab : IUnityXmlSerializable {
     // deserialize from given xml reader
     public static GameObject ReadXml(XmlReader reader, Component workingObj)
     {
-        string name = "";
         string path = "";
 
         reader.Read();
-        name = reader.ReadString();
+        reader.ReadString();
 
         reader.Read();
         path = reader.ReadString();

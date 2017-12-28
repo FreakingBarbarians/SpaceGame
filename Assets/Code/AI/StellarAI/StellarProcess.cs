@@ -10,7 +10,7 @@ namespace StellarAI{
 			
 		}
 
-		public virtual void Run() {
+		public override void Run() {
 			if (status != StellarStatus.RUNNING) {
 				onBegin ();
 			}

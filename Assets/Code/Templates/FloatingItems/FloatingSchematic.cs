@@ -25,6 +25,9 @@ public class FloatingSchematic : FloatingItem {
 	{
 		PlayerData.instance.AddModule (Prefab);
 		Qvent qvent = new Qvent (QventType.REMOVED_FROM_GAME_WORLD, typeof(FloatingItem), this);
+		foreach (QventHandler l in Listeners) {
+			l.HandleQvent (qvent);
+		}
 		Destroy (gameObject);
 	}
 }

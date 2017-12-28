@@ -10,7 +10,7 @@ public class CombatSubroutine : StellarSubroutine {
 	public float ChaseRange;
 	public float RefreshRate;
 	private float RefreshRateTimer;
-	private CircleCollider2D collider;
+	private CircleCollider2D combatCollider;
 
 	public void FixedUpdate(){
 		if (RefreshRateTimer <= 0) {
@@ -25,16 +25,16 @@ public class CombatSubroutine : StellarSubroutine {
 		base.init ();
 		gameObject.layer = LayerMask.NameToLayer ("ShipOnly");
 		// set up collider
-		collider = gameObject.AddComponent<CircleCollider2D> ();
-		collider.radius = ScanRadius;
-		collider.isTrigger = true;
-		collider.enabled = true;
+		combatCollider = gameObject.AddComponent<CircleCollider2D> ();
+		combatCollider.radius = ScanRadius;
+		combatCollider.isTrigger = true;
+		combatCollider.enabled = true;
 
 	}
 
 	private void FindEnemies(){
 		RaycastHit2D[] hits = null;
-		int count = collider.Cast (new Vector2(1,1), hits);
+		int count = combatCollider.Cast (new Vector2(1,1), hits);
 		for (int i = 0; i < count; i++) {
 			Ship ship = hits [i].collider.gameObject.GetComponent<Ship> ();
 			Debug.Log (ship.name);

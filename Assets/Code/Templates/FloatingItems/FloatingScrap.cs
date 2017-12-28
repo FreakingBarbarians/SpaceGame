@@ -20,6 +20,9 @@ public class FloatingScrap : FloatingItem {
 	{
 		PlayerData.instance.AddScrap (ScrapValue);
 		Qvent qvent = new Qvent (QventType.REMOVED_FROM_GAME_WORLD, typeof(FloatingItem), this);
+		foreach (QventHandler l in Listeners) {
+			l.HandleQvent (qvent);
+		}
 		Destroy (gameObject);
 	}
 }

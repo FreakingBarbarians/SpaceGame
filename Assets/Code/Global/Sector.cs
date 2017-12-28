@@ -25,13 +25,6 @@ public class Sector : IUnityXmlSerializable, QventHandler {
 	}
 
 	public void RemoveFromSector(GameObject Object) {
-		
-		foreach (MonoBehaviour qventEmitter in Object.GetComponentsInChildren<MonoBehaviour>()) {
-			if (qventEmitter is IQventEmitter) {
-				((IQventEmitter)qventEmitter).UnregisterListener (this);
-			}
-		}
-
 		Objects.Remove (Object);
 	}
 
@@ -113,13 +106,13 @@ public class Sector : IUnityXmlSerializable, QventHandler {
 		switch (qvent.QventType) {
 		case QventType.DESTROYED:
 			// remove destroyed ship from tracking
-			if(qvent.PayloadType is Ship){
+			if(qvent.PayloadType == typeof(Ship)){
 				RemoveFromSector (((Ship)qvent.Payload).gameObject);
 			}
 			break;
 		case QventType.REMOVED_FROM_GAME_WORLD:
 			// remove destroyed object from tracking
-			if(qvent.PayloadType is FloatingItem) {
+			if(qvent.PayloadType == typeof(FloatingItem)) {
 				RemoveFromSector (((FloatingItem)qvent.Payload).gameObject);
 			}
 			break;
