@@ -34,19 +34,25 @@ public partial class Ship : Damageable{
 	public void OnPortConnected(Module mod) {
         moduleConnectHelper(mod, true);
         moduleEnableHelper(mod, true, mod.portType == Port.PortType.MAIN);
+
 		Qvent q = new Qvent (QventType.STRUCTURE_CHANGED);
 		foreach (QventHandler handy in Listeners) {
 			handy.HandleQvent (q);
 		}
+
+		mod.RegisterListener (this);
     }
 
 	public void OnPortDisconnected(Module mod) {
         moduleConnectHelper(mod, false);
         moduleEnableHelper(mod, false, mod.portType == Port.PortType.MAIN);
+
 		Qvent q = new Qvent (QventType.STRUCTURE_CHANGED);
 		foreach (QventHandler handy in Listeners) {
 			handy.HandleQvent (q);
 		}
+
+		mod.UnregisterListener (this);
 	}
 
     private void moduleConnectHelper(Module mod, bool connecting) {

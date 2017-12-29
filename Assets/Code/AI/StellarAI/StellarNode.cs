@@ -79,6 +79,9 @@ namespace StellarAI {
 		}
 
 		public virtual void OnInterrupt() {
+			if (Parent) {
+				Parent.OnInterrupt ();
+			}
 		}
 
 		private void FindChildren() {

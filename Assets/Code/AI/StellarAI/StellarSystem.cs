@@ -19,7 +19,9 @@ namespace StellarAI{
 		public virtual void init(){
 			foreach (StellarSubroutine routine in SubRoutinesRef) {
 				SubRoutines.Add (routine.gameObject.name, routine);
-				Triggers.Add (routine.Trigger, routine);
+				if (routine.Trigger != QventType.NONE) {
+					Triggers.Add (routine.Trigger, routine);
+				}
 				routine.SetRoot (this);
 				routine.SetParent (null);
 			}

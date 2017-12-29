@@ -9,7 +9,7 @@ using QventSystem;
 // oh well.
 
 [Serializable]
-public partial class Ship : Damageable {
+public partial class Ship : Damageable, QventHandler {
 	public enum ShipState
 	{
 		NORMAL,
@@ -45,6 +45,7 @@ public partial class Ship : Damageable {
     public int EnergyRegen;
 
     private float timer = SpaceGameGlobal.TICK_RATE;
+	private float CombatCooldownTimer = 0;
 
 	[SerializeField]
     protected Animator annie;
@@ -74,11 +75,19 @@ public partial class Ship : Damageable {
         // register all of our ports
         foreach (Port p in ports) {
             p.Register(this);
+			Module m;
+			if((m = p.GetModule())){
+				m.RegisterListener(this);
+			}
         }
 
         foreach (Port p in mainPorts) {
-            p.Register(this);
-        }
+			p.Register(this);
+			Module m;
+			if((m = p.GetModule())){
+				m.RegisterListener(this);
+			}
+		}
 		AddHealthBar ();
     }
 
@@ -105,8 +114,18 @@ public partial class Ship : Damageable {
 
 	private void tick(){
 		EnergyCur = Mathf.Min (EnergyMax, EnergyCur + EnergyRegen);
-		if (State == ShipState.REPAIR) {
+
+		switch (State) {
+		case ShipState.REPAIR:
 			Repair (SpaceGameGlobal.TICK_RATE);
+			break;
+		case ShipState.COMBAT:
+			if (CombatCooldownTimer <= 0) {
+				SetState (ShipState.NORMAL);
+			} else {
+				CombatCooldownTimer -= SpaceGameGlobal.TICK_RATE;
+			}
+			break;
 		}
 	}
 
@@ -129,17 +148,35 @@ public partial class Ship : Damageable {
 	}
 
 	public void BeginRepair() {
+		if (State == ShipState.COMBAT) {
+			return;
+		}
+
 		if (DeltaRotation == 0 && DeltaPosition.magnitude == 0) {
 			SetState (ShipState.REPAIR);
 		}
 	}
 
 	public void StopRepair() {
-		SetState (ShipState.NORMAL);
+		SetState (ShipState.COMBAT);
 	}
 
-	public void SetState(ShipState state){
-		this.State = state;
+	public void SetState(ShipState newState){
+		switch(newState){
+		case ShipState.REPAIR:
+			if (State == ShipState.COMBAT) {
+				return;
+			}
+			State = newState;
+			break;
+		case ShipState.COMBAT:
+			StopRepair ();
+			newState = ShipState.COMBAT;
+			break;
+		default:
+			State = newState;
+			break;
+		}
 	}
 
 	protected override void AddHealthBar ()
@@ -277,6 +314,18 @@ public partial class Ship : Damageable {
 
 		GameObject.Destroy (this.gameObject);
 	}
+
+
+	public void HandleQvent(Qvent qvent){
+		switch (qvent.QventType) {
+		case QventType.DAMAGED:
+			Debug.Log ("DAMAGED");
+			SetState (ShipState.COMBAT);
+			CombatCooldownTimer = SpaceGameGlobal.COMBAT_COOLDOWN;
+			break;
+		}
+	}
+
 
     public new static GameObject ReadXml(XmlReader reader, Component workingCO) {
         Ship ship = (Ship)workingCO;

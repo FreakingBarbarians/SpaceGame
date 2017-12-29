@@ -65,7 +65,6 @@ public class Damageable : MyPrefab, IQventEmitter {
 	}
 
     public virtual void DoDamage(int amt) {
-
         if (invincible || amt < 0) {
             return;
         }

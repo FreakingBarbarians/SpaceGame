@@ -9,7 +9,8 @@ public enum FACTION {
 }
 
 public class SpaceGameGlobal {
-	public static readonly float TICK_RATE = 1;
+	public static readonly float TICK_RATE = 1f;
+	public static readonly float COMBAT_COOLDOWN = 5f;
 
     public static FACTION StringToFaction(string faction) {
 

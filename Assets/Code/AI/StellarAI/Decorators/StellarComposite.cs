@@ -33,6 +33,5 @@ namespace StellarAI {
 				onFinish (StellarStatus.SUCCESS);
 			}
 		}
-
 	}
 }

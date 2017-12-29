@@ -16,12 +16,12 @@ namespace StellarAI{
 		protected override void onFinish (StellarStatus finstatus)
 		{
 			status = StellarStatus.IDLE;
-
 			if (Parent) {
-				Parent.ChildFinished (StellarStatus.SUCCESS);
+				Parent.ChildFinished (finstatus);
 			} else {
 				aiSystem.GoIdle ();
 			}
+
 		}
 
 		public virtual void HandleQvent(Qvent Qvent){
@@ -42,20 +42,16 @@ namespace StellarAI{
 		}
 
 		public void SetRoot(StellarSystem system) {
+			
 			if (!setup) {
 				init ();
 			}
+
 			aiSystem = system;
 			cachedRoot = system.Root;
 			foreach (StellarNode child in Children) {
 				child.Register (this);
-			}
-		}
-
-		public override void ChildFinished (StellarStatus finstatus)
-		{
-			base.ChildFinished (finstatus);
-			onFinish (finstatus);
+			} 
 		}
 	}
 }
