@@ -15,6 +15,8 @@ namespace StellarAI{
 
 		protected override void onFinish (StellarStatus finstatus)
 		{
+			
+			Debug.Log (name + " Finished");
 			status = StellarStatus.IDLE;
 			if (Parent) {
 				Parent.ChildFinished (finstatus);
@@ -22,6 +24,10 @@ namespace StellarAI{
 				aiSystem.GoIdle ();
 			}
 
+		}
+
+		public override void ChildFinished(StellarStatus finstatus) {
+			onFinish (finstatus);
 		}
 
 		public virtual void HandleQvent(Qvent Qvent){

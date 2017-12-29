@@ -31,6 +31,7 @@ namespace StellarAI {
 		public virtual void Run() {
 				onBegin ();
 		}	
+			
 
 		public virtual void ChildFinished(StellarStatus finstatus) {
 			if (Parent) {
@@ -79,6 +80,7 @@ namespace StellarAI {
 		}
 
 		public virtual void OnInterrupt() {
+			status = StellarStatus.IDLE;
 			if (Parent) {
 				Parent.OnInterrupt ();
 			}

@@ -49,8 +49,8 @@ public class Repair: StellarProcess {
 
 	protected override void onFinish (StellarStatus status)
 	{
-		cachedRoot.StopRepair ();
 		base.onFinish (status);
+		cachedRoot.StopRepair ();
 	}
 
 	public override void OnInterrupt ()

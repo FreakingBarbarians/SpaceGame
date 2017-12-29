@@ -14,8 +14,8 @@ public class RunSubroutine : StellarNode {
 
 	protected override void onFinish (StellarStatus finstatus)
 	{
-		routine.SetParent (null);
 		base.onFinish (finstatus);
+		routine.SetParent (null);
 	}
 
 	public override void OnInterrupt ()

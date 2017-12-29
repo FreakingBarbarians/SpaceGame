@@ -34,12 +34,12 @@ public class CombatSubroutine : StellarSubroutine {
 
 	private void FindEnemies(){
 		RaycastHit2D[] hits = null;
-		int count = combatCollider.Cast (new Vector2(1,1), hits);
+		int count = combatCollider.Cast (new Vector2(0,0), hits);
 		for (int i = 0; i < count; i++) {
 			Ship ship = hits [i].collider.gameObject.GetComponent<Ship> ();
-			Debug.Log (ship.name);
 			if (ship.faction != cachedRoot.faction) {
 				targets.Add (ship);
+				ship.RegisterListener (this);
 			}
 		}
 	}
@@ -47,22 +47,41 @@ public class CombatSubroutine : StellarSubroutine {
 	private void CullEnemies() {
 		List<Ship> toRemove = new List<Ship> ();
 		foreach (Ship ship in targets) {
-			if (Vector2.Distance (ship.transform.position, transform.position) >= ChaseRange || ship.curhp <= 0) {
+			if (Vector2.Distance (ship.transform.position, transform.position) >= ChaseRange) {
 				toRemove.Add (ship);
 			}
 		}
 		foreach (Ship ship in toRemove) {
 			targets.Remove (ship);
+			ship.UnregisterListener (this);
 		}
 	}
 
 	public override void HandleQvent (Qvent Qvent)
 	{
-		FindEnemies ();
-		if (!Parent) {
-			aiSystem.ActiveRoutine = this;
-			Run ();
+		Debug.Log ("RECIVED " + Qvent.QventType.ToString ());
+		switch (Qvent.QventType) {
+		case QventType.DAMAGED:
+			FindEnemies ();
+			if (!Parent) {
+				aiSystem.ActiveRoutine = this;
+				Run ();
+			}
+			break;
+		case QventType.SHIP_DETECTED:
+			FindEnemies ();
+			if (!Parent) {
+				aiSystem.ActiveRoutine = this;
+				Run ();
+			}
+			break;
+		case QventType.DESTROYED:
+			if (Qvent.PayloadType.IsSubclassOf(typeof(Ship))) {
+				targets.Remove ((Ship)Qvent.Payload);
+			}
+			break;
 		}
+
 	}
 
 	void OnTriggerEnter2D (Collider2D coll){
@@ -75,4 +94,5 @@ public class CombatSubroutine : StellarSubroutine {
 			}
 		}
 	}
+
 }

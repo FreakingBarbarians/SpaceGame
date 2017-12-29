@@ -60,6 +60,7 @@ namespace StellarAI{
 				if (ActiveProcess) {
 					ActiveProcess.OnInterrupt ();
 				}
+
 				StellarSubroutine result = Triggers [qvent.QventType];
 				Triggers [qvent.QventType].HandleQvent (qvent);
 

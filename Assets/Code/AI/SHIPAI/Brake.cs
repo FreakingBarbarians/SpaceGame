@@ -18,10 +18,19 @@ public class Brake : StellarProcess {
 			onFinish (StellarStatus.FAIL);
 			return;
 		}
+
 		if (cachedRoot.DeltaPosition.magnitude == 0 && cachedRoot.DeltaRotation == 0) {
 			onFinish (StellarStatus.SUCCESS);
 			return;
 		}
+
+		TimeLimitTimer += Time.fixedDeltaTime;
+
 		cachedRoot.Brake ();
+	}
+
+	public override void OnInterrupt ()
+	{
+		base.OnInterrupt ();
 	}
 }

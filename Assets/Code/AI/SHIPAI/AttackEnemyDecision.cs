@@ -7,6 +7,8 @@ using QventSystem;
 public class AttackEnemyDecision : StellarProcess {
 	private CombatSubroutine cachedSubroutine;
 	private bool bit = false;
+	public float TargetDistance;
+
 	protected override void onBegin ()
 	{
 		if (!(subRoutine is CombatSubroutine)) {
@@ -15,7 +17,7 @@ public class AttackEnemyDecision : StellarProcess {
 		}
 		base.onBegin ();
 		cachedSubroutine = (CombatSubroutine) subRoutine;
-		cachedRoot.Fire (~0); // all
+		cachedRoot.SetState (Ship.ShipState.COMBAT);
 	}
 
 	public override void Process ()
@@ -26,7 +28,15 @@ public class AttackEnemyDecision : StellarProcess {
 		}
 
 		Vector2 dir = cachedSubroutine.targets [0].transform.position - transform.position;
-		cachedRoot.Thrust (dir);
+		Vector2 holdPos = dir;
+
+		holdPos.Normalize ();
+		holdPos = (-holdPos * TargetDistance + (Vector2)cachedSubroutine.targets [0].transform.position) - (Vector2)transform.position;
+		if (holdPos.magnitude <= 0.5f) {
+			cachedRoot.Brake ();
+		} else {
+			cachedRoot.Thrust (holdPos);
+		}
 		cachedRoot.RotateTowards (dir);
 		cachedRoot.PointWeaponsTowards (cachedSubroutine.targets[0].transform.position);
 
@@ -38,13 +48,14 @@ public class AttackEnemyDecision : StellarProcess {
 			bit = !bit;
 		}
 
+		cachedRoot.SetState (Ship.ShipState.COMBAT);
 		// @TODO: weapon ctonrol and fireing.
 	}
 
 	protected override void onFinish (StellarStatus status)
 	{
-		cachedRoot.Fire (0);
 		base.onFinish (status);
+		cachedRoot.Fire (0);
 	}
 
 	public override void OnInterrupt ()

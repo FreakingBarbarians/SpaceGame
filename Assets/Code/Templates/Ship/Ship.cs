@@ -23,7 +23,7 @@ public partial class Ship : Damageable, QventHandler {
 
 	public bool IsPlayer;
 
-	public int ScrapCost;
+	public int ScrapCost; 
 
 	public int EnergyMax;
 	public int EnergyCur;
@@ -90,7 +90,7 @@ public partial class Ship : Damageable, QventHandler {
 		}
 		AddHealthBar ();
     }
-
+		
 	public void FixedUpdate(){
 		timer -= Time.deltaTime;
 		if (timer <= 0) {
@@ -158,7 +158,7 @@ public partial class Ship : Damageable, QventHandler {
 	}
 
 	public void StopRepair() {
-		SetState (ShipState.COMBAT);
+		State = ShipState.COMBAT;
 	}
 
 	public void SetState(ShipState newState){
@@ -170,13 +170,16 @@ public partial class Ship : Damageable, QventHandler {
 			State = newState;
 			break;
 		case ShipState.COMBAT:
-			StopRepair ();
-			newState = ShipState.COMBAT;
+			State = newState;
+			if (State == ShipState.REPAIR) {
+				StopRepair ();
+			}
+			CombatCooldownTimer = SpaceGameGlobal.COMBAT_COOLDOWN;
 			break;
 		default:
 			State = newState;
 			break;
-		}
+		} 
 	}
 
 	protected override void AddHealthBar ()
