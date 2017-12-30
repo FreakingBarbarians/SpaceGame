@@ -15,8 +15,6 @@ namespace StellarAI{
 
 		protected override void onFinish (StellarStatus finstatus)
 		{
-			
-			Debug.Log (name + " Finished");
 			status = StellarStatus.IDLE;
 			if (Parent) {
 				Parent.ChildFinished (finstatus);

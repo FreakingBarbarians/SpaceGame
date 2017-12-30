@@ -57,8 +57,6 @@ public class Damageable : MyPrefab, IQventEmitter {
 		RegisterListener (bar);
 		bar.Refresh ();
 
-		Vector2 offset;
-
 		Sprite s = GetComponent<SpriteRenderer> ().sprite;
 		float yoffset =  s.textureRect.size.y / s.pixelsPerUnit;
 		hpBar.transform.position += new Vector3 (0, -yoffset/2, 0);

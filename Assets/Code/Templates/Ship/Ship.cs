@@ -45,7 +45,7 @@ public partial class Ship : Damageable, QventHandler {
     public int EnergyRegen;
 
     private float timer = SpaceGameGlobal.TICK_RATE;
-	private float CombatCooldownTimer = 0;
+	protected float CombatCooldownTimer = 0;
 
 	[SerializeField]
     protected Animator annie;
@@ -56,7 +56,7 @@ public partial class Ship : Damageable, QventHandler {
 
     public void Start()
     {
-		
+
 		if (IsPlayer) {
 			transform.gameObject.layer = LayerMask.NameToLayer ("Player");
 
@@ -65,10 +65,13 @@ public partial class Ship : Damageable, QventHandler {
 				return;
 			} else {
 				PlayerData.instance.PlayerShip = this;
+				gameObject.name = "Player";
 			}
 			// add player controller?
 		} else {
 			transform.gameObject.layer = LayerMask.NameToLayer ("Ship");
+			transform.position += new Vector3 (0, 0, UnityEngine.Random.Range (0, 100));
+
 		}
 
 		annie = GetComponent<Animator> ();
@@ -112,7 +115,7 @@ public partial class Ship : Damageable, QventHandler {
 		}
 	}
 
-	private void tick(){
+	protected virtual void tick(){
 		EnergyCur = Mathf.Min (EnergyMax, EnergyCur + EnergyRegen);
 
 		switch (State) {
@@ -192,8 +195,6 @@ public partial class Ship : Damageable, QventHandler {
 		RegisterListener (bar);
 
 		bar.Refresh ();
-
-		Vector2 offset;
 
 		Sprite s = GetComponent<SpriteRenderer> ().sprite;
 		float yoffset =  s.textureRect.size.y / s.pixelsPerUnit;
@@ -312,6 +313,7 @@ public partial class Ship : Damageable, QventHandler {
 		Qvent qvent = new Qvent (QventType.DESTROYED, typeof(Ship), this);
 
 		foreach (QventHandler listeners in Listeners) {
+			Debug.Log ("Listener Found");
 			listeners.HandleQvent (qvent);
 		}
 
@@ -319,10 +321,9 @@ public partial class Ship : Damageable, QventHandler {
 	}
 
 
-	public void HandleQvent(Qvent qvent){
+	public virtual void HandleQvent(Qvent qvent){
 		switch (qvent.QventType) {
 		case QventType.DAMAGED:
-			Debug.Log ("DAMAGED");
 			SetState (ShipState.COMBAT);
 			CombatCooldownTimer = SpaceGameGlobal.COMBAT_COOLDOWN;
 			break;

@@ -55,10 +55,20 @@ public class Port : MonoBehaviour {
         module.transform.position = transform.position;
 		module.transform.rotation = transform.rotation;
         module.transform.SetParent(transform);
+
+		float zpos = 0;
+		if (transform.localPosition.y <= 0) {
+			zpos = transform.localPosition.y;
+		} else {
+			zpos = 2 * transform.localPosition.y;
+		}
+
         module.transform.localPosition = new Vector3
             (module.transform.localPosition.x,
             module.transform.localPosition.y,
-            transform.localPosition.y/10f);
+            zpos/10f);	
+		
+
         module.Register(this);
         module.OnConnect();
         root.OnPortConnected(module);

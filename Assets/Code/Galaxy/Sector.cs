@@ -7,7 +7,7 @@ using QventSystem;
 // 100 by 100 units. This is good
 public class Sector : IUnityXmlSerializable, QventHandler {
 
-	private List<GameObject> Objects = new List<GameObject>();
+	public List<GameObject> Objects = new List<GameObject>();
 	public bool Loaded = false;
 	public Vector2Int index;
 
@@ -21,6 +21,7 @@ public class Sector : IUnityXmlSerializable, QventHandler {
 
 		if(!Objects.Contains(Object)){
 			Objects.Add (Object);
+			Object.SetActive (Loaded);
 		}
 	}
 
@@ -29,12 +30,14 @@ public class Sector : IUnityXmlSerializable, QventHandler {
 	}
 
 	public void Unload() {
+		Loaded = false;
 		foreach (GameObject obj in Objects) {
 			obj.SetActive (false);
 		}
 	}
 
 	public void Load() {
+		Loaded = true;
 		foreach (GameObject obj in Objects) {
 			obj.SetActive (true);
 		}

@@ -38,23 +38,30 @@ public class CombatSubroutine : StellarSubroutine {
 		for (int i = 0; i < count; i++) {
 			Ship ship = hits [i].collider.gameObject.GetComponent<Ship> ();
 			if (ship.faction != cachedRoot.faction) {
-				targets.Add (ship);
-				ship.RegisterListener (this);
+				if (!targets.Contains (ship)) {
+					Debug.Log ("ADD " + ship.name);
+					targets.Add (ship);
+					ship.RegisterListener (this);
+				}
 			}
 		}
+
 	}
 
 	private void CullEnemies() {
 		List<Ship> toRemove = new List<Ship> ();
 		foreach (Ship ship in targets) {
 			if (Vector2.Distance (ship.transform.position, transform.position) >= ChaseRange) {
+				Debug.Log ("REMOVE " + ship.name);
 				toRemove.Add (ship);
 			}
 		}
+
 		foreach (Ship ship in toRemove) {
 			targets.Remove (ship);
 			ship.UnregisterListener (this);
 		}
+
 	}
 
 	public override void HandleQvent (Qvent Qvent)
@@ -76,12 +83,11 @@ public class CombatSubroutine : StellarSubroutine {
 			}
 			break;
 		case QventType.DESTROYED:
-			if (Qvent.PayloadType.IsSubclassOf(typeof(Ship))) {
+			if (Qvent.PayloadType.IsAssignableFrom(typeof(Ship))) {
 				targets.Remove ((Ship)Qvent.Payload);
 			}
 			break;
 		}
-
 	}
 
 	void OnTriggerEnter2D (Collider2D coll){
@@ -90,9 +96,11 @@ public class CombatSubroutine : StellarSubroutine {
 		if ((ship = coll.gameObject.GetComponent<Ship>())) {
 			if (ship.faction != cachedRoot.faction) {
 				aiSystem.HandleQvent (new Qvent (QventType.SHIP_DETECTED));
-				targets.Add (ship);
+				if (!targets.Contains (ship)) {
+					targets.Add (ship);
+					ship.RegisterListener (this);
+				}
 			}
 		}
 	}
-
 }

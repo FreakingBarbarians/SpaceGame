@@ -5,7 +5,7 @@ using System.Xml;
 using UnityEngine;
 using QventSystem;
 
-public class GalaxyManager : IUnityXmlSerializable {
+public class GalaxyManager : IUnityXmlSerializable, QventHandler {
 
 	// Instantiate things through this so they are managed by the galaxy!
 	public static GalaxyManager instance;
@@ -19,9 +19,11 @@ public class GalaxyManager : IUnityXmlSerializable {
 	public Sector[,] Sectors; 	// [y][x] 
 								// could be ragged i guess. if we allow null entries...
 								// Doesn't make sense tbh, we can just have sectors that don't allow entry
-	public Dictionary<GameObject, Vector2Int> Observers = new Dictionary<GameObject, Vector2Int>();
+	[SerializeField]
+	private Dictionary<GameObject, Vector2Int> Observers = new Dictionary<GameObject, Vector2Int>();
 	public List<Sector> LoadedSectors;
 	public int LoadRadius;
+	public GenerationScheme Scheme;
 	private bool initialized = false;
 
 	void Start() {
@@ -49,6 +51,7 @@ public class GalaxyManager : IUnityXmlSerializable {
 				sector.index = new Vector2Int (x, y);
 				sectorGO.transform.position = SectorToWorldPoint (new Vector2Int (x, y));
 				sectorGO.transform.SetParent (this.transform);
+				Scheme.Generate(sector);
 			}
 		}
 		initialized = true;
@@ -65,6 +68,18 @@ public class GalaxyManager : IUnityXmlSerializable {
 					Sectors [y, x].Check ();
 				}
 			}
+
+			List<GameObject> update = new List<GameObject> ();
+
+			foreach (GameObject go in Observers.Keys) {
+				UpdateLoadZone (Observers [go], WorldToSectorPoint (go.transform.position));
+				update.Add (go);
+			}
+
+			foreach (GameObject go in update) {
+				Observers [go] = WorldToSectorPoint (go.transform.position);
+			}
+
 			CheckTimer += CheckTime;
 		}
 		UpdateTimer -= Time.fixedDeltaTime;
@@ -88,6 +103,18 @@ public class GalaxyManager : IUnityXmlSerializable {
 		}
 	}
 
+	public void AddObserver(GameObject GO){
+		if(!Observers.ContainsKey(GO)){
+			Observers.Add (GO, WorldToSectorPoint(GO.transform.position));
+			GO.GetComponent<Ship> ().RegisterListener (this);
+		}
+	}
+
+	public void RemoveObserver(GameObject GO){
+		GO.GetComponent<Ship> ().UnregisterListener (this);
+		Observers.Remove (GO);
+	}
+
 	// probably run this at 1 second intervals
 	public void LoadAreas() {
 		foreach (GameObject observer in Observers.Keys) {
@@ -98,56 +125,78 @@ public class GalaxyManager : IUnityXmlSerializable {
 	}
 
 	public void UpdateLoadZone(Vector2Int prev, Vector2Int next) {
-		if (next.x > prev.x) {
-			// unload left side of area
-			for(int i = 0; i < LoadRadius * 2 + 1; i ++) {
-				Sector oldSector = Sectors [prev.y - LoadRadius + i, prev.x - LoadRadius];
-				Sector newSector = Sectors [next.y - LoadRadius + i, next.y + LoadRadius];
-				if (oldSector.Loaded) {
-					oldSector.Unload();
-				}
-				if (!newSector.Loaded) {
-					newSector.Load ();
-				}
-			}
-		} else if (next.x < prev.x){
-			// unload right side of area
-			for(int i = 0; i < LoadRadius * 2 + 1; i ++) {
-				Sector oldSector = Sectors [prev.y - LoadRadius + i, prev.x + LoadRadius];
-				Sector newSector = Sectors [next.y - LoadRadius + i, next.y - LoadRadius];
-				if (oldSector.Loaded) {
-					oldSector.Unload();
-				}
-				if (!newSector.Loaded) {
-					newSector.Load ();
+
+		for (int y = 0; y < LoadRadius * 2 + 1; y++) {
+			for (int x = 0; x < LoadRadius * 2 + 1; x++) {
+				if (prev.y - LoadRadius + y >= 0 && prev.y - LoadRadius + y < Height) {
+					if (prev.x - LoadRadius + x >= 0 && prev.x - LoadRadius + x < Width) {
+						Sectors [prev.y - LoadRadius + y, prev.x - LoadRadius + x].Unload ();
+					}
 				}
 			}
 		}
-		if (next.y > prev.y) {
-			// unload bottom of area
-			for(int i = 0; i < LoadRadius * 2 + 1; i ++) {
-				Sector oldSector = Sectors [prev.y - LoadRadius, prev.x - LoadRadius + i];
-				Sector newSector = Sectors [next.y + LoadRadius, next.y - LoadRadius + i];
-				if (oldSector.Loaded) {
-					oldSector.Unload();
-				}
-				if (!newSector.Loaded) {
-					newSector.Load ();
-				}
-			}
-		} else if (next.y < prev.y) {
-			// unload top of area
-			for(int i = 0; i < LoadRadius * 2 + 1; i ++) {
-				Sector oldSector = Sectors [prev.y + LoadRadius, prev.x - LoadRadius + i];
-				Sector newSector = Sectors [next.y - LoadRadius, next.y - LoadRadius + i];
-				if (oldSector.Loaded) {
-					oldSector.Unload();
-				}
-				if (!newSector.Loaded) {
-					newSector.Load ();
+
+
+		for (int y = 0; y < LoadRadius * 2 + 1; y++) {
+			for (int x = 0; x < LoadRadius * 2 + 1; x++) {
+				if (next.y - LoadRadius + y >= 0 && next.y - LoadRadius + y < Height) {
+					if (next.x - LoadRadius + x >= 0 && next.x - LoadRadius + x < Width) {
+						Sectors [next.y - LoadRadius + y, prev.x - LoadRadius + x].Load ();
+					}
 				}
 			}
 		}
+
+		//		if (next.x > prev.x) {
+//			// unload left side of area
+//			for(int i = 0; i < LoadRadius * 2 + 1; i ++) {
+//				Sector oldSector = Sectors [prev.y - LoadRadius + i, prev.x - LoadRadius];
+//				Sector newSector = Sectors [next.y - LoadRadius + i, next.y + LoadRadius];
+//				if (oldSector.Loaded) {
+//					oldSector.Unload();
+//				}
+//				if (!newSector.Loaded) {
+//					newSector.Load ();
+//				}
+//			}
+//		} else if (next.x < prev.x){
+//			// unload right side of area
+//			for(int i = 0; i < LoadRadius * 2 + 1; i ++) {
+//				Sector oldSector = Sectors [prev.y - LoadRadius + i, prev.x + LoadRadius];
+//				Sector newSector = Sectors [next.y - LoadRadius + i, next.y - LoadRadius];
+//				if (oldSector.Loaded) {
+//					oldSector.Unload();
+//				}
+//				if (!newSector.Loaded) {
+//					newSector.Load ();
+//				}
+//			}
+//		}
+//		if (next.y > prev.y) {
+//			// unload bottom of area
+//			for(int i = 0; i < LoadRadius * 2 + 1; i ++) {
+//				Sector oldSector = Sectors [prev.y - LoadRadius, prev.x - LoadRadius + i];
+//				Sector newSector = Sectors [next.y + LoadRadius, next.y - LoadRadius + i];
+//				if (oldSector.Loaded) {
+//					oldSector.Unload();
+//				}
+//				if (!newSector.Loaded) {
+//					newSector.Load ();
+//				}
+//			}
+//		} else if (next.y < prev.y) {
+//			// unload top of area
+//			for(int i = 0; i < LoadRadius * 2 + 1; i ++) {
+//				Sector oldSector = Sectors [prev.y + LoadRadius, prev.x - LoadRadius + i];
+//				Sector newSector = Sectors [next.y - LoadRadius, next.y - LoadRadius + i];
+//				if (oldSector.Loaded) {
+//					oldSector.Unload();
+//				}
+//				if (!newSector.Loaded) {
+//					newSector.Load ();
+//				}
+//			}
+//		}
 	}
 
 	// yuck duck
@@ -263,5 +312,15 @@ public class GalaxyManager : IUnityXmlSerializable {
 		GameObject.Destroy (Sectors [index.y, index.x].gameObject);
 		Sectors [index.y, index.x] = sector;
 		sector.gameObject.transform.position = SectorToWorldPoint (index);
+	}
+
+	public void HandleQvent(Qvent q) {
+		switch (q.QventType) {
+		case QventType.DESTROYED:
+			if (q.PayloadType.IsAssignableFrom(typeof(Ship))) {
+				Observers.Remove (((Ship)q.Payload).gameObject);
+			}
+			break;
+		}
 	}
 }

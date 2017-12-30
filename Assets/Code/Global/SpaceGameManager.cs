@@ -39,13 +39,16 @@ public class SpaceGameManager : MonoBehaviour {
 		switch (Mode) {
 		case GameMode.SETUP:
 			GameObject chosen = Utils.getRandomEntry<GameObject> (StartingShips);
-			GameObject starter = Instantiate (chosen);
+			GameObject starter = GalaxyManager.SpawnWorldObject (chosen, Vector3.zero);
+			GalaxyManager.instance.AddObserver (starter);
+			starter.name = "Player";
 			starter.AddComponent<PlayerController> ();
 			Ship ship = starter.GetComponent<Ship> ();
 			ship.SetFaction (FACTION.PLAYER_FACTION);
 			ship.IsPlayer = true;
 			PlayerData.instance.PlayerShip = ship;
 			PlayerData.instance.AddScrap (StartingScrap);
+
 			foreach (GameObject mod in StartingModules) {
 				PlayerData.instance.AddModule (mod);		
 			}

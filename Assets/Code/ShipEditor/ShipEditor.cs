@@ -34,6 +34,7 @@ public class ShipEditor : MonoBehaviour {
 	public void Disable() {
 		gameObject.SetActive (false);
 		CameraManager.instance.AddOffset (-offset);
+		ClearDangling ();
 	}
 
     public void OnCapsuleClicked(GameObject capsuleItem) {
@@ -55,7 +56,7 @@ public class ShipEditor : MonoBehaviour {
             item.transform.position = new Vector3(
                 Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 
                 Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
-                item.transform.position.z);
+				transform.position.z);
 
         }
         if (Input.GetMouseButtonUp(0)) {
