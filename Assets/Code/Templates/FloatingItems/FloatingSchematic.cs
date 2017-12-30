@@ -6,6 +6,7 @@ using QventSystem;
 public class FloatingSchematic : FloatingItem {
 	public GameObject Prefab;
 	public string RepresentedItem;
+
 	public void SetItem(string resourcePath) {
 		GameObject go = Resources.Load (resourcePath) as GameObject;
 		if (go) {

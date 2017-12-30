@@ -11,16 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ccfcafede6541ee8f90d4fdeefde4b, type: 3}
   m_Name: New Demo 1 Generation
   m_EditorClassIdentifier: 
-  Level0Objects:
-  - {fileID: 1622515808692270, guid: 607135e138d50479d9f978c7e71aed9a, type: 2}
-  Level1Objects:
-  - {fileID: 1622515808692270, guid: 607135e138d50479d9f978c7e71aed9a, type: 2}
-  Level2Objects:
-  - {fileID: 1622515808692270, guid: 607135e138d50479d9f978c7e71aed9a, type: 2}
-  Level3Objects:
-  - {fileID: 1026003878785874, guid: e37687bfb0d3d4c5a8782ea05e20b87b, type: 2}
-  - {fileID: 1665703095886354, guid: 88c5763194b824c98bfb9f3e8b951fec, type: 2}
-  Level4Objects:
-  - {fileID: 1026003878785874, guid: e37687bfb0d3d4c5a8782ea05e20b87b, type: 2}
-  - {fileID: 1665703095886354, guid: 88c5763194b824c98bfb9f3e8b951fec, type: 2}
+  Level0Objects: []
+  Level1Objects: []
+  Level2Objects: []
+  Level3Objects: []
+  Level4Objects: []
   Range: 3

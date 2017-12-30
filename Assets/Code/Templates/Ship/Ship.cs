@@ -81,6 +81,7 @@ public partial class Ship : Damageable, QventHandler {
 			Module m;
 			if((m = p.GetModule())){
 				m.RegisterListener(this);
+				m.faction = this.faction;
 			}
         }
 
@@ -89,6 +90,7 @@ public partial class Ship : Damageable, QventHandler {
 			Module m;
 			if((m = p.GetModule())){
 				m.RegisterListener(this);
+				m.faction = this.faction;
 			}
 		}
 		AddHealthBar ();

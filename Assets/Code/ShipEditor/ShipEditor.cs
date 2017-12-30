@@ -45,14 +45,10 @@ public class ShipEditor : MonoBehaviour {
 		CameraManager.instance.AddOffset (offset);
 		switch (FilterState) {
 		case ItemFilter.MODULE:
-			PartPicker.Source = new List<GameObject> (PlayerData.instance.KnownModules.Values);
-			PartPicker.ElementsPerRow = 3;
-			PartPicker.ElementPrefab = ModuleCapsule;
+			LoadModules ();
 			break;
 		case ItemFilter.SHIP:
-			PartPicker.Source = KnownShips;
-			PartPicker.ElementsPerRow = 2;
-			PartPicker.ElementPrefab = ShipCapsule;
+			LoadShips ();
 			break;
 		}
 
@@ -64,6 +60,22 @@ public class ShipEditor : MonoBehaviour {
 		gameObject.SetActive (false);
 		CameraManager.instance.AddOffset (-offset);
 		ClearDangling ();
+	}
+
+	public void LoadShips() {
+		PartPicker.Source = KnownShips;
+		PartPicker.ElementsPerRow = 2;
+		PartPicker.ElementPrefab = ShipCapsule;
+		FilterState = ItemFilter.SHIP;
+		PartPicker.Start ();
+	}
+
+	public void LoadModules() {
+		PartPicker.Source = new List<GameObject> (PlayerData.instance.KnownModules.Values);
+		PartPicker.ElementsPerRow = 3;
+		PartPicker.ElementPrefab = ModuleCapsule;
+		FilterState = ItemFilter.MODULE;
+		PartPicker.Start ();
 	}
 
     public void ModuleSelected(GameObject capsuleItem) {
@@ -97,6 +109,7 @@ public class ShipEditor : MonoBehaviour {
 			ship.curhp = ship.maxhp / 5;
 			PlayerData.instance.PlayerShip = ship;
 			newShip.AddComponent<PlayerController> ();
+			CameraManager.instance.SetToFollow (newShip);
 		}
 	}
 

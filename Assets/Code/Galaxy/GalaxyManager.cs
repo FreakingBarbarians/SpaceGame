@@ -19,6 +19,8 @@ public class GalaxyManager : IUnityXmlSerializable, QventHandler {
 	public Sector[,] Sectors; 	// [y][x] 
 								// could be ragged i guess. if we allow null entries...
 								// Doesn't make sense tbh, we can just have sectors that don't allow entry
+	public bool Generate = true;
+
 	[SerializeField]
 	private Dictionary<GameObject, Vector2Int> Observers = new Dictionary<GameObject, Vector2Int>();
 	public List<Sector> LoadedSectors;
@@ -51,7 +53,9 @@ public class GalaxyManager : IUnityXmlSerializable, QventHandler {
 				sector.index = new Vector2Int (x, y);
 				sectorGO.transform.position = SectorToWorldPoint (new Vector2Int (x, y));
 				sectorGO.transform.SetParent (this.transform);
-				Scheme.Generate(sector);
+				if (Generate) {
+					Scheme.Generate (sector);
+				}
 			}
 		}
 		initialized = true;

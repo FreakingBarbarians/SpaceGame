@@ -54,7 +54,7 @@ public class AutomaticWeapon : ShotWeapon {
 
 	public override void UpdateWeaponState (int WeaponMask)
 	{
-		fire = ((this.WeaponMask * WeaponMask) != 0);
+		fire = ((this.WeaponMask & WeaponMask) != 0);
 	}
 
 }
