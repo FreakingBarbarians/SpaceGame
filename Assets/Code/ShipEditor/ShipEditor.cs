@@ -2,14 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using QventSystem;
 
 public class ShipEditor : MonoBehaviour {
+
+	public enum ItemFilter
+	{
+		MODULE,
+		SHIP
+	}
+
+	public GameObject ModuleCapsule;
+	public GameObject ShipCapsule;
 
     public static ShipEditor instance;
     public List<GameObject> ActiveItems;
 	public List<GameObject> DanglingItems;
     public PartPicker PartPicker;
 	public GameObject BuildPaneCenter;
+
+	public List<GameObject> KnownShips;
+
+	public ItemFilter FilterState = ItemFilter.MODULE;
 
 	// Camera space.
 	private Vector2 offset;
@@ -29,6 +43,21 @@ public class ShipEditor : MonoBehaviour {
 		offset = PlayerData.instance.PlayerShip.transform.position - BuildPaneCenter.transform.position;
 		Debug.DrawLine (PlayerData.instance.PlayerShip.transform.position, BuildPaneCenter.transform.position);
 		CameraManager.instance.AddOffset (offset);
+		switch (FilterState) {
+		case ItemFilter.MODULE:
+			PartPicker.Source = new List<GameObject> (PlayerData.instance.KnownModules.Values);
+			PartPicker.ElementsPerRow = 3;
+			PartPicker.ElementPrefab = ModuleCapsule;
+			break;
+		case ItemFilter.SHIP:
+			PartPicker.Source = KnownShips;
+			PartPicker.ElementsPerRow = 2;
+			PartPicker.ElementPrefab = ShipCapsule;
+			break;
+		}
+
+		PartPicker.Start ();
+
 	}
 
 	public void Disable() {
@@ -37,7 +66,7 @@ public class ShipEditor : MonoBehaviour {
 		ClearDangling ();
 	}
 
-    public void OnCapsuleClicked(GameObject capsuleItem) {
+    public void ModuleSelected(GameObject capsuleItem) {
         if (ActiveItems.Count >= 1)
         {
             // already has
@@ -49,6 +78,27 @@ public class ShipEditor : MonoBehaviour {
 			}
         }
     }
+
+	public void ShipSelected(GameObject capsuleItem){
+		Ship s = capsuleItem.GetComponent<Ship> ();
+		if (PlayerData.instance.RemoveScrap (s.ScrapCost)) {
+			ClearAll ();
+			Qvent q = new Qvent (QventType.DESTROYED, typeof(Ship), PlayerData.instance.PlayerShip);
+			foreach (QventHandler handler in PlayerData.instance.PlayerShip.Listeners) {
+				handler.HandleQvent (q);
+			}
+			Vector3 previousPlayerPos = PlayerData.instance.PlayerShip.gameObject.transform.position;
+			PlayerData.instance.AddScrap (s.ScrapCost);
+			GameObject.Destroy (PlayerData.instance.PlayerShip.gameObject);
+			PlayerData.instance.PlayerShip = null;
+			GameObject newShip = GalaxyManager.SpawnWorldObject (s.gameObject, previousPlayerPos);
+			Ship ship =	newShip.GetComponent<Ship> ();
+			ship.IsPlayer = true;
+			ship.curhp = ship.maxhp / 5;
+			PlayerData.instance.PlayerShip = ship;
+			newShip.AddComponent<PlayerController> ();
+		}
+	}
 
     public void Update()
     {
@@ -129,7 +179,7 @@ public class ShipEditor : MonoBehaviour {
 			Module m = hit.collider.GetComponent<Module> ();
 			Port p = m.root;
 
-			if (p && p.root.gameObject == ShipPicker.instance.GetCurrentShip()) {
+			if (p && p.root.gameObject == PlayerData.instance.PlayerShip.gameObject) {
                 hit.collider.gameObject.GetComponent<Module>().root.Disconnect();
 				ActiveItems.Add(m.gameObject);
 			} else if (DanglingItems.Contains(m.gameObject)) {
@@ -170,7 +220,7 @@ public class ShipEditor : MonoBehaviour {
 	}
 
 	public void ClearShip() {
-		Ship ship = ShipPicker.instance.GetCurrentShip ().GetComponent<Ship> ();
+		Ship ship = PlayerData.instance.PlayerShip;
 		foreach (Port p in ship.ports) {
 			if (p.IsConnected ()) {
 				Module m = p.GetModule ();

@@ -19,6 +19,7 @@ public class Capsule : MonoBehaviour {
                 ItemImage.sprite = rendy.sprite;
             }
         }
+
         Item = item;
 
     }

@@ -23,10 +23,6 @@ public class SingleShotWeapon : ShotWeapon {
 	{
 		base.Init ();
 		bulletComponent = bulletPrefab.GetComponent<Bullet> ();
-
-		bulletComponent.damage = Damage;
-		bulletComponent.velocity = Velocity;
-
 		annie.speed = 1f / cooldown;
 	}
 

@@ -7,6 +7,6 @@ public class SaveShip : MonoBehaviour {
 	public InputField fileinput;
 
 	public void OnClick() {
-		SpaceSerializerDeserializer.MyMonoSerializeToFile(ShipPicker.instance.GetCurrentShip().GetComponent<Ship>(), fileinput.text);
+		SpaceSerializerDeserializer.MyMonoSerializeToFile(PlayerData.instance.PlayerShip, fileinput.text);
     }
 }

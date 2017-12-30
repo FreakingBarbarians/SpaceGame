@@ -10,7 +10,6 @@ public class ShotWeapon : Weapon {
 	[Range(0,10)]
 	public float cooldown;
 
-    [HideInInspector]
     public float cooldownTimer;
 
 	[Range(0, 1000)]

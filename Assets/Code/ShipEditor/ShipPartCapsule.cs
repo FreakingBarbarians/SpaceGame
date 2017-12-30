@@ -16,7 +16,7 @@ public class ShipPartCapsule : Capsule {
     {
         if (Item)
         {
-            ShipEditor.instance.OnCapsuleClicked(Item);
+            ShipEditor.instance.ModuleSelected(Item);
         }
     }
 

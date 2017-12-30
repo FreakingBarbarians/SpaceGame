@@ -52,8 +52,7 @@ public class PlayerController : MonoBehaviour {
 	void Start(){
 		ship = GetComponent<Ship> ();
 		if (instance != null) {
-			Debug.LogError ("Player Controller non-unique instance");
-			Destroy (this);
+			Debug.LogWarning ("Player Controller non-unique instance");
 		}
 		instance = this;
 	}

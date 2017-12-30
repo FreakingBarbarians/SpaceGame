@@ -23,8 +23,13 @@ public class PartPicker : MonoBehaviour {
     private int RowCount;
     public GameObject ItemArea;
 
+	private List<GameObject> buttons = new List<GameObject>();
+
     public void Start()
     {
+		foreach (GameObject obj in buttons) {
+			Destroy (obj);
+		}
         RectTransform rectTran = (RectTransform)ItemArea.transform;
         int width = (int)rectTran.rect.width;
         int height = (int)rectTran.rect.height;
@@ -35,7 +40,7 @@ public class PartPicker : MonoBehaviour {
         Populate(Source);
     }
 
-    private void Populate(List<GameObject> items, int page = 0) {
+	public void Populate(List<GameObject> items, int page = 0) {
         int xcount = 0;
         int ycount = 0;
         foreach (GameObject item in items) {
@@ -52,6 +57,7 @@ public class PartPicker : MonoBehaviour {
                 xcount = 0;
                 ycount++;
             }
+			buttons.Add (capsule.gameObject);
         }
     }
 }
