@@ -27,6 +27,11 @@ public class AttackEnemyDecision : StellarProcess {
 			return;
 		}
 
+		if (cachedSubroutine.targets [0] == null) {
+			cachedSubroutine.targets.RemoveAt(0);
+			return;
+		}
+
 		Vector2 dir = cachedSubroutine.targets [0].transform.position - transform.position;
 		Vector2 holdPos = dir;
 

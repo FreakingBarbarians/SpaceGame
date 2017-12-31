@@ -59,6 +59,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!1 &1289681403924544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4820931613932370}
+  - component: {fileID: 114058221126335274}
+  m_Layer: 0
+  m_Name: AtmoshpereManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
 --- !u!1 &1560142208223728
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +180,7 @@ Transform:
   - {fileID: 4874481408110296}
   - {fileID: 4003339554400566}
   - {fileID: 4723583906195972}
+  - {fileID: 4820931613932370}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -206,6 +223,19 @@ Transform:
   m_Father: {fileID: 4391022436615302}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4820931613932370
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289681403924544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4391022436615302}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4874481408110296
 Transform:
   m_ObjectHideFlags: 1
@@ -237,6 +267,20 @@ MonoBehaviour:
   HealthBar: {fileID: 1275009283285796, guid: e25db9e3f24ec4211951eea82ae315f2, type: 2}
   FloatingNumber: {fileID: 1025315998871116, guid: f1efdabb272de4f24a9d7999c6bafacb,
     type: 2}
+--- !u!114 &114058221126335274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289681403924544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e25f080f110a4b46b8c369fb236e868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StarField: {fileID: 2100000, guid: ced5e6605469a489b93ddea9a39dc859, type: 2}
+  parallaxVal: 1000
+  StarLayers: 0
 --- !u!114 &114122193734011756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,12 +333,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888278009c35b4b6d85c7999b36f6df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SectorSize: 100
+  SectorSize: 50
   Width: 10
   Height: 10
   UpdateTime: 0.5
   CheckTime: 1
-  Generate: 0
+  Generate: 1
   LoadedSectors: []
   LoadRadius: 1
   Scheme: {fileID: 11400000, guid: 9b4ef996d554d4b3d9a3753b6f022cb9, type: 2}
@@ -311,14 +355,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mode: 1
   StartingShips:
-  - {fileID: 1983254995984314, guid: 8b469fd02ac694c54ae22b2542603d1c, type: 2}
-  - {fileID: 1290617937668252, guid: 6f92fcf33de692141851b66f209c0a49, type: 2}
+  - {fileID: 1827136906693118, guid: 59631dcc8cc2a4bd59d2508f611aa889, type: 2}
   StartingModules:
   - {fileID: 1576877874668636, guid: b3086619d7adb4f2aba08b16e1b20357, type: 2}
-  - {fileID: 1536386180919464, guid: aa767ab5364c34251a96dd4045ebf3d9, type: 2}
-  - {fileID: 1780809157591304, guid: 706c4777fc6d84734aadabe94913c251, type: 2}
   - {fileID: 1107903101664550, guid: b1eccfd77b7b041cf9f2a71ae714be14, type: 2}
-  - {fileID: 1024004559683690, guid: bb0fa64999d6e4904bf5a5698bf99f63, type: 2}
-  - {fileID: 1834841444942498, guid: b0176fd08345b40f1a87eb60c9135ae8, type: 2}
   - {fileID: 1024811504152688, guid: e89cceb0708e543738d30acd0687c4f7, type: 2}
-  StartingScrap: 50000
+  StartingScrap: 42

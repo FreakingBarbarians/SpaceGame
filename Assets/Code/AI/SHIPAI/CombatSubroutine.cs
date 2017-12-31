@@ -45,7 +45,6 @@ public class CombatSubroutine : StellarSubroutine {
 				}
 			}
 		}
-
 	}
 
 	private void CullEnemies() {
@@ -102,5 +101,21 @@ public class CombatSubroutine : StellarSubroutine {
 				}
 			}
 		}
+	}
+		
+	public override void OnInterrupt ()
+	{
+		foreach (Ship s in targets) {
+			s.UnregisterListener (this);
+		}
+		base.OnInterrupt ();
+	}
+
+	void OnDestroy() {
+
+		foreach (Ship s in targets) {
+			s.UnregisterListener (this);
+		}
+
 	}
 }

@@ -329,6 +329,11 @@ public partial class Ship : Damageable, QventHandler {
 			SetState (ShipState.COMBAT);
 			CombatCooldownTimer = SpaceGameGlobal.COMBAT_COOLDOWN;
 			break;
+		case QventType.DESTROYED:
+			if (qvent.PayloadType.IsAssignableFrom (typeof(Ship))) {
+				Listeners.Remove ((Ship)qvent.Payload);
+			}
+			break;
 		}
 	}
 

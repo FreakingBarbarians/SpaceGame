@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 61296565603189250}
   - component: {fileID: 50571248532412386}
   - component: {fileID: 95455198270643614}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: BrigShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3171,9 +3171,9 @@ MonoBehaviour:
   DeltaRotationMax: 90
   DeltaRotationAcceleration: 60
   DeltaPosition: {x: 0, y: 0}
-  DeltaPositionMax: 5
-  DeltaPositionFactor: 12
-  EnergyRegen: 26
+  DeltaPositionMax: 1
+  DeltaPositionFactor: 8
+  EnergyRegen: 23
   annie: {fileID: 95455198270643614}
   ports:
   - {fileID: 114163249666637102}

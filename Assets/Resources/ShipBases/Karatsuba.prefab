@@ -1195,15 +1195,15 @@ MonoBehaviour:
   invincible: 0
   State: 0
   IsPlayer: 0
-  ScrapCost: 15000
+  ScrapCost: 2000
   EnergyMax: 100
   EnergyCur: 0
   DeltaRotation: 0
   DeltaRotationMax: 30
   DeltaRotationAcceleration: 60
   DeltaPosition: {x: 0, y: 0}
-  DeltaPositionMax: 1
-  DeltaPositionFactor: 8
+  DeltaPositionMax: 2
+  DeltaPositionFactor: 6
   EnergyRegen: 0
   annie: {fileID: 0}
   ports:

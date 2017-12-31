@@ -25,6 +25,13 @@ public class Sector : IUnityXmlSerializable, QventHandler {
 		}
 	}
 
+	void Update(){
+		float size = GalaxyManager.instance.SectorSize / 2;
+		Color c = Loaded ? Color.green : Color.red;
+		Debug.DrawLine (transform.position - new Vector3 (size, 0), transform.position + new Vector3(size, 0), c);
+		Debug.DrawLine(transform.position - new Vector3(0, size), transform.position + new Vector3(0,size), c);
+	}
+
 	public void RemoveFromSector(GameObject Object) {
 		Objects.Remove (Object);
 	}

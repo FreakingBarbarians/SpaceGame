@@ -8,6 +8,7 @@ public class BulletPoolManager : MonoBehaviour {
 	public static BulletPoolManager instance;
 	public List<GameObject> ToPool;
 	public Dictionary<string, UnityObjectPool<Bullet>> mapping = new Dictionary<string, UnityObjectPool<Bullet>>();
+	public int poolSize = 100;
 
 	void Start(){
 		for (int i = 0; i < ToPool.Count; i++) {
@@ -21,7 +22,7 @@ public class BulletPoolManager : MonoBehaviour {
 
 			List<Bullet> list = new List<Bullet> ();
 
-			for (int x = 0; x < 100; x++) {
+			for (int x = 0; x < poolSize; x++) {
 				GameObject go = Instantiate (ToPool [i]);
 				list.Add (go.GetComponent<Bullet> ());
 				go.SetActive (false);
@@ -33,7 +34,7 @@ public class BulletPoolManager : MonoBehaviour {
 		}
 	}
 		
-	public Bullet Get(string id){
+	public Bullet Get(string id) {
 		return mapping[id].Get();
 	}
 

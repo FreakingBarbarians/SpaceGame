@@ -13,6 +13,7 @@ public class Damageable : MyPrefab, IQventEmitter {
 	// QventEmitter Interface Declaration
 
 	// @TODO: Please generate this at runtime. ahhhhhhh
+	[NonSerialized]
 	public List<QventHandler> Listeners = new List<QventHandler> ();
 
 	public void RegisterListener (QventHandler Listener) {

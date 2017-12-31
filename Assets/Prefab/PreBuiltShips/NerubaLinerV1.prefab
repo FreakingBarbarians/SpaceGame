@@ -1904,7 +1904,7 @@ MonoBehaviour:
   DeltaPosition: {x: 0, y: 0}
   DeltaPositionMax: 2.5
   DeltaPositionFactor: 0.7
-  EnergyRegen: 35
+  EnergyRegen: 0
   annie: {fileID: 0}
   ports:
   - {fileID: 114517154507258848}

@@ -15,13 +15,14 @@ public class Demo1Generation : GenerationScheme {
 	{
 		List<GameObject> ltu;
 		Vector2Int index = sector.index;
-		if (index.magnitude >= 4) {
+		Vector2Int delta = sector.index - new Vector2Int (GalaxyManager.instance.Width / 2, GalaxyManager.instance.Height / 2);
+		if (delta.magnitude >= 4) {
 			ltu = Level4Objects;
-		} else if (index.magnitude >= 3) {
+		} else if (delta.magnitude >= 3) {
 			ltu = Level3Objects;
-		} else if (index.magnitude >= 2) {
+		} else if (delta.magnitude >= 2) {
 			ltu = Level2Objects;
-		} else if (index.magnitude >= 1) {
+		} else if (delta.magnitude >= 1) {
 			ltu = Level1Objects;
 		} else {
 			ltu = Level0Objects;

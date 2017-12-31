@@ -773,20 +773,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BASE_NAME: Neruba Liner
   BASE_PATH: ShipBases/Neruba Liner
+  RepairTime: 10
   faction: 0
   maxhp: 0
   curhp: 0
   invincible: 0
+  State: 0
   IsPlayer: 0
   ScrapCost: 500
   EnergyMax: 0
   EnergyCur: 0
   DeltaRotation: 0
   DeltaRotationMax: 30
-  DeltaRotationAcceleration: 5
+  DeltaRotationAcceleration: 90
   DeltaPosition: {x: 0, y: 0}
-  DeltaPositionMax: 2.5
-  DeltaPositionFactor: 0.7
+  DeltaPositionMax: 3
+  DeltaPositionFactor: 9
   EnergyRegen: 0
   annie: {fileID: 0}
   ports:

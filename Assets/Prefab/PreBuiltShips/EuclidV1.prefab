@@ -923,9 +923,9 @@ MonoBehaviour:
   DeltaRotationMax: 90
   DeltaRotationAcceleration: 90
   DeltaPosition: {x: 0, y: 0}
-  DeltaPositionMax: 5
-  DeltaPositionFactor: 11
-  EnergyRegen: 8
+  DeltaPositionMax: 3
+  DeltaPositionFactor: 9
+  EnergyRegen: 3
   annie: {fileID: 95479816575448052}
   ports:
   - {fileID: 114881251418243340}

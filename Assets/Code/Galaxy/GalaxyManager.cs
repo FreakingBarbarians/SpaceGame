@@ -53,15 +53,23 @@ public class GalaxyManager : IUnityXmlSerializable, QventHandler {
 				sector.index = new Vector2Int (x, y);
 				sectorGO.transform.position = SectorToWorldPoint (new Vector2Int (x, y));
 				sectorGO.transform.SetParent (this.transform);
-				if (Generate) {
+			}
+		}
+
+		if (Generate) {
+			for (int x = 0; x < Width; x++) {
+				for (int y = 0; y < Height; y++) {
+					// spawn sectors.
+					Sector sector = Sectors[y,x];
 					Scheme.Generate (sector);
 				}
 			}
 		}
+
 		initialized = true;
 	}
 
-	void FixedUpdate() {
+	void Update() {
 		if (UpdateTimer <= 0) {
 			LoadAreas ();
 			UpdateTimer += UpdateTime;
@@ -86,8 +94,8 @@ public class GalaxyManager : IUnityXmlSerializable, QventHandler {
 
 			CheckTimer += CheckTime;
 		}
-		UpdateTimer -= Time.fixedDeltaTime;
-		CheckTimer -= Time.fixedDeltaTime;
+		UpdateTimer -= Time.deltaTime;
+		CheckTimer -= Time.deltaTime;
 	}
 
 
@@ -145,7 +153,7 @@ public class GalaxyManager : IUnityXmlSerializable, QventHandler {
 			for (int x = 0; x < LoadRadius * 2 + 1; x++) {
 				if (next.y - LoadRadius + y >= 0 && next.y - LoadRadius + y < Height) {
 					if (next.x - LoadRadius + x >= 0 && next.x - LoadRadius + x < Width) {
-						Sectors [next.y - LoadRadius + y, prev.x - LoadRadius + x].Load ();
+						Sectors [next.y - LoadRadius + y, next.x - LoadRadius + x].Load ();
 					}
 				}
 			}
@@ -208,10 +216,10 @@ public class GalaxyManager : IUnityXmlSerializable, QventHandler {
 	public Vector2Int WorldToSectorPoint(Vector2 pos) {
 		int xMid = Width  % 2 == 0 ? Width / 2 : (int) Mathf.Ceil((float)Width  / 2) - 1;
 		int yMid = Height % 2 == 0 ? Width / 2 : (int) Mathf.Ceil((float)Height / 2) - 1;
-		float x = Width  % 2 == 0 ? pos.x : pos.x + 50;
-		float y = Height % 2 == 0 ? pos.y : pos.y + 50;
-		int xPos = x < 0 ? (int) (x / 100 - 1) :(int) (x / 100);
-		int yPos = y < 0 ? (int) (y / 100 - 1) :(int) (y / 100);
+		float x = Width  % 2 == 0 ? pos.x : pos.x + SectorSize/2;
+		float y = Height % 2 == 0 ? pos.y : pos.y + SectorSize/2;
+		int xPos = x < 0 ? (int) (x / SectorSize - 1) :(int) (x / SectorSize);
+		int yPos = y < 0 ? (int) (y / SectorSize - 1) :(int) (y / SectorSize);
 		return new Vector2Int (xPos + xMid, yPos + yMid);
 	}
 

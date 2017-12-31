@@ -77,9 +77,11 @@ public class UnityObjectPool<T> {
 	}
 
 	public void Free(T Object) {
-		if (freecount == pool.Length) {
-			throw new System.Exception("Pool Full");
+		
+		if (freecount == size) {
+			throw new System.Exception("Pool Full: " + indexlookup[Object]);
 		}
+
 		// move back one space forward
 		back = (back + 1) % pool.Length;
 		// create a pointer to the in-use object at back

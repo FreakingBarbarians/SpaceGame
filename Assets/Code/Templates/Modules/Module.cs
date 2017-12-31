@@ -97,9 +97,8 @@ public partial class Module : Damageable {
 	public override void DoHeal (int amt)
 	{
 		base.DoHeal (amt);
-		annie.SetBool ("Die", false);
 		if (operational == false) {
-			annie.Rebind ();
+			annie.SetBool ("Die", false);
 			operational = true;
 			if (rootShip) {
 				rootShip.OnPortEnabled (this);
