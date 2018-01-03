@@ -6,8 +6,14 @@ using UnityEngine;
 
 public class ShotWeapon : Weapon {
 
+    [Range(1, 9999)]
+    public int Damage;
+
+    [Range(1, 9999)]
+    public float Velocity;
+
     // serialize/deserialize all these
-	[Range(0,10)]
+    [Range(0,10)]
 	public float cooldown;
 
     public float cooldownTimer;

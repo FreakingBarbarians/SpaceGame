@@ -31,4 +31,14 @@ public class Capsule : MonoBehaviour {
     public virtual void OnClick() {
 
     }
+
+    public virtual void OnCapsuleMouseOver() {
+        Debug.Log("ON");
+        PartInfoController.instance.Set(Item);
+    }
+
+    public virtual void OnCapsuleMouseOff() {
+        Debug.Log("OFF");
+        PartInfoController.instance.Set(null);
+    }
 }

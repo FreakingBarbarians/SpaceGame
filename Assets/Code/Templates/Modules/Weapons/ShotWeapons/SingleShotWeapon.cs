@@ -9,12 +9,6 @@ public class SingleShotWeapon : ShotWeapon {
 	public GameObject bulletPrefab;
 	public GameObject Muzzle;
 
-    [Range(1, 9999)]
-    public int Damage;
-
-    [Range(1, 9999)]
-    public float Velocity;
-
 	private Bullet bulletComponent;
 
 	public bool released = true;

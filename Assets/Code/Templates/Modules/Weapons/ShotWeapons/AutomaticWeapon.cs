@@ -7,12 +7,6 @@ public class AutomaticWeapon : ShotWeapon {
 	public GameObject Muzzle;
 	private bool fire = false;
 
-	[Range(1, 9999)]
-	public int Damage;
-
-	[Range(1, 9999)]
-	public float Velocity;
-
 	private Bullet bulletComponent;
 
 	protected override void Init ()
