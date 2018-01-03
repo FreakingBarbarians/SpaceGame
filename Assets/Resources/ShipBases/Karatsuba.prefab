@@ -143,7 +143,6 @@ GameObject:
   - component: {fileID: 61765823552400714}
   - component: {fileID: 50432162593633584}
   - component: {fileID: 95783324410241506}
-  - component: {fileID: 114058809531677244}
   m_Layer: 8
   m_Name: Karatsuba
   m_TagString: Untagged
@@ -1087,38 +1086,6 @@ MonoBehaviour:
   type: 0
   module: {fileID: 0}
   root: {fileID: 0}
---- !u!114 &114058809531677244
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1591166301970504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd379c8a04246416ea3c6eb1886f6358, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UP: 119
-  DOWN: 115
-  LEFT: 97
-  RIGHT: 100
-  ROTATE_LEFT: 113
-  ROTATE_RIGHT: 101
-  BRAKE: 306
-  REPAIR: 114
-  WEAPON_UP: 273
-  WEAPON_DOWN: 274
-  WEAPON_LEFT: 276
-  WEAPON_RIGHT: 275
-  FIRE1: 32
-  FIRE2: 304
-  FIRE3: 306
-  FIRE4: 305
-  MASK1: 1
-  MASK2: 2
-  MASK3: 4
-  MASK4: 8
-  MODE: 1
 --- !u!114 &114086398794753496
 MonoBehaviour:
   m_ObjectHideFlags: 1

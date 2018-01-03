@@ -110,7 +110,7 @@ public class ShipEditor : MonoBehaviour {
 			PlayerData.instance.PlayerShip = ship;
 			newShip.AddComponent<PlayerController> ();
 			CameraManager.instance.SetToFollow (newShip);
-			GalaxyManager.instance.AddObserver (newShip);s
+			GalaxyManager.instance.AddObserver (newShip);
 		}
 	}
 

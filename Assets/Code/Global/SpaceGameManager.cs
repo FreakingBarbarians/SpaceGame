@@ -24,10 +24,12 @@ public class SpaceGameManager : MonoBehaviour {
 		switch (mode) {
 		case GameMode.NORMAL:
 			ShipEditor.instance.Disable ();
+			HudController.instance.Enable ();
 			PlayerData.instance.PlayerShip.GetComponent<PlayerController> ().enabled = true;
 			break;
 		case GameMode.EDITOR:
 			ShipEditor.instance.Enable ();
+			HudController.instance.Disable ();
 			PlayerData.instance.PlayerShip.GetComponent<PlayerController> ().enabled = false;
 			break;
 		}
