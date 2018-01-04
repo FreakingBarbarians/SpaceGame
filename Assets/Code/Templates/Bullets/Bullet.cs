@@ -64,6 +64,10 @@ public class Bullet : Damager, IPoolable {
 		if (damager != null) {
 			damager.DoDamage (damage);
 			WidgetManager.instance.CreateFloatingNumber (Color.red, Color.clear, 1, 0.1f, damage.ToString ()).transform.position = transform.position;
+            Sound s = SoundPool.instance.Get("BULLET_IMPACT");
+            s.transform.position = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z);
+            s.gameObject.SetActive(true);
+            s.Play();
 		}
 
 		gameObject.SetActive (false);

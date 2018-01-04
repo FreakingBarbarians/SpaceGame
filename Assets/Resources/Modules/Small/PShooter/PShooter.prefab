@@ -148,14 +148,15 @@ MonoBehaviour:
   DeltaRotationAcceleration: 0
   weaponType: 0
   WeaponMask: 1
+  ShotSound: SMALL_LASER
+  Damage: 1
+  Velocity: 10
   cooldown: 0.2
   cooldownTimer: 0
   energyCost: 1
   bulletPrefab: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f,
     type: 2}
   Muzzle: {fileID: 1316203243840506}
-  Damage: 1
-  Velocity: 10
 --- !u!212 &212284631047395912
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -11,14 +11,17 @@ public class BulletPoolManager : MonoBehaviour {
 	public int poolSize = 100;
 
 	void Start(){
-		for (int i = 0; i < ToPool.Count; i++) {
+        if (instance != null)
+        {
+            Debug.Log("Singleton violated for BulletPoolManager");
+            Destroy(this);
+        }
 
-			if (instance != null) {
-				Debug.Log ("Singleton violated for BulletPoolManager");
-				Destroy (this);
-			}
+        instance = this;
 
-			instance = this;
+        for (int i = 0; i < ToPool.Count; i++) {
+
+
 
 			List<Bullet> list = new List<Bullet> ();
 

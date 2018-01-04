@@ -53,14 +53,15 @@ public class ShipEditor : MonoBehaviour {
 		}
 
 		PartPicker.Start ();
-
+        Time.timeScale = 0;
 	}
 
 	public void Disable() {
 		gameObject.SetActive (false);
 		CameraManager.instance.AddOffset (-offset);
 		ClearDangling ();
-	}
+        Time.timeScale = 1;
+    }
 
 	public void LoadShips() {
 		PartPicker.Source = KnownShips;
@@ -252,4 +253,7 @@ public class ShipEditor : MonoBehaviour {
 			}
 		}
 	}
+
+
+
 }

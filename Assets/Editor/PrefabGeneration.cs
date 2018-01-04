@@ -28,8 +28,10 @@ public class PrefabGeneration : MonoBehaviour {
                 foreach (MyPrefab m in monos)
                 {
 					if (m.transform.parent == null) {
+                        AssetDatabase.StartAssetEditing();
 						m.BASE_NAME = go.name;
 						m.BASE_PATH = GetResourcesPath (path);
+                        AssetDatabase.StopAssetEditing();
 					}
                 }
             }

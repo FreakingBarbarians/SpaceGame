@@ -890,7 +890,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875783080221588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.9814398, y: -9.046101, z: 0}
+  m_LocalPosition: {x: 253.4579, y: -8.221874, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4173666152533578}
@@ -2097,14 +2097,15 @@ MonoBehaviour:
   DeltaRotationAcceleration: 0
   weaponType: 1
   WeaponMask: 1
+  ShotSound: BIG_LASER
+  Damage: 20
+  Velocity: 10
   cooldown: 1
   cooldownTimer: 0
   energyCost: 12
   bulletPrefab: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f,
     type: 2}
   Muzzle: {fileID: 1205525749587600}
-  Damage: 20
-  Velocity: 10
   released: 1
 --- !u!114 &114077674226609104
 MonoBehaviour:

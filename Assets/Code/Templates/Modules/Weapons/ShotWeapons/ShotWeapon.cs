@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ShotWeapon : Weapon {
 
+    public string ShotSound;
+
     [Range(1, 9999)]
     public int Damage;
 

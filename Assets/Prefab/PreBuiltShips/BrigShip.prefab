@@ -1117,7 +1117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310930122129168}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.9179015, y: -7.267028, z: 0}
+  m_LocalPosition: {x: 258.36603, y: -7.847625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4258009212246500}
@@ -3265,14 +3265,15 @@ MonoBehaviour:
   DeltaRotationAcceleration: 0
   weaponType: 1
   WeaponMask: 1
+  ShotSound: BIG_LASER
+  Damage: 20
+  Velocity: 10
   cooldown: 1
   cooldownTimer: 0
   energyCost: 12
   bulletPrefab: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f,
     type: 2}
   Muzzle: {fileID: 1937486590338594}
-  Damage: 20
-  Velocity: 10
   released: 1
 --- !u!114 &114318581663666016
 MonoBehaviour:
@@ -3435,14 +3436,15 @@ MonoBehaviour:
   DeltaRotationAcceleration: 0
   weaponType: 1
   WeaponMask: 1
+  ShotSound: BIG_LASER
+  Damage: 20
+  Velocity: 10
   cooldown: 1
   cooldownTimer: 0
   energyCost: 12
   bulletPrefab: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f,
     type: 2}
   Muzzle: {fileID: 1750315443642792}
-  Damage: 20
-  Velocity: 10
   released: 1
 --- !u!114 &114646315511621626
 MonoBehaviour:
@@ -3615,14 +3617,15 @@ MonoBehaviour:
   DeltaRotationAcceleration: 0
   weaponType: 1
   WeaponMask: 1
+  ShotSound: BIG_LASER
+  Damage: 20
+  Velocity: 10
   cooldown: 1
   cooldownTimer: 0
   energyCost: 12
   bulletPrefab: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f,
     type: 2}
   Muzzle: {fileID: 1915305278613684}
-  Damage: 20
-  Velocity: 10
   released: 1
 --- !u!114 &114821805721157130
 MonoBehaviour:
@@ -3790,14 +3793,15 @@ MonoBehaviour:
   DeltaRotationAcceleration: 0
   weaponType: 1
   WeaponMask: 1
+  ShotSound: BIG_LASER
+  Damage: 20
+  Velocity: 10
   cooldown: 1
   cooldownTimer: 0
   energyCost: 12
   bulletPrefab: {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f,
     type: 2}
   Muzzle: {fileID: 1366710950383598}
-  Damage: 20
-  Velocity: 10
   released: 1
 --- !u!114 &114966571904616596
 MonoBehaviour:

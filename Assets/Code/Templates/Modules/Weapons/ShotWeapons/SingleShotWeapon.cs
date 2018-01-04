@@ -60,6 +60,11 @@ public class SingleShotWeapon : ShotWeapon {
 				// activate bullet
 				bullet.gameObject.SetActive (true);
 
+                Sound s = SoundPool.instance.Get(ShotSound);
+                s.transform.position = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z);
+                s.gameObject.SetActive(true);
+                s.Play();
+
 				rootShip.EnergyCur -= energyCost;
 			}
 		} else {

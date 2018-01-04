@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1024811504152688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.8904853, y: 1.5013881, z: 0}
+  m_LocalPosition: {x: 9.341467, y: -0.8553505, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939ac57c733974a479389b69d9bf8a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BASE_NAME: 
-  BASE_PATH: 
-  RepairTime: 20
+  BASE_NAME: Cockpit
+  BASE_PATH: Modules/Main/Cockpit/Cockpit
+  RepairTime: 10
   faction: 0
   maxhp: 25
   curhp: 25
@@ -106,7 +106,7 @@ MonoBehaviour:
   ScrapCost: 42
   RarityMult: 100
   portType: 1
-  moduleType: 0
+  moduleType: 2
   operational: 1
   adrift: 0
   root: {fileID: 0}

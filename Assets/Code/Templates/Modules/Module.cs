@@ -8,7 +8,8 @@ public partial class Module : Damageable {
     // Class specific stuff \\
     public enum ModuleType {
 		STANDARD,
-		WEAPON
+		WEAPON,
+        COCKPIT
 	}
 
     public static ModuleType StringToModuleType(string moduleType) {
@@ -120,7 +121,11 @@ public partial class Module : Damageable {
 		if (rootShip) {
 			rootShip.OnPortDisabled (this);
 		}
-		// other stuff
+
+        Sound s = SoundPool.instance.Get("EXPLOSION");
+        s.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        s.gameObject.SetActive(true);
+        s.Play();
 	}
 
 	public void SetAdrift(){
