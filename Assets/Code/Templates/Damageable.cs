@@ -50,17 +50,18 @@ public class Damageable : MyPrefab, IQventEmitter {
 	}
 
 	protected virtual void AddHealthBar() {
-		GameObject hpBar = WidgetManager.instance.CreateHealthBar ();
-		hpBar.transform.position = transform.position;
-		hpBar.transform.SetParent (transform);
-		HealthBar bar = hpBar.GetComponent<HealthBar> ();
-		bar.source = this;
-		RegisterListener (bar);
-		bar.Refresh ();
-
 		Sprite s = GetComponent<SpriteRenderer> ().sprite;
 		float yoffset =  s.textureRect.size.y / s.pixelsPerUnit;
-		hpBar.transform.position += new Vector3 (0, -yoffset/2, 0);
+		if (WidgetManager.instance) {
+			GameObject hpBar = WidgetManager.instance.CreateHealthBar ();
+			hpBar.transform.position = transform.position;
+			hpBar.transform.SetParent (transform);
+			HealthBar bar = hpBar.GetComponent<HealthBar> ();
+			bar.source = this;
+			RegisterListener (bar);
+			bar.Refresh ();
+			hpBar.transform.position += new Vector3 (0, -yoffset/2, 0);
+		}
 	}
 
     public virtual void DoDamage(int amt) {

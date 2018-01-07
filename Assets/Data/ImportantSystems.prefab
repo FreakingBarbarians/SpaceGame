@@ -75,6 +75,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!1 &1464994814196684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4221183668474010}
+  - component: {fileID: 114194964969696140}
+  m_Layer: 0
+  m_Name: SoundPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1560142208223728
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +180,19 @@ Transform:
   m_Father: {fileID: 4391022436615302}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4221183668474010
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1464994814196684}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4391022436615302}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4391022436615302
 Transform:
   m_ObjectHideFlags: 1
@@ -181,6 +210,7 @@ Transform:
   - {fileID: 4003339554400566}
   - {fileID: 4723583906195972}
   - {fileID: 4820931613932370}
+  - {fileID: 4221183668474010}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -294,6 +324,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scrap: 0
   PlayerShip: {fileID: 0}
+--- !u!114 &114194964969696140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1464994814196684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90955c05e96e7848b3777c7cf0980b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToPool:
+  - {fileID: 1903283598509880, guid: 3035a76d16db62d4fb1589221b52dce9, type: 2}
+  - {fileID: 1937937012983468, guid: 738b1f94604e2e54cb2f333af4e8afb8, type: 2}
+  - {fileID: 1589671981613636, guid: 5c14680eedc643d44b13e5deb941c570, type: 2}
+  - {fileID: 1919211721577586, guid: fdee27009954cef4599182bc747a0325, type: 2}
+  poolSize: 100
 --- !u!114 &114331839729263072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -322,6 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ToPool:
   - {fileID: 1993688862097338, guid: 0535155eccd8c459a9633485aaa1f82f, type: 2}
+  poolSize: 100
 --- !u!114 &114921779149644488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -333,11 +381,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888278009c35b4b6d85c7999b36f6df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SectorSize: 50
+  SectorSize: 75
   Width: 10
   Height: 10
   UpdateTime: 0.5
-  CheckTime: 1
+  CheckTime: 0.2
   Generate: 1
   LoadedSectors: []
   LoadRadius: 1
@@ -360,4 +408,4 @@ MonoBehaviour:
   - {fileID: 1576877874668636, guid: b3086619d7adb4f2aba08b16e1b20357, type: 2}
   - {fileID: 1107903101664550, guid: b1eccfd77b7b041cf9f2a71ae714be14, type: 2}
   - {fileID: 1024811504152688, guid: e89cceb0708e543738d30acd0687c4f7, type: 2}
-  StartingScrap: 42
+  StartingScrap: 100
