@@ -42,7 +42,7 @@ public class CameraManager : MonoBehaviour {
 		}
 
 		if(LerpToTarget){
-			Vector3 newpos = Vector3.Lerp (Camera.main.transform.position, toFollow.transform.position + offset, Time.deltaTime * LerpFactor);
+			Vector3 newpos = Vector3.Lerp (Camera.main.transform.position, toFollow.transform.position + offset, Time.unscaledDeltaTime * LerpFactor);
 			Camera.main.transform.position = newpos;
 			LerpToTarget = false;
 		}
@@ -82,5 +82,5 @@ public class CameraManager : MonoBehaviour {
 		} else {
 			Camera.main.orthographicSize -= 1;
 		}
-	}
+    }
 }

@@ -14,7 +14,7 @@ public class ShipChecker : MonoBehaviour {
         instance = this;
     }
 
-    private bool CheckCockpit() {
+    private bool CheckCockpit(bool Notify = true) {
         foreach (Port p in PlayerData.instance.PlayerShip.mainPorts) {
             Module m;
             if ((m = p.GetModule())) {
@@ -25,12 +25,15 @@ public class ShipChecker : MonoBehaviour {
         }
 
         // some warning
-        NotificationController.instance.AddNotification("Ship must have a cockpit.");
-        return false;
+        if (Notify)
+        {
+            NotificationController.instance.AddNotification("Ship must have a cockpit.");
+        }
+            return false;
     }
 
-    public bool CheckShip() {
-        if (!CheckCockpit()) {
+    public bool CheckShip(bool Notify = true) {
+        if (!CheckCockpit(Notify)) {
             return false;
         }
         return true;

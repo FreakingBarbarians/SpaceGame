@@ -978,7 +978,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1054069361396734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 260.45877, y: -8.015966, z: 0}
+  m_LocalPosition: {x: -12.725377, y: -1.6839266, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4013443154725830}
@@ -2355,7 +2355,7 @@ MonoBehaviour:
   DeltaRotationAcceleration: 0
   weaponType: 0
   WeaponMask: 1
-  ShotSound: 
+  ShotSound: SMALL_LASER
   Damage: 1
   Velocity: 10
   cooldown: 0.2
@@ -2605,7 +2605,7 @@ MonoBehaviour:
   DeltaRotationAcceleration: 0
   weaponType: 0
   WeaponMask: 1
-  ShotSound: 
+  ShotSound: SMALL_LASER
   Damage: 1
   Velocity: 10
   cooldown: 0.2

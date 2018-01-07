@@ -319,6 +319,10 @@ public partial class Ship : Damageable, QventHandler {
 			listeners.HandleQvent (qvent);
 		}
 
+        if (IsPlayer) {
+            SpaceGameManager.instance.PlayerDied();
+        }
+
 		GameObject.Destroy (this.gameObject);
 	}
 

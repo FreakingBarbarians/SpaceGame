@@ -24,6 +24,8 @@ public class ShipEditor : MonoBehaviour {
 	public List<GameObject> KnownShips;
 
 	public ItemFilter FilterState = ItemFilter.MODULE;
+    private bool isEnabled = false;
+
 
 	// Camera space.
 	private Vector2 offset;
@@ -37,8 +39,12 @@ public class ShipEditor : MonoBehaviour {
         }
         instance = this;
     }
-		
+
 	public void Enable() {
+        if (isEnabled) {
+            return;
+        }
+
 		gameObject.SetActive (true);
 		offset = PlayerData.instance.PlayerShip.transform.position - BuildPaneCenter.transform.position;
 		Debug.DrawLine (PlayerData.instance.PlayerShip.transform.position, BuildPaneCenter.transform.position);
@@ -54,13 +60,20 @@ public class ShipEditor : MonoBehaviour {
 
 		PartPicker.Start ();
         Time.timeScale = 0;
-	}
+        isEnabled = true;
+    }
 
 	public void Disable() {
-		gameObject.SetActive (false);
+        if (!isEnabled)
+        {
+            return;
+        }
+
+        gameObject.SetActive (false);
 		CameraManager.instance.AddOffset (-offset);
 		ClearDangling ();
         Time.timeScale = 1;
+        isEnabled = false;
     }
 
 	public void LoadShips() {
@@ -139,7 +152,6 @@ public class ShipEditor : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.X)){
 			ClearShip ();
 		}
-
     } 
 
     public virtual void OnRelease()

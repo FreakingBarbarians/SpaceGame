@@ -94,8 +94,8 @@ public class GalaxyManager : IUnityXmlSerializable, QventHandler {
 
 			CheckTimer += CheckTime;
 		}
-		UpdateTimer -= Time.deltaTime;
-		CheckTimer -= Time.deltaTime;
+		UpdateTimer -= Time.unscaledDeltaTime;
+		CheckTimer -= Time.unscaledDeltaTime;
 	}
 
 
